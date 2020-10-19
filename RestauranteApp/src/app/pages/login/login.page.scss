@@ -1,0 +1,106 @@
+ion-header{
+    --ion-background-color:rgb(146, 88, 255);
+    --ion-font-family: "Calibri";
+    text-align:center;
+}
+
+ion-title{
+    color:rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+ion-item{
+    --ion-font-family: "Lucida Sans Unicode";
+}
+
+ion-button{
+    --background:rgb(46, 46, 46);
+    --color:rgb(255, 255, 255);
+    --ion-font-family: "Calibri";
+    font-size: medium;
+    height:50px;
+}
+
+ion-content{
+    --background: url("../../../assets/icon/fondoPatronBlanco.png");
+}
+
+ion-item{
+    margin-left:20px;
+    margin-right:20px;
+    border-radius: 7px;
+}
+
+ion-item.item-has-focus > ion-label {
+    color:#fa3cc1;
+    --ion-border-color:#f768cc;
+}
+
+.btn-clean{
+    --background:#ff88d7;
+}
+
+ion-fab-button{
+    --background: rgb(59, 59, 59);
+}
+
+ion-icon{
+    color:rgb(255, 255, 255);
+}
+@media screen and (orientation:portrait) {
+    .flexbox{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height:80%;
+    }
+    .cand{
+        width: 50%; 
+        height: auto;
+    }
+
+}
+
+
+.inputIcon{
+    color:rgb(160, 160, 160);
+}
+@media screen and (orientation:landscape) {
+    .cand{
+        width: 18vw;
+        height:auto;
+    }
+
+    ion-header{
+        height:42px;
+    }
+    ion-toolbar{
+        height:42px;
+    }
+
+}
+
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+ion-spinner{
+    transform: scale(3);
+    --color: white;
+ }
+
+ .divSpinner{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 25vw;
+    width: 25vw;
+    z-index: 9998;
+    background-color: rgba(167, 123, 250, 0.61);
+    border-radius: 10%;
+ }
