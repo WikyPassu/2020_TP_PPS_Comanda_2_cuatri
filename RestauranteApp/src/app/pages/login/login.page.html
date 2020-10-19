@@ -1,41 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>TEST</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
-    <div class="flexbox">
-      <div style="text-align:center">
-        <img class="cand" src="assets/images/nube.png" alt="candado">
-       </div>
-      
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <div class="logo">
+        <img class="imgLogo" src="../../../assets/iconoRestaurante.png">
+      </div>
       <ion-item>
-        <ion-icon class="inputIcon" name="mail-outline"></ion-icon>
+        <ion-label position="floating">Ingrese su correo</ion-label>
         <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>
-      
       <ion-item>
-        <ion-icon class="inputIcon" name="key-outline"></ion-icon>
+        <ion-label position="floating">Ingrese su contraseña</ion-label>
         <ion-input type="password" [(ngModel)]="pwd" name="password"></ion-input>
       </ion-item>
-      
-      <ion-item id="itemError" [hidden]=hide>
-        <ion-label style="text-align:center;" text-wrap color="danger">{{err}}</ion-label>
+      <ion-item class="itemError" [hidden]=hide>
+        <ion-text style="text-align:center;" color="black">{{err}}</ion-text>
       </ion-item>
-      
-      <ion-item>
-        <ion-button style="width:60%; margin-left:20%;" (click)="onSubmitLogin()">ENTRAR</ion-button>  
-        <ion-fab-button><ion-icon name="play-skip-back-outline" (click)="clean()"></ion-icon></ion-fab-button>
-      </ion-item>
-
-      <div class="divSpinner" *ngIf="spinner">
-        <div class="spin">
-          <ion-spinner name="crescent"></ion-spinner>
-        </div>
-      </div>
-
+      <div class="botones">        
+        <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura" src="../../../assets/icon/basura.png"></ion-fab-button>
+        <ion-button (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>  
+     </div>
+    </ion-card-content>
+  </ion-card>
+  
+  <div class="divSpinner" *ngIf="spinner">
+    <div class="spin">
+      <ion-spinner name="crescent"></ion-spinner>
     </div>
+  </div>
+
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
