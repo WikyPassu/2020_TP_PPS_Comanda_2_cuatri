@@ -1,0 +1,71 @@
+#divSuperpuesto{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    width: 100%;
+    background-color: black;
+    animation: fade 1.2s 4s;
+}
+
+#divSplash{
+    --background: none;
+    background: linear-gradient(black, #841c3a);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade 1.2s 4s;
+}
+
+ion-label{
+    position: absolute;
+    z-index: 9999;
+    color: white;
+    -webkit-text-stroke: 0.1px black;
+}
+
+.nombres{
+    top: 5%;
+    transform: scale(1.2);
+}
+
+.division{
+    bottom: 8%;
+    transform: scale(2);
+}
+
+.icono{
+    position: absolute;
+    width: 30%;
+    top: 40%;
+    left: -30%;
+    animation: inicio 0.8s 1s forwards, 
+    saltar 0.3s 2s 2, 
+    fin 0.8s 3s forwards;
+}
+
+@keyframes fade{
+    0%{opacity: 100%;}
+    50%{opacity: 50%;}
+    100%{opacity: 0%;}
+}
+
+@keyframes inicio{
+    from{transform: translateX(-30%);}
+    to{transform: translateX(220%);}
+}
+
+@keyframes saltar{
+    0%{top: 40%;}
+    50%{top: 35%;}
+    100%{top: 40%;}
+}
+
+@keyframes fin{
+    from{transform: translateX(220%);}
+    to{transform: translateX(450%);}
+}
