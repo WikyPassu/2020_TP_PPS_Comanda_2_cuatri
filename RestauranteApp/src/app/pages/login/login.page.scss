@@ -1,7 +1,7 @@
 ion-button{
     --background:rgb(112, 112, 112);
     --color:white;
-    --ion-font-family: "Noto Sans, sans-serif";
+    --ion-font-family: "IowanOldStyleBlack";
     font-weight: bold;
     font-size:5vw;
     height:15vw;
@@ -12,8 +12,8 @@ ion-item{
     --ion-border-color:#ff000086;
     border-radius: 1vw;
     color:black;
-    --ion-background-color:#ff9b9b57;
-    --ion-font-family: "Noto Sans, sans-serif";
+    --ion-background-color: bordo;
+    --ion-font-family: "IowanOldStyleBlack";
     --color:rgb(31, 31, 31);
     font-size:5vw;
     --highlight-color-focused: pink !important;
@@ -29,7 +29,7 @@ ion-label{
 }
 
 ion-fab-button{
-    --background:rgb(112, 112, 112);
+    --background: rgb(112, 112, 112);
     margin-right:5vw;
 }
 
@@ -38,7 +38,7 @@ ion-input{
 }
 ion-card-title{
     font-size:8vw;
-    font-family: "Noto Sans, sans-serif";
+    font-family: "IowanOldStyleBlack";
     font-weight: bolder;
     color:rgb(24, 24, 24);
     
