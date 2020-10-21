@@ -1,6 +1,6 @@
 <hr>
 <h1>Trabajo Práctico PPS - Restaurante</h1>
-<h1>Grupo Compuchicas</h1>
+<h1>Grupo ❤❤Compuchicas❤❤</h1>
 <h3>Integrantes:</h3>
 <p>- Morel Melany Lucia</p>
 <p>- Passucci Alan</p>
