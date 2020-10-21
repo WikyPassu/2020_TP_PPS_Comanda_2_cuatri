@@ -1,11 +1,8 @@
-<h1>2020 - 2 cuatrimestre - PPS -- La Comanda</h1>
-
-Para registrar el <strong>grupo completo</strong> con todos sus integrantes: https://forms.gle/MPuyrqVP83ahAY7K7
-
-<br>
-
-Grupos:<br>
-<h4>Máximo 3 integrantes</h4>
-<h4>Mínimo 2 integrantes</h4>
-
-
+<h1>Trabajo Práctico PPS - Restaurante</h1>
+<hr>
+<h1>Grupo Compuchicas</h1>
+<h3>Integrantes:</h3>
+  - Morel Melany Lucia
+  - Passucci Alan
+  - Suarez Murray Demian José
+<hr>
