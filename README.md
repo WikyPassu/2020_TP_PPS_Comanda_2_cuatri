@@ -8,6 +8,15 @@
 <hr>
 <h3>Semana 1: Fecha inicio 17/10 - Fecha fin 24/10</h3>
 <p><b>Morel Melany Lucia:</b></p>
+<p>- Diseño del login.</p>
+<p>- Lógica del login.</p>
+<p>- Creación de servicio para uso de Firebase.</p>
 <p><b>Passucci Alan:</b></p>
+<p>- Splash animado.</p>
+<p>- Spinner animado.</p>
+<p>- Creación de base de datos + usuarios en Firebase.</p>
 <p><b>Suarez Murray Demian José:</b></p>
+<p>- Diseño de icono.</p>
+<p>- Diseño de background.</p>
+<p>- Selección de fuentes.</p>
 <hr>
