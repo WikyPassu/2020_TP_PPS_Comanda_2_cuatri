@@ -17,6 +17,6 @@
 <p>● Creación de servicio para uso de Firebase.</p>
 <p><b>Suarez Murray Demian José (Branch gamma):</b></p>
 <p>● Diseño de icono.</p>
-<p>● Diseño de background.</p>
+<p>● Creación de servicio para verificación de inputs.</p>
 <p>● Selección de fuentes.</p>
 <hr>
