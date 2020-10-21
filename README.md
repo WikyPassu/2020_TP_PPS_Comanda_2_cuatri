@@ -1,3 +1,4 @@
+<hr>
 <h1>Trabajo Práctico PPS - Restaurante</h1>
 <h1>Grupo Compuchicas</h1>
 <h3>Integrantes:</h3>
@@ -9,3 +10,4 @@
 <p><b>Morel Melany Lucia:</b></p>
 <p><b>Passucci Alan:</b></p>
 <p><b>Suarez Murray Demian José:</b></p>
+<hr>
