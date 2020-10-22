@@ -5,14 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyBZLnTlRNjY9_l_QoxMCyZg_lQFEo4sa7w",
-    authDomain: "pruebaapp-33751.firebaseapp.com",
-    databaseURL: "https://pruebaapp-33751.firebaseio.com",
-    projectId: "pruebaapp-33751",
-    storageBucket: "pruebaapp-33751.appspot.com",
-    messagingSenderId: "1030547096826",
-    appId: "1:1030547096826:web:d088e5b3944368c39b3543",
-    measurementId: "G-SMQ3BDPE20"
+    apiKey: "AIzaSyBbFqFhzn5tMagHYzFBcdqSLmumP5gB8hY",
+    authDomain: "restauranteapp-581eb.firebaseapp.com",
+    databaseURL: "https://restauranteapp-581eb.firebaseio.com",
+    projectId: "restauranteapp-581eb",
+    storageBucket: "restauranteapp-581eb.appspot.com",
+    messagingSenderId: "1054020494674",
+    appId: "1:1054020494674:web:e3c941ae05933798aa868b"
   },
 };
 

@@ -1,0 +1,26 @@
+:root {
+  --ion-color-bordo: #851a38;
+  --ion-color-bordo-rgb: 133,26,56;
+  --ion-color-bordo-contrast: #ffffff;
+  --ion-color-bordo-contrast-rgb: 255,255,255;
+  --ion-color-bordo-shade: #751731;
+  --ion-color-bordo-tint: #91314c;
+}
+
+.ion-color-bordo {
+  --ion-color-base: var(--ion-color-bordo);
+  --ion-color-base-rgb: var(--ion-color-bordo-rgb);
+  --ion-color-contrast: var(--ion-color-bordo-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-bordo-contrast-rgb);
+  --ion-color-shade: var(--ion-color-bordo-shade);
+  --ion-color-tint: var(--ion-color-bordo-tint);
+}
+@font-face {
+    font-family: 'IowanOldStyleBlack';
+    src: url('./assets/fonts/IowanOldStyleBlack.eot');
+    src: url('./assets/fonts/IowanOldStyleBlack.eot') format('embedded-opentype'),
+         url('./assets/fonts/IowanOldStyleBlack.woff2') format('woff2'),
+         url('./assets/fonts/IowanOldStyleBlack.woff') format('woff'),
+         url('./assets/fonts/IowanOldStyleBlack.ttf') format('truetype'),
+         url('./assets/fonts/IowanOldStyleBlack.svg#IowanOldStyleBlack') format('svg');
+}

@@ -1,84 +1,129 @@
-ion-header{
-    --ion-background-color:rgb(146, 88, 255);
-    --ion-font-family: "Calibri";
-    text-align:center;
-}
-
-ion-title{
-    color:rgb(255, 255, 255);
-    font-weight: bold;
-}
-
-ion-item{
-    --ion-font-family: "Lucida Sans Unicode";
-}
-
 ion-button{
-    --background:rgb(46, 46, 46);
-    --color:rgb(255, 255, 255);
-    --ion-font-family: "Calibri";
-    font-size: medium;
-    height:50px;
-}
-
-ion-content{
-    --background: url("../../../assets/icon/fondoPatronBlanco.png");
+    --background:rgb(112, 112, 112);
+    --color:white;
+    --ion-font-family: "IowanOldStyleBlack";
+    font-weight: bold;
+    font-size:5vw;
+    height:15vw;
+    width:40vw;
 }
 
 ion-item{
-    margin-left:20px;
-    margin-right:20px;
-    border-radius: 7px;
+    --ion-border-color:#ff000086;
+    border-radius: 1vw;
+    color:black;
+    --ion-background-color: bordo;
+    --ion-font-family: "IowanOldStyleBlack";
+    --color:rgb(31, 31, 31);
+    font-size:5vw;
+    --highlight-color-focused: pink !important;
+    margin-bottom:2vw;
 }
 
 ion-item.item-has-focus > ion-label {
-    color:#fa3cc1;
-    --ion-border-color:#f768cc;
+    color:#ff336d !important;
 }
 
-.btn-clean{
-    --background:#ff88d7;
+ion-label{
+    text-align:center;
 }
 
 ion-fab-button{
-    --background: rgb(59, 59, 59);
+    --background: rgb(112, 112, 112);
+    margin-right:5vw;
+}
+
+ion-input{
+    font-weight: bold;
+}
+ion-card-title{
+    font-size:8vw;
+    font-family: "IowanOldStyleBlack";
+    font-weight: bolder;
+    color:rgb(24, 24, 24);
+    
+}
+
+ion-content{
+   --ion-background-color:#841c3a;
+}
+
+ion-card{
+    width:80%;
+    --background:white;
+    position: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height:130vw;
 }
 
 ion-icon{
-    color:rgb(255, 255, 255);
-}
-@media screen and (orientation:portrait) {
-    .flexbox{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height:80%;
-    }
-    .cand{
-        width: 50%; 
-        height: auto;
-    }
-
+    color:rgb(223, 223, 223);
 }
 
-
-.inputIcon{
-    color:rgb(160, 160, 160);
+.fabLimpiar{
+    height:16vw;
+    width:16vw;
 }
-@media screen and (orientation:landscape) {
-    .cand{
-        width: 18vw;
-        height:auto;
-    }
 
-    ion-header{
-        height:42px;
-    }
-    ion-toolbar{
-        height:42px;
-    }
-
+.imgBasura{
+    height:10vw;
+    width:10vw;
 }
+
+.itemError{
+    margin-top:6vw;
+    background-color: rgb(207, 110, 126);
+}
+
+.imgLogo{
+    height:40vw;
+    width:auto;
+}
+
+.botones{ 
+    display:flex;
+    justify-content: center;
+}
+
+.logo{
+    text-align:center;
+}
+
+@media screen and (orientation:landscape){
+        
+    ion-card{
+        margin-top:0vw;
+        height:47vw;
+    }
+
+    ion-card-title{    
+        font-size:3vw;
+    }
+
+    ion-item{
+        margin-top:0vw;
+        height:8vw;
+        font-size:3vw; 
+    }
+
+    ion-label{
+        font-size:2.5vw;
+    }
+
+    ion-input{
+        height:2.5vw;
+    }
+    .itemError{
+        margin-top:0vw;
+    }
+    ion-button{
+        margin-top:0vw;
+        height:5vw;
+    }
+}
+
 
 .spin{
     position: fixed;
@@ -91,9 +136,9 @@ ion-icon{
 ion-spinner{
     transform: scale(3);
     --color: white;
- }
+}
 
- .divSpinner{
+.divSpinner{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -101,6 +146,6 @@ ion-spinner{
     height: 25vw;
     width: 25vw;
     z-index: 9998;
-    background-color: rgba(167, 123, 250, 0.61);
+    background-color: whitesmoke;
     border-radius: 10%;
- }
+}
