@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>TEST</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="flexbox">
+      <div style="text-align:center">
+        <img class="cand" src="assets/images/nube.png" alt="candado">
+       </div>
+      
+      <ion-item>
+        <ion-icon class="inputIcon" name="mail-outline"></ion-icon>
+        <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-icon class="inputIcon" name="key-outline"></ion-icon>
+        <ion-input type="password" [(ngModel)]="pwd" name="password"></ion-input>
+      </ion-item>
+      
+      <ion-item id="itemError" [hidden]=hide>
+        <ion-label style="text-align:center;" text-wrap color="danger">{{err}}</ion-label>
+      </ion-item>
+      
+      <ion-item>
+        <ion-button style="width:60%; margin-left:20%;" (click)="onSubmitLogin()">ENTRAR</ion-button>  
+        <ion-fab-button><ion-icon name="play-skip-back-outline" (click)="clean()"></ion-icon></ion-fab-button>
+      </ion-item>
+
+      <div class="divSpinner" *ngIf="spinner">
+        <div class="spin">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+      </div>
+
+    </div>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="code-slash-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button (click)="loginTester()"><ion-icon name="pizza"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginAnonimo()"><ion-icon name="walk"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginUsuario()"><ion-icon name="happy"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginInvitado()"><ion-icon name="paw"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginAdmin()"><ion-icon name="key-outline"></ion-icon></ion-fab-button>
+  </ion-fab-list>
