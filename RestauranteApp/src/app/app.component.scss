@@ -29,13 +29,15 @@ ion-label{
 }
 
 .nombres{
-    top: 5%;
+    top: -30%;
     transform: scale(1.2);
+    animation: haciaAbajo 0.5s 1s both;
 }
 
 .division{
     bottom: 8%;
     transform: scale(2);
+    animation: haciaArriba 0.5s 1s both;
 }
 
 .icono{
@@ -68,4 +70,14 @@ ion-label{
 @keyframes fin{
     from{transform: translateX(220%);}
     to{transform: translateX(450%);}
+}
+
+@keyframes haciaAbajo{
+    from{top: -30%}
+    to{top: 5%;}
+}
+
+@keyframes haciaArriba{
+    from{bottom: -30%}
+    to{bottom: 8%;}
 }
