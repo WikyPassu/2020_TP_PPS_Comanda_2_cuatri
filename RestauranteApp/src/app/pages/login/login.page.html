@@ -2,7 +2,7 @@
   <ion-card>
     <ion-card-content>
       <div class="logo">
-        <img class="imgLogo" src="../../../assets/comanda-logo-v2.svg">
+        <img class="imgLogo" src="../../../assets/icono.png">
       </div>
       <ion-item>
         <ion-label position="floating">Ingrese su correo</ion-label>
@@ -21,23 +21,18 @@
      </div>
     </ion-card-content>
   </ion-card>
-  
-  <div class="divSpinner" *ngIf="spinner">
-    <div class="spin">
-      <ion-spinner name="crescent"></ion-spinner>
-    </div>
-  </div>
-
 </ion-content>
 
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab class="users" vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button>
     <ion-icon name="code-slash-outline"></ion-icon>
   </ion-fab-button>
-  <ion-fab-list side="top">
-    <ion-fab-button (click)="loginTester()"><ion-icon name="pizza"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginAnonimo()"><ion-icon name="walk"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginUsuario()"><ion-icon name="happy"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginInvitado()"><ion-icon name="paw"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginAdmin()"><ion-icon name="key-outline"></ion-icon></ion-fab-button>
+  <ion-fab-list side="start">
+    <ion-fab-button (click)="loginEmpleado()"><ion-icon name="pizza"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginSupervisor()"><ion-icon name="clipboard"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginCliente()"><ion-icon name="happy"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginDuenio()"><ion-icon name="key"></ion-icon></ion-fab-button>
   </ion-fab-list>
+</ion-fab>
+
+<app-spinner *ngIf="spinner"></app-spinner>

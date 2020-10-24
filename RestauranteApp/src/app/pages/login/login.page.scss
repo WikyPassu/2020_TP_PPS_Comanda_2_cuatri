@@ -30,7 +30,12 @@ ion-label{
 
 ion-fab-button{
     --background: rgb(112, 112, 112);
-    margin-right:5vw;
+}
+
+ion-fab.users{
+    position: fixed;
+    bottom: 2%;
+    right: 7%;
 }
 
 ion-input{
@@ -55,7 +60,7 @@ ion-card{
     top: 50%;
     left: 50%;
     transform: translate(-53%, -50%);
-    height:130vw;
+    height:135vw;
 }
 
 ion-icon{
@@ -125,27 +130,27 @@ ion-icon{
 }
 
 
-.spin{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-}
+// .spin{
+//     position: fixed;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     z-index: 9999;
+// }
 
-ion-spinner{
-    transform: scale(3);
-    --color: white;
-}
+// ion-spinner{
+//     transform: scale(3);
+//     --color: white;
+// }
 
-.divSpinner{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 25vw;
-    width: 25vw;
-    z-index: 9998;
-    background-color: whitesmoke;
-    border-radius: 10%;
-}
+// .divSpinner{
+//     position: fixed;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     height: 25vw;
+//     width: 25vw;
+//     z-index: 9998;
+//     background-color: whitesmoke;
+//     border-radius: 10%;
+// }

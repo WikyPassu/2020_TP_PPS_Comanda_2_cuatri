@@ -1,0 +1,51 @@
+.spin{
+    position: fixed;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9998;
+}
+.divSpinner{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 35vw;
+    width: 35vw;
+    z-index: 9997;
+    background-color: white;
+    border-radius: 20%;
+    border: 3px solid var(--ion-color-bordo);
+}
+
+img.icono1{
+    position: absolute;
+    transform: scale(1.4);
+    animation: expandir1 1s alternate infinite;
+}
+
+img.icono2{
+    position: absolute;
+    transform: scale(1.4);
+    animation: expandir2 1s 0.1s alternate infinite;
+}
+
+img.icono3{
+    transform: scale(1.4);
+    animation: expandir3 1s 0.2s alternate infinite;
+}
+
+@keyframes expandir1{
+    from{transform: scale(1.4);}
+    to{transform: scale(1.9);}
+}
+
+@keyframes expandir2{
+    from{transform: scale(1.4);}
+    to{transform: scale(1.8);}
+}
+
+@keyframes expandir3{
+    from{transform: scale(1.4);}
+    to{transform: scale(1.7);}
+}
