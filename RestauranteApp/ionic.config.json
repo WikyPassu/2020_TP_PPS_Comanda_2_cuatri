@@ -1,5 +1,7 @@
 {
   "name": "RestauranteApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

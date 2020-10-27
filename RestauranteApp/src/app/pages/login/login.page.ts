@@ -43,33 +43,34 @@ export class LoginPage implements OnInit {
       this.hide = false;
     }
     else{
-      this.authService.login(this.email, this.pwd).then(res =>{
-        this.spinner = true;
-        this.hide = true;
-        setTimeout(() => {
+      this.hide = true;
+      this.spinner = true;
+      setTimeout(() => {
+        this.authService.login(this.email, this.pwd).then(res =>{
           this.spinner = false;
           this.router.navigate(["/home"], {state : {email: this.email}});
           this.clean();
-        },4000);
-      }).catch(error =>{
-        console.log(error.code);
-        if(error.code == "auth/invalid-email")
-        {
-          this.err = "Ingrese un correo válido!";
-        }
-        else if(error.code == "auth/user-not-found")
-        {
-          this.err = "No existe un usuario con dicho correo electrónico.";
-        }
-        else if(error.code == "auth/wrong-password")
-        {
-          this.err = "Contraseña incorrecta.";
-        }
-        else{
-          this.err = error;
-        }
-        this.hide = false;
-      });
+        }).catch(error =>{
+          this.spinner = false;
+          console.log(error.code);
+          if(error.code == "auth/invalid-email")
+          {
+            this.err = "Ingrese un correo válido!";
+          }
+          else if(error.code == "auth/user-not-found")
+          {
+            this.err = "No existe un usuario con dicho correo electrónico.";
+          }
+          else if(error.code == "auth/wrong-password")
+          {
+            this.err = "Contraseña incorrecta.";
+          }
+          else{
+            this.err = error;
+          }
+          this.hide = false;
+        });  
+      }, 2000);
     }
   }
 
@@ -79,34 +80,27 @@ export class LoginPage implements OnInit {
     this.hide = true;
   }
 
-  loginAdmin(){
-    this.email="admin@admin.com";
+  loginDuenio(){
+    this.email="duenio@duenio.com";
     this.pwd="111111";
     this.onSubmitLogin();
   }
 
-  loginInvitado(){
-    this.email="invitado@invitado.com";
+  loginCliente(){
+    this.email="cliente@cliente.com";
     this.pwd="222222";
     this.onSubmitLogin();
   }
 
-  loginUsuario(){
-    this.email="usuario@usuario.com";
+  loginSupervisor(){
+    this.email="supervisor@supervisor.com";
     this.pwd="333333";
     this.onSubmitLogin();
   }
 
-  loginAnonimo(){
-    this.email="anonimo@anonimo.com";
+  loginEmpleado(){
+    this.email="empleado@empleado.com";
     this.pwd="444444";
     this.onSubmitLogin();
   }
-
-  loginTester(){
-    this.email="tester@tester.com";
-    this.pwd="555555";
-    this.onSubmitLogin();
-  }
-  
 }
