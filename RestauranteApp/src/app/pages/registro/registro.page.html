@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-col  style="text-align:center;">
+      <ion-button class="btnTipo" (click)="cambiarTipo()">{{textoTipo}}</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="scanCode()" class="btnQr">Usar DNI<ion-icon name="qr-code-outline"></ion-icon></ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div class="divAvatar">
+        <img class="imgAvatar" src="../../../assets/img/avatarVacio.jpg">
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div class="itemAgregado" *ngIf="mostrarAgregado" align="center">
+        <ion-label text-wrap class="lblAgregado">El usuario fue agregado correctamente!</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngIf="modoRegistro">
+        <ion-icon class="inputIcon" name="person-circle"></ion-icon>
+        <ion-input placeholder="Apellido" type="text" [(ngModel)]="apellido" name="apellido"></ion-input>  
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-icon class="inputIcon" name="person"></ion-icon>
+        <ion-input placeholder="Nombre" type="text" [(ngModel)]="nombre" name="nombre"></ion-input>  
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngIf="modoRegistro">
+        <ion-icon class="inputIcon" name="card" ></ion-icon>
+        <ion-input placeholder="DNI" type="number" [(ngModel)]="dni" name="dni" min="20000000" max="70000000"></ion-input>  
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngIf="modoRegistro">
+        <ion-icon class="inputIcon" name="mail-outline"></ion-icon>
+        <ion-input placeholder="Correo" type="text" [(ngModel)]="email" name="email"></ion-input>  
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngIf="modoRegistro">
+        <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
+        <ion-input placeholder="Clave" type="password" [(ngModel)]="clave" name="clave"></ion-input>  
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngIf="modoRegistro">
+        <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
+        <ion-input placeholder="Repita la clave" type="password" [(ngModel)]="claveConfirmada" name="claveConfirmada"></ion-input>  
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div id="itemError" [hidden]=hide>
+        <ion-label style="text-align:center;" text-wrap color="danger">{{mensaje}}</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col style="text-align:center;">      
+      <ion-button class="btnAceptar" (click)="darDeAlta()">Aceptar</ion-button>
+      <ion-button class="btnCancelar" (click)="cancelar()">Cancelar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<div class="divSpinner" *ngIf="spinner">
+  <div class="spin">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</div>
+</ion-content>

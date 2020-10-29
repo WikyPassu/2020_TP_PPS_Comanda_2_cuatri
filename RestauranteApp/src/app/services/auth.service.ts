@@ -55,4 +55,9 @@ export class AuthService {
     ref => ref.where("aprobado","==",false))
     .valueChanges();
   }
+  
+  verificarSiEstaAceptado(){
+
+  }
+
 }

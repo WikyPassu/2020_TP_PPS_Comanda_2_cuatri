@@ -22,8 +22,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
   }
-
   onSubmitLogin(){
+
     this.err = "";
 
     if(this.email == "" && this.pwd == ""){
@@ -74,6 +74,7 @@ export class LoginPage implements OnInit {
     }
   }
 
+
   clean(){
     this.email="";
     this.pwd="";
@@ -102,5 +103,9 @@ export class LoginPage implements OnInit {
     this.email="empleado@empleado.com";
     this.pwd="444444";
     this.onSubmitLogin();
+  }
+
+  irRegistro(){
+    this.router.navigate(["/registro"]);
   }
 }
