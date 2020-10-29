@@ -1,0 +1,36 @@
+ion-header{
+    --ion-background-color:#841c3a;
+    text-align:center;
+    --ion-font-family: "IowanOldStyleBlack";
+}
+  
+ion-title{
+    color:rgb(255, 255, 255);
+}
+
+ion-content{
+    --ion-background-color:--ion-color-bordo;
+    --ion-font-family: "IowanOldStyleBlack";
+    --ion-background-color:#841c3a;
+}
+
+ion-back-button{
+    color:white;
+}
+
+ion-card{
+    --ion-background-color: white;
+    text-align: center;
+}
+
+ion-button{
+    width: 70%;
+}
+
+.botonAceptar{
+    --background: rgba(73, 161, 73, 0.89);
+}
+
+.botonRechazar{
+    --background: rgba(197, 88, 88, 0.76);
+}

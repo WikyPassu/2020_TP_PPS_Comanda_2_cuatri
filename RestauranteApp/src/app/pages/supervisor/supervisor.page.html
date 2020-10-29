@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>supervisor</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Dueño/Supervisor</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card>
+    <h3>Pendientes de aprobación:</h3>
+    <ion-grid>
+      <ion-row>
+        <ion-col><b>Foto</b></ion-col>
+        <ion-col><b>Nombre</b></ion-col>
+        <ion-col><b>Correo</b></ion-col>
+      </ion-row>
+      <div *ngFor="let cliente of lista">
+        <ion-row>
+          <ion-col>
+            <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png">
+          </ion-col>
+          <ion-col>
+            {{cliente.apellido}}, {{cliente.nombre}}
+          </ion-col>
+          <ion-col>
+            {{cliente.correo}}
+          </ion-col>
+          <ion-col>
+            <ion-button>Aceptar</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button>Rechazar</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </ion-card>
 </ion-content>

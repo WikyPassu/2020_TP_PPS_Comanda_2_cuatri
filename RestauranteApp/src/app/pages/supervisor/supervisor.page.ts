@@ -10,11 +10,14 @@ export class SupervisorPage implements OnInit {
 
   lista = new Array();
 
-  constructor(private db: AuthService) {
-    
-  }
+  constructor(private db: AuthService) { }
 
   ngOnInit() {
+    this.db.traerClientesPendientes()
+    .subscribe(doc => {
+      this.lista = doc;
+      console.log(this.lista);
+    });
   }
 
 }
