@@ -15,16 +15,19 @@ export class LoginPage implements OnInit {
   err:string;
   hide:boolean = true;
   spinner:boolean = false;
+  aprobado:boolean = true;
 
   constructor(private authService : AuthService, public router : Router) { 
   }
 
   ngOnInit() {
-
   }
+
   onSubmitLogin(){
+    this.verificarSiEstaAprobado();
 
     this.err = "";
+
 
     if(this.email == "" && this.pwd == ""){
       this.err = "Por favor, ingrese correo y contraseña!"
@@ -48,7 +51,8 @@ export class LoginPage implements OnInit {
       setTimeout(() => {
         this.authService.login(this.email, this.pwd).then(res =>{
           this.spinner = false;
-          this.router.navigate(["/home"], {state : {email: this.email}});
+          //ACA SE PASA LA VARIABLE APROBADO HACIA EL HOME!
+          this.router.navigate(["/home"], {state : {email: this.email, aprobado: this.aprobado}});
           this.clean();
         }).catch(error =>{
           this.spinner = false;
@@ -73,7 +77,6 @@ export class LoginPage implements OnInit {
       }, 2000);
     }
   }
-
 
   clean(){
     this.email="";
@@ -107,5 +110,22 @@ export class LoginPage implements OnInit {
 
   irRegistro(){
     this.router.navigate(["/registro"]);
+  }
+
+  async verificarSiEstaAprobado (){
+    await this.authService.traerClientesSinAprobar().subscribe((res) => {
+      let lista = null;
+
+      lista = new Array();
+      res.forEach((datosClientes: any) => {
+        lista.push(datosClientes.payload.doc.data());
+      });
+      
+      lista.forEach(c => {
+        if (c.correo == this.email){
+          this.aprobado = false;
+        }
+      });
+    });
   }
 }

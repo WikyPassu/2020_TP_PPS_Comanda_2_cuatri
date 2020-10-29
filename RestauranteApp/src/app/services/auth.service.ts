@@ -50,8 +50,8 @@ export class AuthService {
     });
   }
 
-  verificarSiEstaAceptado(){
-
+  traerClientesSinAprobar(){
+    return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
   }
 
 }
