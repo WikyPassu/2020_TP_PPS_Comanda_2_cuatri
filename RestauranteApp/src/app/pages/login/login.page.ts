@@ -15,16 +15,21 @@ export class LoginPage implements OnInit {
   err:string;
   hide:boolean = true;
   spinner:boolean = false;
+  aprobado:boolean = true;
+  perfil: string = "cliente";
 
   constructor(private authService : AuthService, public router : Router, private servicioCorreo: CorreosService) { 
   }
 
   ngOnInit() {
-
   }
+
   onSubmitLogin(){
+    this.verificarSiEstaAprobado();
+    this.traerTipoEmpleado();
 
     this.err = "";
+
 
     if(this.email == "" && this.pwd == ""){
       this.err = "Por favor, ingrese correo y contraseña!"
@@ -48,7 +53,9 @@ export class LoginPage implements OnInit {
       setTimeout(() => {
         this.authService.login(this.email, this.pwd).then(res =>{
           this.spinner = false;
-          this.router.navigate(["/home"], {state : {email: this.email}});
+          //ACA SE PASA LA VARIABLE APROBADO Y PERFIL HACIA EL HOME!
+          console.log(this.perfil);
+          this.router.navigate(["/home"], {state : {email: this.email, perfil : this.perfil, aprobado: this.aprobado}});
           this.clean();
         }).catch(error =>{
           this.spinner = false;
@@ -74,7 +81,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-
   clean(){
     this.email="";
     this.pwd="";
@@ -82,7 +88,7 @@ export class LoginPage implements OnInit {
   }
 
   loginDuenio(){
-    this.email="duenio@duenio.com";
+    this.email="dueño@dueño.com";
     this.pwd="111111";
     this.onSubmitLogin();
   }
@@ -107,5 +113,47 @@ export class LoginPage implements OnInit {
 
   irRegistro(){
     this.router.navigate(["/registro"]);
+  }
+
+  /**
+   * setea el tipo de empleado en perfil, caso contrario no sobreescribe y queda en cliente
+   */
+  async traerTipoEmpleado(){
+    await this.authService.traerEmpleados().subscribe((res) => {
+      let lista = null;
+
+      lista = new Array();
+      res.forEach((datosEmp: any) => {
+        lista.push(datosEmp.payload.doc.data());
+      });
+      
+      lista.forEach(e => {
+        if (e.correo == this.email){
+          this.perfil = e.perfil;
+        }
+      });
+    });
+
+  }
+
+  /**
+   * se fija si la persona logueada todavia no fue aprobada
+   * setea false si no fue aprobada
+   */
+  async verificarSiEstaAprobado (){
+    await this.authService.traerClientesSinAprobar().subscribe((res) => {
+      let lista = null;
+
+      lista = new Array();
+      res.forEach((datosClientes: any) => {
+        lista.push(datosClientes.payload.doc.data());
+      });
+      
+      lista.forEach(c => {
+        if (c.correo == this.email){
+          this.aprobado = false;
+        }
+      });
+    });
   }
 }
