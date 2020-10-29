@@ -24,9 +24,6 @@ ion-item.item-has-focus > ion-label {
     color:#ff336d !important;
 }
 
-ion-label{
-    text-align:center;
-}
 
 ion-fab-button{
     --background: rgb(112, 112, 112);
@@ -41,6 +38,7 @@ ion-fab.users{
 ion-input{
     font-weight: bold;
 }
+
 ion-card-title{
     font-size:8vw;
     font-family: "IowanOldStyleBlack";
@@ -50,7 +48,7 @@ ion-card-title{
 }
 
 ion-content{
-   --ion-background-color:#841c3a;
+    --ion-background-color:#841c3a;
 }
 
 ion-card{
@@ -96,15 +94,35 @@ ion-icon{
     text-align:center;
 }
 
+ion-label{
+    text-align:center;
+}
+
+.botonRegistro{
+    width:100%;
+}
+
 @media screen and (orientation:landscape){
     
     .logo{
         
+<<<<<<< HEAD
     }
 
     ion-card{
         margin-top:0vw;
         height:80vh;
+=======
+    .imgLogo{
+        height:10vw;
+        width:auto;
+    }
+
+    ion-card{
+        margin-top:1vw;
+        height:47vw;
+        border-radius: 4vw;
+>>>>>>> b73e51575be37d83733a0f274697e5ede19046c5
     }
 
     ion-card-title{    
@@ -112,25 +130,42 @@ ion-icon{
     }
 
     ion-item{
-        margin-top:0vw;
+        width:70vw;
+        margin-left:3vw;
         height:8vw;
-        font-size:3vw; 
-    }
-
-    ion-label{
-        font-size:2.5vw;
+        font-size:2.75vw;
     }
 
     ion-input{
-        height:2.5vw;
+        height:1.75vw;
     }
+
+    ion-label{
+        height:3.5vw;
+    }
+    
     .itemError{
         margin-top:0vw;
+        height:6vw;
     }
+
     ion-button{
         margin-top:0vw;
-        height:5vw;
+        height:6vw;
+        width:30vw;
+        font-size:4vw;
     }
+
+    .fabLimpiar{
+        height:6vw;
+        width:6vw;
+    }
+
+    .imgBasura{
+        height:4vw;
+        width:4vw;
+    }
+
 }
 
 

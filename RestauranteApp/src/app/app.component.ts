@@ -11,7 +11,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   
+<<<<<<< HEAD
   splash: boolean = false;
+=======
+  splash: boolean = false; //cambiar
+>>>>>>> b73e51575be37d83733a0f274697e5ede19046c5
   
   constructor(
     private platform: Platform,
