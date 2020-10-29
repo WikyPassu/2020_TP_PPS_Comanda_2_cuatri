@@ -7,7 +7,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) { }
+  constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) {}
   
   login(email:string, pwd:string){
     return new Promise((resolve, rejected) => {
@@ -48,5 +48,11 @@ export class AuthService {
         resolve(res);
       }).catch(error => rejected(error));
     });
+  }
+
+  traerClientesPendientes(){
+    return this.db.collection("clientes",
+    ref => ref.where("aprobado","==",false))
+    .valueChanges();
   }
 }

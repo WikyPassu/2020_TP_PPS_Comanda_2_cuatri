@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CorreosService } from "../../services/correos.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
 
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   hide:boolean = true;
   spinner:boolean = false;
 
-  constructor(private authService : AuthService, public router : Router) { 
+  constructor(private authService : AuthService, public router : Router, private servicioCorreo: CorreosService) { 
   }
 
   ngOnInit() {
