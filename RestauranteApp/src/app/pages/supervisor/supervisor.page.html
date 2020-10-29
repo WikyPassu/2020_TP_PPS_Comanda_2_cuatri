@@ -12,29 +12,30 @@
     <h3>Pendientes de aprobación:</h3>
     <ion-grid>
       <ion-row>
-        <ion-col><b>Foto</b></ion-col>
-        <ion-col><b>Nombre</b></ion-col>
-        <ion-col><b>Correo</b></ion-col>
+        <ion-col size="3"><b>Foto</b></ion-col>
+        <ion-col size="3"><b>Nombre</b></ion-col>
+        <ion-col size="3"><b>Correo</b></ion-col>
+        <ion-col size="3"><b>Opciones</b></ion-col>
       </ion-row>
-      <div *ngFor="let cliente of lista">
-        <ion-row>
-          <ion-col>
-            <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png">
-          </ion-col>
-          <ion-col>
-            {{cliente.apellido}}, {{cliente.nombre}}
-          </ion-col>
-          <ion-col>
-            {{cliente.correo}}
-          </ion-col>
-          <ion-col>
-            <ion-button>Aceptar</ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button>Rechazar</ion-button>
-          </ion-col>
-        </ion-row>
-      </div>
+      <ion-row *ngFor="let cliente of lista">
+        <ion-col size="3">
+          <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png">
+        </ion-col>
+        <ion-col size="3">
+          <ion-label>{{cliente.apellido}}, {{cliente.nombre}}</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-label>{{cliente.correo}}</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button class="btnAceptar">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </ion-button>
+          <ion-button class="btnRechazar">
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   </ion-card>
 </ion-content>
