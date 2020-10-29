@@ -24,9 +24,6 @@ ion-item.item-has-focus > ion-label {
     color:#ff336d !important;
 }
 
-ion-label{
-    text-align:center;
-}
 
 ion-fab-button{
     --background: rgb(112, 112, 112);
@@ -41,6 +38,7 @@ ion-fab.users{
 ion-input{
     font-weight: bold;
 }
+
 ion-card-title{
     font-size:8vw;
     font-family: "IowanOldStyleBlack";
@@ -54,8 +52,6 @@ ion-content{
 }
 
 ion-card{
-    margin-left:auto;
-    margin-right:auto;
     width:80%;
     --background:white;
     position: flex;
@@ -96,6 +92,14 @@ ion-icon{
 
 .logo{
     text-align:center;
+}
+
+ion-label{
+    text-align:center;
+}
+
+.botonRegistro{
+    width:100%;
 }
 
 @media screen and (orientation:landscape){

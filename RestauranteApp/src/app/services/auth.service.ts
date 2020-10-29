@@ -49,4 +49,9 @@ export class AuthService {
       }).catch(error => rejected(error));
     });
   }
+
+  verificarSiEstaAceptado(){
+
+  }
+
 }
