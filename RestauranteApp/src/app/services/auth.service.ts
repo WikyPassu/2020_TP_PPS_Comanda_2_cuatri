@@ -54,4 +54,7 @@ export class AuthService {
     return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
   }
 
+  traerEmpleados(){
+    return this.db.collection("empleados").snapshotChanges();
+  }
 }
