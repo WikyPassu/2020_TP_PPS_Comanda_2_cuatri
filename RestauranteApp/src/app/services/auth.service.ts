@@ -76,8 +76,12 @@ export class AuthService {
       });
   }
 
+  traerClientesPendientesAprobacion(){
+    return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).valueChanges();
+  }
+
   traerClientesSinAprobar(){
-    return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).valueChanges();
+    return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
   }
 
   traerEmpleados(){
@@ -85,7 +89,7 @@ export class AuthService {
   }
 
   /**
-   * Registra un cliente para probar cositas ricas, tiene pocos atributos.
+   * Hardcodea un cliente para probar cositas ricas, tiene pocos atributos.
    */
   registrarCliente(){
     return this.db.collection("clientes").doc("123123123.111111").set({

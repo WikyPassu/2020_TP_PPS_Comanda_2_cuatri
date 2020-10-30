@@ -73,7 +73,7 @@ export class RegistroPage implements OnInit {
       else if (this.nombre.length > 21){
         this.error = "El nombre es muy largo!";
       }
-      else if (this.apellido.length < 21){
+      else if (this.apellido.length < 3){
         this.error = "El apellido es muy corto!";
       }
       else if(!this.verifier.verifyEmailFormat(this.email)){
