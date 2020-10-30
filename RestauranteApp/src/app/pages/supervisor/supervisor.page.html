@@ -28,10 +28,10 @@
           <ion-label>{{cliente.correo}}</ion-label>
         </ion-col>
         <ion-col size="3">
-          <ion-button class="btnAceptar">
+          <ion-button class="btnAceptar" (click)="aceptarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.nombre)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </ion-button>
-          <ion-button class="btnRechazar">
+          <ion-button class="btnRechazar" (click)="rechazarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.nombre)">
             <ion-icon name="close-circle"></ion-icon>
           </ion-button>
         </ion-col>

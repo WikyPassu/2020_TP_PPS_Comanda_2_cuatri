@@ -49,12 +49,6 @@ export class AuthService {
       }).catch(error => rejected(error));
     });
   }
-
-  traerClientesPendientes(){
-    return this.db.collection("clientes",
-    ref => ref.where("aprobado","==",false))
-    .valueChanges();
-  }
   
   verificarSiEstaAceptado(){
   }
@@ -65,5 +59,35 @@ export class AuthService {
 
   traerEmpleados(){
     return this.db.collection("empleados").snapshotChanges();
+  }
+
+  /**
+   * Registra un cliente para probar cositas ricas, tiene pocos atributos.
+   */
+  registrarCliente(){
+    return this.db.collection("clientes").doc("123123123.111111").set({
+      id: 123123123.111111,
+      dni: 123123123,
+      nombre: "porta",
+      apellido: "queteim",
+      fecha: 111111,
+      aprobado: false
+    });
+  }
+
+  /**
+   * Actualiza la aprobacion de un cliente.
+   * @param uid uid del cliente a actualizar.
+   */
+  actualizarAprobacionRegistro(uid){
+    return this.db.collection("clientes").doc(uid).update({aprobado: true});
+  }
+
+  /**
+   * Elimina un cliente de la coleccion.
+   * @param uid uid del cliente a eliminar.
+   */
+  eliminarCliente(uid){
+    return this.db.collection("clientes").doc(uid).delete();
   }
 }
