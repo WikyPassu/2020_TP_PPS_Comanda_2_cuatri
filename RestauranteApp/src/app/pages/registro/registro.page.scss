@@ -44,13 +44,13 @@ ion-button{
 
 .btnAceptar{
     --background: rgba(73, 161, 73, 0.89);
-    margin-top:3vw;
+    margin-top:2vw;
     width:45vw;
 }
 
 .btnCancelar{
     --background: rgba(197, 88, 88, 0.76);
-    margin-top:3vw;
+    margin-top:2vw;
     margin-left:2vw;
     width:45vw;
     color:black;
@@ -59,7 +59,7 @@ ion-button{
 .btnQr{
     --background:rgba(202, 197, 127, 0.767);
     height:11vw;
-    width:39vw;
+    width:70vw;
 }
 
 ion-button{
@@ -68,13 +68,6 @@ ion-button{
 
 ion-back-button{
     color:white;
-}
-
-.btnTipo{
-    height:11vw;
-    width:47vw;
-    --background:rgb(93, 93, 172);
-    color:black;
 }
 
 .imgAvatar{
@@ -95,6 +88,11 @@ ion-back-button{
     border-radius:5vw;
 }
 
+.lblError{
+    color:whitesmoke;
+    font-size:5vw;
+}
+
 @media screen and (orientation:landscape) {
 
     ion-item{
@@ -103,14 +101,15 @@ ion-back-button{
     }
 
     .btnAceptar,.btnCancelar{
+        margin-top:3vw;
         height:10vw;
         width:30vw;
     }
 
-    .btnTipo,.btnQr{
+    .btnQr{
         margin-top:2vw;
         height:5vw;
-        width:30vw;
+        width:60vw;
     }
 
     .lblAgregado{
