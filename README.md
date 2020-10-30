@@ -1,6 +1,7 @@
 <hr>
 <h1>Trabajo Práctico PPS - Restaurante</h1>
 <h1>Grupo ❤❤Compuchicas❤❤</h1>
+<img src="https://drive.google.com/drive/folders/1AWXfL6FJzYhuMSEz7G7963axAQ9yHEmk">
 <h3>Integrantes:</h3>
 <p>➤ Passucci Alan (Alfa)</p>
 <p>➤ Morel Melany Lucia (Beta)</p>
