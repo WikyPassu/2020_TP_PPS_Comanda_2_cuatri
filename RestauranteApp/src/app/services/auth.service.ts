@@ -32,22 +32,45 @@ export class AuthService {
     return this.db.collection("Usuarios").snapshotChanges();
   }
 
-  register(correo:string, clave:string, apellido:string, nombre:string, dni:string){
+  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, foto:string, tipoRegistro : string){
+    var fecha = Date.now();
     return new Promise((resolve, rejected) => {
       this.AFauth.createUserWithEmailAndPassword(correo, clave).then(res => {
-        this.db.collection("Usuarios").doc(res.user.uid).set({
-          id: res.user.uid,
-          correo: correo,
-          clave: clave,
-          perfil: "usuario",
-          sexo: "N/A",
-          apellido: apellido,
-          nombre: nombre,
-          dni: dni
-        });
         resolve(res);
-      }).catch(error => rejected(error));
+        this.db.collection("clientes").doc(dni + '.' + fecha).set({
+          id: dni + '.' + fecha,
+          apellido: apellido,
+          aprobado : false,
+          clave: clave,
+          correo: correo,
+          dni: dni,
+          foto: foto,
+          nombre: nombre,
+          tipo: "registrado",
+          fecha: fecha
+        }).catch(error =>rejected(error))
+      }).catch(error =>rejected(error));
     });
+  }
+
+  registroAnonimo(nombre : string, foto : string){
+    var fecha = Date.now();
+
+    return new Promise((resolve, rejected) => {
+        this.db.collection("clientes").doc(nombre + '.' + fecha).set({
+          id: nombre + '.' + fecha,
+          apellido: "",
+          aprobado : true,
+          clave: "",
+          correo: "",
+          dni: "",
+          foto: foto,
+          nombre: nombre,
+          tipo: "anonimo",
+          fecha: fecha
+        }).catch(error => rejected(error));
+        resolve("done");
+      });
   }
 
   traerClientesSinAprobar(){

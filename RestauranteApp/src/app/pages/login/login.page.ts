@@ -111,8 +111,8 @@ export class LoginPage implements OnInit {
     this.onSubmitLogin();
   }
 
-  irRegistro(){
-    this.router.navigate(["/registro"]);
+  irRegistro(tipo : string){
+    this.router.navigate(["/registro"], {state : {modo: tipo}});
   }
 
   /**

@@ -17,10 +17,13 @@
       </ion-item>
       <div class="botones">        
         <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura" src="../../../assets/icon/basura.png"></ion-fab-button>
-        <ion-button (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>  
+        <ion-button class="btnEntrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>  
      </div>
-     <ion-button class="botonRegistro" (click)="irRegistro()" size="large">REGISTRARSE</ion-button>
-    </ion-card-content>
+     <div class="btnsRegistro">
+      <ion-button class="botonRegistro" (click)="irRegistro(true)">REGISTRARSE</ion-button>
+      <ion-button class="botonRegistro" (click)="irRegistro(false)">MODO ANONIMO</ion-button> 
+     </div>
+   </ion-card-content>
   </ion-card>
 </ion-content>
 

@@ -3,24 +3,23 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="login"></ion-back-button>
     </ion-buttons>
-    <ion-title>Registro Cliente</ion-title>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <ion-grid>
-  <ion-row>
-    <ion-col  style="text-align:center;">
-      <ion-button class="btnTipo" (click)="cambiarTipo()">{{textoTipo}}</ion-button>
-    </ion-col>
+  <ion-row *ngIf="modoRegistro">
     <ion-col>
-      <ion-button (click)="scanCode()" class="btnQr">Usar DNI<ion-icon name="qr-code-outline"></ion-icon></ion-button>
+      <div align="center">
+        <ion-button (click)="scanCode()" class="btnQr">Usar DNI<ion-icon name="qr-code-outline"></ion-icon></ion-button>
+      </div>
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
       <div class="divAvatar">
-        <img class="imgAvatar" src="../../../assets/img/avatarVacio.jpg">
+        <img class="imgAvatar" [src]="foto" (click)="sacarFoto()">
       </div>
     </ion-col>
   </ion-row>
@@ -28,6 +27,9 @@
     <ion-col>
       <div class="itemAgregado" *ngIf="mostrarAgregado" align="center">
         <ion-label text-wrap class="lblAgregado">El usuario fue agregado correctamente!</ion-label>
+      </div>
+      <div class="itemAgregado" *ngIf="mostrarError" align="center">
+        <ion-label text-wrap class="lblError">{{error}}</ion-label>
       </div>
     </ion-col>
   </ion-row>
@@ -58,7 +60,7 @@
   <ion-row>
     <ion-col>
       <ion-item *ngIf="modoRegistro">
-        <ion-icon class="inputIcon" name="mail-outline"></ion-icon>
+        <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
         <ion-input placeholder="Correo" type="text" [(ngModel)]="email" name="email"></ion-input>  
       </ion-item>
     </ion-col>
@@ -79,9 +81,9 @@
       </ion-item>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row *ngIf="!hide">
     <ion-col>
-      <div id="itemError" [hidden]=hide>
+      <div id="itemError">
         <ion-label style="text-align:center;" text-wrap color="danger">{{mensaje}}</ion-label>
       </div>
     </ion-col>
