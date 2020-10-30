@@ -15,7 +15,6 @@ export class SupervisorPage implements OnInit {
     //this.db.registrarCliente();
   }
 
-  
   ngOnInit() {
     this.db.traerClientesSinAprobar().subscribe(doc => this.lista = doc);
   }

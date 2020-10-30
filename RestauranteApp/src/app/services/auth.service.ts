@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   traerClientesSinAprobar(){
-    return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
+    return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).valueChanges();
   }
 
   traerEmpleados(){
