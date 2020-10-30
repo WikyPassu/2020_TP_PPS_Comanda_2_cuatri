@@ -5,6 +5,10 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { InputVerifierService } from "../../services/input-verifier.service";
 import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType } from '@ionic-native/camera/ngx';
 
+import { StorageService } from "../../services/storage.service";
+import { AngularFireStorage } from "@angular/fire/storage";
+import * as firebase from 'firebase';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -27,8 +31,14 @@ export class RegistroPage implements OnInit {
   clave: string = "";
   claveConfirmada: string = "";
   foto: string = "../../../assets/img/avatarVacio.jpg";
+  fotoAGuardar : string = "";
 
-  constructor(private auth: AuthService, private router: Router, private barcodeScanner: BarcodeScanner, private verifier : InputVerifierService, private camera: Camera,) { }
+  constructor(private auth: AuthService, 
+    private router: Router, 
+    private barcodeScanner: BarcodeScanner,
+    private verifier : InputVerifierService, 
+    private camera: Camera,
+    private dbStorage: StorageService) {}
 
   ngOnInit() {
     this.modoRegistro = this.router.getCurrentNavigation().extras.state.modo;
@@ -51,10 +61,9 @@ export class RegistroPage implements OnInit {
   validarCampos() {
     this.error = "";
     this.mostrarError = false;
-    this.foto = "https://firebasestorage.googleapis.com/v0/b/restauranteapp-581eb.appspot.com/o/12123123.1603989824251.jpg?alt=media&token=76495d20-578e-43bc-82a6-83534b0474a2";
 
     if (this.modoRegistro == true) {
-      if (this.apellido == "" || this.nombre == "" || this.dni == null || this.email == "" || this.clave == "" || this.claveConfirmada == "" || this.foto == "../../../assets/img/avatarVacio.jpg") {
+      if (this.apellido == "" || this.nombre == "" || this.dni == null || this.email == "" || this.clave == "" || this.claveConfirmada == "" || this.foto == "") {
         this.error = "Por favor, ingrese todos los campos!";
       }
       else if (this.clave != this.claveConfirmada) {
@@ -73,26 +82,29 @@ export class RegistroPage implements OnInit {
       else if (this.nombre.length > 21){
         this.error = "El nombre es muy largo!";
       }
-      else if (this.apellido.length < 21){
+      else if (this.apellido.length < 3){
         this.error = "El apellido es muy corto!";
       }
       else if(!this.verifier.verifyEmailFormat(this.email)){
         this.error = "El correo tiene caracteres invalidos!";
+      }
+
+      if (this.foto != "" ){
+        this.fotoAGuardar = this.foto;
       }
     }
     else {
       if (this.nombre == "") {
         this.error = "Por favor, ingrese su nombre!";
       }
-      else if(this.foto == "../../../assets/img/avatarVacio.jpg"){
+
+      if(this.fotoAGuardar != "" ){
         this.error = "Por favor, ingrese su foto!";
       }
+      else{
+        this.fotoAGuardar = this.foto;
+      }
     }
-    /*
-        if(){
-          
-        }
-    */
   }
   registrar() {
     this.mostrarAgregado = false;
@@ -108,7 +120,7 @@ export class RegistroPage implements OnInit {
       if (this.modoRegistro == true) {
         tipoRegistro = "registrado"
 
-        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, this.foto, tipoRegistro)
+        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, this.fotoAGuardar, tipoRegistro)
           .then(() => {
             this.mostrarAgregado = true;
             this.limpiarCampos();
@@ -133,7 +145,7 @@ export class RegistroPage implements OnInit {
         this.auth.registroAnonimo(this.nombre, this.foto)
           .then(() => {
             this.limpiarCampos();
-            this.router.navigate(["/home"]);
+            this.router.navigate(["/home"], {state : {perfil: "cliente"}});
           })
           .catch((error) => {
             this.mostrarError = true;
@@ -186,39 +198,36 @@ export class RegistroPage implements OnInit {
       this.camera.getPicture(opciones).then((ImageData) => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
-        let nombre = this.email + "_" + new Date() + "_linda_" +".jpg";
-        let childRef = storageRef.child(nombre);
+        let nombreFoto = "fotoTmp" + "." + new Date() +".jpg";
+
+        let childRef = storageRef.child(nombreFoto);
         childRef.putString(base64Str, 'data_url').then(function (snapshot){});
-          let votantes: any = new Array();
-          this.databases.guardarPublicacion(
-            nombre,
-            this.email,
-            votantes,
-            0,
-            Date.now()).then(()=>{
-              this.traerFotos();
-            });
+
+        //this.foto = this.dbStorage.traerPreview();
       });*/
     }
-    else{//debo guardar la foto en el usuario y luego cargarla en el storage. TESTEAR!
-      /*this.camera.getPicture(opciones).then((ImageData) => {
+    else{
+      this.camera.getPicture(opciones).then((ImageData) => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
-        let nombre = this.email + "_" + new Date() + "_linda_" +".jpg";
-        let childRef = storageRef.child(nombre);
-        childRef.putString(base64Str, 'data_url').then(function (snapshot){});
-          let votantes: any = new Array();
-          this.databases.guardarFoto(
-            nombre,
-            this.email,
-            votantes,
-            0,
-            Date.now()).then(()=>{
-              this.traerFotos();
-            });
-      });*/
+        let nombreFoto = "fotoTmp" + "." + new Date() +".jpg";
+
+        let childRef = storageRef.child(nombreFoto);
+        childRef.putString(base64Str, 'data_url').catch(e=>{
+          this.mostrarError = true;
+          this.error = e.message;
+        })
+        //this.foto = this.dbStorage.traerPreview();
+      }).catch(e=>{
+        this.mostrarError = true;
+        this.error=e;
+      });
     }
 }
+
+  cambiarFotoRecuadro(){
+
+  }
 
 }
 
