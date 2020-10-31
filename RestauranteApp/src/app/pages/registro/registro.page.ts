@@ -18,20 +18,24 @@ import * as firebase from 'firebase';
   ]
 })
 export class RegistroPage implements OnInit {
+  mostrarSpinner = false;
+  sinContinuar = true;
+  mostrarNombre = true; 
   modoRegistro = true;
   mostrarAgregado = false;
   mostrarError = false;
   error = "";
   titulo = "Modo Anónimo";
-
+  fecha;
   apellido: string = "";
   nombre: string = "";
   dni: number = null;
   email: string = "";
   clave: string = "";
   claveConfirmada: string = "";
-  foto: string = "../../../assets/img/avatarVacio.jpg";
-  fotoAGuardar : string = "";
+  foto: string = "";
+  preview = "../../../assets/img/avatarVacio.jpg";
+  mostrarBotonera = true;
 
   constructor(private auth: AuthService, 
     private router: Router, 
@@ -55,7 +59,7 @@ export class RegistroPage implements OnInit {
     this.email = "";
     this.clave = "";
     this.claveConfirmada = "";
-    this.foto = "../../../assets/img/avatarVacio.jpg";
+    this.foto = "";
   }
 
   validarCampos() {
@@ -63,7 +67,7 @@ export class RegistroPage implements OnInit {
     this.mostrarError = false;
 
     if (this.modoRegistro == true) {
-      if (this.apellido == "" || this.nombre == "" || this.dni == null || this.email == "" || this.clave == "" || this.claveConfirmada == "" || this.foto == "") {
+      if (this.apellido == "" || this.nombre == "" || this.dni == null || this.email == "" || this.clave == "" || this.claveConfirmada == "") {
         this.error = "Por favor, ingrese todos los campos!";
       }
       else if (this.clave != this.claveConfirmada) {
@@ -88,44 +92,45 @@ export class RegistroPage implements OnInit {
       else if(!this.verifier.verifyEmailFormat(this.email)){
         this.error = "El correo tiene caracteres invalidos!";
       }
-
-      if (this.foto != "" ){
-        this.fotoAGuardar = this.foto;
+      else if(this.clave.length < 6){
+        this.error = "La clave debe tener al menos 6 caracteres!";
       }
     }
     else {
       if (this.nombre == "") {
         this.error = "Por favor, ingrese su nombre!";
       }
-
-      if(this.fotoAGuardar != "" ){
-        this.error = "Por favor, ingrese su foto!";
-      }
-      else{
-        this.fotoAGuardar = this.foto;
-      }
     }
   }
+
+  validarFoto(){
+    if (this.foto == ""){
+      this.error = "Por favor, cargue una foto!"; 
+    }
+  }
+
   registrar() {
     this.mostrarAgregado = false;
-    this.validarCampos();
+    this.validarFoto();
     if (this.error != "") {
       this.mostrarError = true;
     }
-    else {
-      //this.spinner = true;
-      //setTimeout(() => {
+    else{
+      this.mostrarSpinner = true;
+      setTimeout(() => {
       let tipoRegistro = "anonimo";
 
       if (this.modoRegistro == true) {
         tipoRegistro = "registrado"
 
-        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, this.fotoAGuardar, tipoRegistro)
+        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, tipoRegistro, this.fecha)
           .then(() => {
             this.mostrarAgregado = true;
+            this.mostrarBotonera = false;
             this.limpiarCampos();
           })
           .catch((error) => {
+            this.mostrarBotonera = false;
             this.mostrarError = true;
             if (error.code == "auth/weak-password") {
               this.error = "La clave es muy corta";
@@ -139,25 +144,30 @@ export class RegistroPage implements OnInit {
             else {
               this.error = error;
             }
+            this.error += ". Por favor, vuelva a intentarlo"
           });
       }
       else{
-        this.auth.registroAnonimo(this.nombre, this.foto)
+        this.auth.registroAnonimo(this.nombre, this.fecha)
           .then(() => {
             this.limpiarCampos();
+            this.mostrarSpinner = true;
+            setTimeout(() => {
             this.router.navigate(["/home"], {state : {perfil: "cliente"}});
+            },2000);
           })
           .catch((error) => {
             this.mostrarError = true;
             this.error = error;
           });
-        // this.spinner = false;
-        //  }, 2000); 
-      }
+        }
+        this.mostrarSpinner = false;
+      }, 2000);      
     }
   }
 
   cancelar(){
+    this.auth.borrarFoto(this.preview);
     this.router.navigate(["/login"]);
   }
 
@@ -185,6 +195,7 @@ export class RegistroPage implements OnInit {
   }
 
   sacarFoto() {
+    this.auth.borrarFoto(this.preview);
     const opciones: CameraOptions = {
       quality: 50,
       targetHeight: 600,
@@ -194,41 +205,88 @@ export class RegistroPage implements OnInit {
       correctOrientation: true,
     }
 
-    if (this.modoRegistro == true){/*
+    if (this.modoRegistro == true){
       this.camera.getPicture(opciones).then((ImageData) => {
+        setTimeout(() => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
-        let nombreFoto = "fotoTmp" + "." + new Date() +".jpg";
+        this.fecha = new Date();
+        let nombreFoto = this.dni + "." + this.fecha +".jpg";
 
         let childRef = storageRef.child(nombreFoto);
-        childRef.putString(base64Str, 'data_url').then(function (snapshot){});
-
-        //this.foto = this.dbStorage.traerPreview();
-      });*/
+        
+        childRef.putString(base64Str, 'data_url').then((res)=>{
+          storageRef.listAll().then((lista)=>{
+            lista.items.forEach(foto => {
+              if (foto.name == nombreFoto){
+                foto.getDownloadURL().then((link)=>{
+                  this.preview=link;
+                });
+              }
+            });
+          })
+        });
+        this.foto = nombreFoto;
+        },2000);
+      }).catch(e=>{
+          if(e == "No Image Selected"){
+            this.error = "Por favor, saque una foto";
+          }
+          else{
+            this.error=e;
+          }
+          this.mostrarError = true;
+      });
     }
     else{
       this.camera.getPicture(opciones).then((ImageData) => {
+        setTimeout(() => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
-        let nombreFoto = "fotoTmp" + "." + new Date() +".jpg";
+        this.fecha = new Date();
+        let nombreFoto = this.nombre+ "." + this.fecha +".jpg";
 
         let childRef = storageRef.child(nombreFoto);
-        childRef.putString(base64Str, 'data_url').catch(e=>{
+        childRef.putString(base64Str, 'data_url').then((res)=>{
+          storageRef.listAll().then((lista)=>{
+            lista.items.forEach(foto => {
+              if (foto.name == nombreFoto){
+                foto.getDownloadURL().then((link)=>{
+                  this.preview=link;
+                });
+              }
+            });
+          })
+        });
+        this.foto = nombreFoto;
+        },2000);
+        }).catch(e=>{
+          if(e == "No Image Selected"){
+            this.error = "Por favor, saque una foto";
+          }
+          else{
+            this.error=e;
+          }
           this.mostrarError = true;
-          this.error = e.message;
-        })
-        //this.foto = this.dbStorage.traerPreview();
-      }).catch(e=>{
-        this.mostrarError = true;
-        this.error=e;
-      });
+        });
     }
 }
 
-  cambiarFotoRecuadro(){
-
+  continuar(){
+    this.validarCampos();
+    if (this.error == ""){
+      if (this.modoRegistro == false){
+        this.sinContinuar = false;
+      }
+      else if(this.modoRegistro == true){
+        this.sinContinuar = false;
+      }
+    }
+    else{
+      this.mostrarError = true;
+    }
   }
-
 }
+
 
 

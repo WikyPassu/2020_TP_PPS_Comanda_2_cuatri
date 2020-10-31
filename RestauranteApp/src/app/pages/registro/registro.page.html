@@ -1,25 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="login"></ion-back-button>
-    </ion-buttons>
     <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <ion-grid>
-  <ion-row *ngIf="modoRegistro">
+  <ion-row *ngIf="modoRegistro && sinContinuar">
     <ion-col>
       <div align="center">
         <ion-button (click)="scanCode()" class="btnQr">Escanear DNI<ion-icon name="qr-code-outline"></ion-icon></ion-button>
       </div>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row *ngIf="!sinContinuar">
+    <ion-col>
+      <div align="center">
+        <ion-label text-wrap class="lblError">Cargue su foto</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!sinContinuar">
     <ion-col>
       <div class="divAvatar">
-        <img class="imgAvatar" [src]="foto" (click)="sacarFoto()">
+        <img class="imgAvatar" [src]="preview" (click)="sacarFoto()">
       </div>
     </ion-col>
   </ion-row>
@@ -35,7 +39,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item *ngIf="modoRegistro">
+      <ion-item *ngIf="modoRegistro && sinContinuar">
         <ion-icon class="inputIcon" name="person-circle"></ion-icon>
         <ion-input placeholder="Apellido" type="text" [(ngModel)]="apellido" name="apellido"></ion-input>  
       </ion-item>
@@ -43,7 +47,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item>
+      <ion-item *ngIf="mostrarNombre && sinContinuar">
         <ion-icon class="inputIcon" name="person"></ion-icon>
         <ion-input placeholder="Nombre" type="text" [(ngModel)]="nombre" name="nombre"></ion-input>  
       </ion-item>
@@ -51,7 +55,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item *ngIf="modoRegistro">
+      <ion-item *ngIf="modoRegistro && sinContinuar">
         <ion-icon class="inputIcon" name="card" ></ion-icon>
         <ion-input placeholder="DNI" type="number" [(ngModel)]="dni" name="dni" min="20000000" max="70000000"></ion-input>  
       </ion-item>
@@ -59,7 +63,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item *ngIf="modoRegistro">
+      <ion-item *ngIf="modoRegistro && sinContinuar">
         <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
         <ion-input placeholder="Correo" type="text" [(ngModel)]="email" name="email"></ion-input>  
       </ion-item>
@@ -67,7 +71,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item *ngIf="modoRegistro">
+      <ion-item *ngIf="modoRegistro && sinContinuar">
         <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
         <ion-input placeholder="Clave" type="password" [(ngModel)]="clave" name="clave"></ion-input>  
       </ion-item>
@@ -75,7 +79,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-item *ngIf="modoRegistro">
+      <ion-item *ngIf="modoRegistro && sinContinuar">
         <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
         <ion-input placeholder="Repita la clave" type="password" [(ngModel)]="claveConfirmada" name="claveConfirmada"></ion-input>  
       </ion-item>
@@ -88,16 +92,18 @@
       </div>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row *ngIf="mostrarBotonera">
     <ion-col style="text-align:center;">      
-      <ion-button class="btnAceptar" (click)="registrar()">Aceptar</ion-button>
+      <ion-button class="btnAceptar" (click)="continuar()" *ngIf="sinContinuar" >Continuar</ion-button>
+      <ion-button class="btnAceptar" (click)="registrar()" *ngIf="!sinContinuar">Aceptar</ion-button>
       <ion-button class="btnCancelar" (click)="cancelar()">Cancelar</ion-button>
     </ion-col>
   </ion-row>
+  <ion-row *ngIf="!mostrarBotonera">
+    <ion-col>
+      <ion-button class="btnAceptar" href="/login">Volver</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-grid>
-<div class="divSpinner" *ngIf="spinner">
-  <div class="spin">
-    <ion-spinner name="crescent"></ion-spinner>
-  </div>
-</div>
+<app-spinner *ngIf="mostrarSpinner"></app-spinner>
 </ion-content>

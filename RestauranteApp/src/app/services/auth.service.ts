@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) { }
-  
+  base;
+
   login(email:string, pwd:string){
     return new Promise((resolve, rejected) => {
       this.AFauth.signInWithEmailAndPassword(email,pwd).then(user => resolve(user))
@@ -32,8 +34,26 @@ export class AuthService {
     return this.db.collection("Usuarios").snapshotChanges();
   }
 
-  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, foto:string, tipoRegistro : string){
-    var fecha = Date.now();
+
+  borrarFoto(linkFoto){
+    let storageRef = firebase.storage().ref();
+
+    if (linkFoto != "../../../assets/img/avatarVacio.jpg"){
+      storageRef.listAll().then((lista)=>{
+        lista.items.forEach(f => {
+          f.getDownloadURL().then((link)=>{
+            if (link == linkFoto){    
+              f.delete();
+            }
+          });
+        });
+      }).catch(e=>{
+        alert(e);
+      });
+    }
+  }
+
+  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, tipoRegistro : string, fecha){
     return new Promise((resolve, rejected) => {
       this.AFauth.createUserWithEmailAndPassword(correo, clave).then(res => {
         resolve(res);
@@ -41,10 +61,9 @@ export class AuthService {
           id: dni + '.' + fecha,
           apellido: apellido,
           aprobado : false,
-          clave: clave,
           correo: correo,
           dni: dni,
-          foto: foto,
+          foto: nombre + "." + fecha,
           nombre: nombre,
           tipo: "registrado",
           fecha: fecha
@@ -53,9 +72,7 @@ export class AuthService {
     });
   }
 
-  registroAnonimo(nombre : string, foto : string){
-    var fecha = Date.now();
-
+  registroAnonimo(nombre : string, fecha){
     return new Promise((resolve, rejected) => {
         this.db.collection("clientes").doc(nombre + '.' + fecha).set({
           id: nombre + '.' + fecha,
@@ -64,7 +81,7 @@ export class AuthService {
           clave: "",
           correo: "",
           dni: "",
-          foto: foto,
+          foto: nombre + "." + fecha,
           nombre: nombre,
           tipo: "anonimo",
           fecha: fecha
