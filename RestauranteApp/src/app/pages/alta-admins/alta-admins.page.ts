@@ -79,7 +79,14 @@ export class AltaAdminsPage implements OnInit {
   }
 
   registrar(){
-
+    this.agregado = false;
+    this.validarCampos();
+    if(this.error != ""){
+      this.hayError = true;
+    }
+    else{
+      
+    }
   }
 
   guardarPerfil(event){

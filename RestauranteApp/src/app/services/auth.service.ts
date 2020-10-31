@@ -76,6 +76,29 @@ export class AuthService {
       });
   }
 
+  registroAdmins(apellido:string,nombre:string,dni:number,cuil:number,perfil:string,correo:string,clave:string,foto:string){
+    let fecha = Date.now();
+    return new Promise((resolve, rejected) => {
+      this.AFauth.createUserWithEmailAndPassword(correo, clave).then(res => {
+        resolve(res);
+        this.db.collection("empleados").doc(dni+"."+fecha).set({
+          id: dni+"."+fecha,
+          apellido: apellido,
+          nombre: nombre,
+          dni: dni,
+          cuil: cuil,
+          perfil: perfil,
+          correo: correo,
+          clave: clave,
+          foto: foto
+        }).catch(error => rejected(error));
+      }).catch(error => rejected(error));
+    });
+  }
+
+  /**
+   * Esta es igual a traerClientesSinAprobar pero con valueChanges porque no me funcionaba la otra
+   */
   traerClientesPendientesAprobacion(){
     return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).valueChanges();
   }
