@@ -13,7 +13,7 @@ export class InputVerifierService {
    * Si tiene un formato valido retorna true, caso contrario retorna false.
    */
   verifyEmailFormat(email : string){
-    return email.match('[A-z0-9.$-_#%&*/=+{}|~]+@+[A-z0-9.]+.+[a-z]{0,2}');
+    return email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) != null;
   }
 
   /**
