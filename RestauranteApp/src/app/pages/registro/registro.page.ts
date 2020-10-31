@@ -116,8 +116,6 @@ export class RegistroPage implements OnInit {
       this.mostrarError = true;
     }
     else{
-      this.mostrarSpinner = true;
-      setTimeout(() => {
       let tipoRegistro = "anonimo";
 
       if (this.modoRegistro == true) {
@@ -151,18 +149,13 @@ export class RegistroPage implements OnInit {
         this.auth.registroAnonimo(this.nombre, this.fecha)
           .then(() => {
             this.limpiarCampos();
-            this.mostrarSpinner = true;
-            setTimeout(() => {
             this.router.navigate(["/home"], {state : {perfil: "cliente"}});
-            },2000);
           })
           .catch((error) => {
             this.mostrarError = true;
             this.error = error;
           });
         }
-        this.mostrarSpinner = false;
-      }, 2000);      
     }
   }
 
@@ -207,7 +200,6 @@ export class RegistroPage implements OnInit {
 
     if (this.modoRegistro == true){
       this.camera.getPicture(opciones).then((ImageData) => {
-        setTimeout(() => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
         this.fecha = new Date();
@@ -227,7 +219,6 @@ export class RegistroPage implements OnInit {
           })
         });
         this.foto = nombreFoto;
-        },2000);
       }).catch(e=>{
           if(e == "No Image Selected"){
             this.error = "Por favor, saque una foto";
@@ -240,7 +231,6 @@ export class RegistroPage implements OnInit {
     }
     else{
       this.camera.getPicture(opciones).then((ImageData) => {
-        setTimeout(() => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
         this.fecha = new Date();
@@ -253,13 +243,13 @@ export class RegistroPage implements OnInit {
               if (foto.name == nombreFoto){
                 foto.getDownloadURL().then((link)=>{
                   this.preview=link;
+                  alert(this.preview);
                 });
               }
             });
           })
         });
         this.foto = nombreFoto;
-        },2000);
         }).catch(e=>{
           if(e == "No Image Selected"){
             this.error = "Por favor, saque una foto";
