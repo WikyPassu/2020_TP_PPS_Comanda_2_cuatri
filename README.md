@@ -4,9 +4,9 @@
 <img src="http://drive.google.com/uc?export=view&id=1VX8nSyjnrxI3yDS95pgI-Usa-ZZrhBvp">
 <hr>
 <h2>Integrantes:</h2>
-<p>➤ Passucci Alan (Alfa)</p>
-<p>➤ Morel Melany Lucia (Beta)</p>
-<p>➤ Suarez Murray Demian José (Gamma)</p>
+<p>➤ <a href="https://github.com/WikyPassu">Passucci Alan (Alfa)</a></p>
+<p>➤ <a href="https://github.com/Lulil4">Morel Melany Lucia (Beta)</a></p>
+<p>➤ <a href="https://github.com/murraydemian">Suarez Murray Demian José (Gamma)</a></p>
 <hr>
 <h2>Tareas semanales:</h2>
 <img src="http://drive.google.com/uc?export=view&id=1t-QoWsOfxEfAMX7IS27TEN-DW-yHc1kw">
