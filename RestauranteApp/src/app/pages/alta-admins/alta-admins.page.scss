@@ -1,0 +1,118 @@
+ion-header{
+    --ion-background-color:#841c3a;
+    text-align:center;
+    --ion-font-family: "IowanOldStyleBlack";
+}
+  
+ion-title{
+    color:rgb(255, 255, 255);
+}
+
+ion-content{
+    --ion-background-color:--ion-color-bordo;
+    --ion-font-family: "IowanOldStyleBlack";
+    --ion-background-color:#841c3a;
+}
+
+ion-input{
+    border-radius:3vw;
+    margin-left:3vw;
+}
+
+ion-item{
+    --highlight-color-focused: pink !important;
+    --color:rgb(31, 31, 31);
+    --background:white;
+    color:black;
+    border-radius:3vw;
+    font-size:5vw;
+}
+
+.inputIcon{
+    color:#841c3a;
+}
+
+ion-button{
+    height:16vw;
+    font-weight: bold;
+    color:black;
+}
+
+.btnQr{
+    --background:rgba(202, 197, 127, 0.767);
+    height:10vw;
+    width:70vw;
+}
+
+.btnAceptar{
+    --background: rgba(73, 161, 73, 0.89);
+    margin-top:2vw;
+    width:45vw;
+    height: 12vw;
+    color:black;
+}
+
+.btnCancelar{
+    --background: rgba(197, 88, 88, 0.76);
+    margin-top:2vw;
+    margin-left:2vw;
+    width:45vw;
+    height: 12vw;
+    color:black;
+}
+
+.imgAvatar{
+    height:30vw;
+    width:30vw;
+    border-radius: 5vw;
+}
+
+ion-back-button{
+    color:white;
+}
+
+ion-button.foto{
+    width: 100%;
+    height: 10vw;
+    margin-left: 5vw;
+    --background: rgb(112, 112, 112);
+    color: white;
+}
+
+ion-label{
+    margin-left: 3vw;
+}
+
+ion-labe.radio{
+    font-size: small;
+}
+
+@media screen and (orientation:landscape) {
+
+    ion-item{
+        font-size:3vw;
+        width:100%;
+    }
+
+    .btnAceptar,.btnCancelar{
+        margin-top:3vw;
+        height:10vw;
+        width:30vw;
+    }
+
+    .btnQr{
+        margin-top:2vw;
+        height:8vw;
+        width:60vw;
+    }
+
+    .lblAgregado{
+        font-size:3vw;
+    }
+
+    .imgAvatar{
+        border-radius:3vw;
+        height:15vw;
+        width:15vw;
+    }
+}

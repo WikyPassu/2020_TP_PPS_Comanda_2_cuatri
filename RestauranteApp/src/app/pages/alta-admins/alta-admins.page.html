@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="supervisor"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Alta Dueño/Supervisor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div align="center">
+          <ion-button (click)="scanCode()" class="btnQr">Escanear DNI<ion-icon name="qr-code-outline"></ion-icon></ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div align="center">
+          <img class="imgAvatar" [src]="foto" (click)="sacarFoto()">
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="person"></ion-icon>
+          <ion-input placeholder="Apellido" type="text" [(ngModel)]="apellido" name="apellido"></ion-input>  
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="person"></ion-icon>
+          <ion-input placeholder="Nombre" type="text" [(ngModel)]="nombre" name="nombre"></ion-input>  
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="card" ></ion-icon>
+          <ion-input placeholder="DNI" type="number" [(ngModel)]="dni" name="dni" min="20000000" max="70000000"></ion-input>  
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="card" ></ion-icon>
+          <ion-input placeholder="CUIL" type="number" [(ngModel)]="cuil" name="cuil"></ion-input>  
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="accessibility"></ion-icon>
+          <ion-label>Perfil:</ion-label>
+          <ion-radio-group (ionChange)="guardarPerfil($event)">
+            <ion-item>
+              <ion-label>Dueño</ion-label>
+              <ion-radio slot="start" value="dueño"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Supervisor</ion-label>
+              <ion-radio slot="start" value="supervisor"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="mail"></ion-icon>
+          <ion-input placeholder="Correo" type="text" [(ngModel)]="correo" name="correo"></ion-input>  
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
+          <ion-input placeholder="Clave" type="password" [(ngModel)]="clave" name="clave"></ion-input>  
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="lock-closed"></ion-icon>
+          <ion-input placeholder="Repita la clave" type="password" [(ngModel)]="claveConfirmada" name="claveConfirmada"></ion-input>  
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon class="inputIcon" name="camera"></ion-icon>
+          <ion-button class="foto">Tomar foto</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div *ngIf="mostrarAgregado" align="center">
+          <ion-label text-wrap class="lblAgregado">{{mensaje}}</ion-label>
+        </div>
+        <div *ngIf="mostrarError" align="center">
+          <ion-label text-wrap class="lblError">{{error}}</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="text-align:center;">      
+        <ion-button class="btnAceptar" (click)="registrar()">Aceptar</ion-button>
+        <ion-button class="btnCancelar" (click)="cancelar()">Cancelar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<app-spinner *ngIf="spinner"></app-spinner>

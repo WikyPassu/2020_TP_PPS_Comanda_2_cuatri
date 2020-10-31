@@ -27,10 +27,10 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    if(this.splash){
-      setTimeout(() => {
-        this.splash = false;
-      }, 5000);
-    }
+    // if(this.splash){
+    //   setTimeout(() => {
+    //     this.splash = false;
+    //   }, 5000);
+    // }
   }
 }

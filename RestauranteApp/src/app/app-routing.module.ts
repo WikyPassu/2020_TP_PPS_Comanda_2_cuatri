@@ -16,9 +16,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'supervisor',
+    loadChildren: () => import('./pages/supervisor/supervisor.module').then( m => m.SupervisorPageModule)
+  },
+  {
     path: 'registro',
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   },
+  {
+    path: 'alta-admins',
+    loadChildren: () => import('./pages/alta-admins/alta-admins.module').then( m => m.AltaAdminsPageModule)
+  },
+
 ];
 
 @NgModule({
