@@ -8,6 +8,14 @@
 <p>➤ <a href="https://github.com/Lulil4">Morel Melany Lucia (Beta)</a></p>
 <p>➤ <a href="https://github.com/murraydemian">Suarez Murray Demian José (Gamma)</a></p>
 <hr>
+<h2>Diagramas:</h2>
+<img src="http://drive.google.com/uc?export=view&id=13VsMJO7v0DaC8T6AzY0DQOt59h2gjIfu">
+<img src="http://drive.google.com/uc?export=view&id=1csMc_npXi9i1B86heTScvJyElnezpVKm">
+<img src="http://drive.google.com/uc?export=view&id=1B3D0TWxEqtxI6LsA6u7XBHeILChptEB6">
+<img src="http://drive.google.com/uc?export=view&id=1gq8U8TycnWLC7Be5oYEQRfiPx4bcaLcy">
+<img src="http://drive.google.com/uc?export=view&id=1Zixq-qE1TBjF_dDQsd6ir1kXAniodb28">
+<img src="http://drive.google.com/uc?export=view&id=1Dpuem7TEEVpfGF_7l9tOG-pBkkJPHFPs">
+<hr>
 <h2>Tareas semanales:</h2>
 <img src="http://drive.google.com/uc?export=view&id=1t-QoWsOfxEfAMX7IS27TEN-DW-yHc1kw">
 <a href="https://drive.google.com/file/d/1jW4dKBtAKMNx2alXMXaAGwtT41wSshdO/view?usp=sharing">Link al video de funcionalidades</a>
