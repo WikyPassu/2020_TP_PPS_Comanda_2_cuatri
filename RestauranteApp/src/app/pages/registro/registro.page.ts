@@ -243,7 +243,6 @@ export class RegistroPage implements OnInit {
               if (foto.name == nombreFoto){
                 foto.getDownloadURL().then((link)=>{
                   this.preview=link;
-                  alert(this.preview);
                 });
               }
             });
