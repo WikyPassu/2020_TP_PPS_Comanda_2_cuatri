@@ -10,10 +10,15 @@
 <hr>
 <h2>Diagramas:</h2>
 <img src="http://drive.google.com/uc?export=view&id=13VsMJO7v0DaC8T6AzY0DQOt59h2gjIfu">
+<hr>
 <img src="http://drive.google.com/uc?export=view&id=1csMc_npXi9i1B86heTScvJyElnezpVKm">
+<hr>
 <img src="http://drive.google.com/uc?export=view&id=1B3D0TWxEqtxI6LsA6u7XBHeILChptEB6">
+<hr>
 <img src="http://drive.google.com/uc?export=view&id=1gq8U8TycnWLC7Be5oYEQRfiPx4bcaLcy">
+<hr>
 <img src="http://drive.google.com/uc?export=view&id=1Zixq-qE1TBjF_dDQsd6ir1kXAniodb28">
+<hr>
 <img src="http://drive.google.com/uc?export=view&id=1Dpuem7TEEVpfGF_7l9tOG-pBkkJPHFPs">
 <hr>
 <h2>Tareas semanales:</h2>
