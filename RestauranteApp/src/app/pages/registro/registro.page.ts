@@ -116,8 +116,6 @@ export class RegistroPage implements OnInit {
       this.mostrarError = true;
     }
     else{
-      this.mostrarSpinner = true;
-      setTimeout(() => {
       let tipoRegistro = "anonimo";
 
       if (this.modoRegistro == true) {
@@ -130,20 +128,7 @@ export class RegistroPage implements OnInit {
             this.limpiarCampos();
           })
           .catch((error) => {
-            this.mostrarBotonera = false;
-            this.mostrarError = true;
-            if (error.code == "auth/weak-password") {
-              this.error = "La clave es muy corta";
-            }
-            else if (error.code == "auth/email-already-in-use") {
-              this.error = "El correo ya existe";
-            }
-            else if (error.code == "auth/invalid-email") {
-              this.error = "El correo ya existe";
-            }
-            else {
-              this.error = error;
-            }
+            this.error = error;
             this.error += ". Por favor, vuelva a intentarlo"
           });
       }
@@ -151,18 +136,13 @@ export class RegistroPage implements OnInit {
         this.auth.registroAnonimo(this.nombre, this.fecha)
           .then(() => {
             this.limpiarCampos();
-            this.mostrarSpinner = true;
-            setTimeout(() => {
             this.router.navigate(["/home"], {state : {perfil: "cliente"}});
-            },2000);
           })
           .catch((error) => {
             this.mostrarError = true;
             this.error = error;
           });
         }
-        this.mostrarSpinner = false;
-      }, 2000);      
     }
   }
 
@@ -180,7 +160,7 @@ export class RegistroPage implements OnInit {
     return palabra.join(' ');
   }
   
-  scanCode(){
+  scanCode(){ //anda solamente con el formato nuevo
     this.barcodeScanner.scan({formats: "PDF_417"}).then(barcodeData => {
       let scannedCode = barcodeData.text;
       let userQR = scannedCode.split("@");
@@ -195,6 +175,7 @@ export class RegistroPage implements OnInit {
   }
 
   sacarFoto() {
+    this.error= "";
     this.auth.borrarFoto(this.preview);
     const opciones: CameraOptions = {
       quality: 50,
@@ -207,7 +188,6 @@ export class RegistroPage implements OnInit {
 
     if (this.modoRegistro == true){
       this.camera.getPicture(opciones).then((ImageData) => {
-        setTimeout(() => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
         this.fecha = new Date();
@@ -227,7 +207,6 @@ export class RegistroPage implements OnInit {
           })
         });
         this.foto = nombreFoto;
-        },2000);
       }).catch(e=>{
           if(e == "No Image Selected"){
             this.error = "Por favor, saque una foto";
@@ -240,7 +219,6 @@ export class RegistroPage implements OnInit {
     }
     else{
       this.camera.getPicture(opciones).then((ImageData) => {
-        setTimeout(() => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
         this.fecha = new Date();
@@ -252,14 +230,13 @@ export class RegistroPage implements OnInit {
             lista.items.forEach(foto => {
               if (foto.name == nombreFoto){
                 foto.getDownloadURL().then((link)=>{
-                  this.preview=link;
+                    this.preview=link;
                 });
               }
             });
           })
         });
         this.foto = nombreFoto;
-        },2000);
         }).catch(e=>{
           if(e == "No Image Selected"){
             this.error = "Por favor, saque una foto";

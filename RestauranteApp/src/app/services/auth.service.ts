@@ -39,7 +39,9 @@ export class AuthService {
     let storageRef = firebase.storage().ref();
 
     if (linkFoto != "../../../assets/img/avatarVacio.jpg"){
+    
       storageRef.listAll().then((lista)=>{
+
         lista.items.forEach(f => {
           f.getDownloadURL().then((link)=>{
             if (link == linkFoto){    
@@ -47,16 +49,33 @@ export class AuthService {
             }
           });
         });
+
       }).catch(e=>{
         alert(e);
       });
     }
   }
 
+  borrarFotoPorNombre(nombreFoto){
+    let storageRef = firebase.storage().ref();
+
+    storageRef.listAll().then((lista)=>{
+
+      lista.items.forEach(f => {
+
+        if (f.name == nombreFoto){
+          f.delete();
+        }
+      });
+
+    }).catch(e=>{
+      alert(e);
+    });
+
+  }
+
   registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, tipoRegistro : string, fecha){
     return new Promise((resolve, rejected) => {
-      this.AFauth.createUserWithEmailAndPassword(correo, clave).then(res => {
-        resolve(res);
         this.db.collection("clientes").doc(dni + '.' + fecha).set({
           id: dni + '.' + fecha,
           apellido: apellido,
@@ -67,8 +86,9 @@ export class AuthService {
           nombre: nombre,
           tipo: "registrado",
           fecha: fecha
-        }).catch(error =>rejected(error))
-      }).catch(error =>rejected(error));
+        }).then(()=>{
+          resolve();})
+        .catch(error =>rejected(error))
     });
   }
   
@@ -88,8 +108,9 @@ export class AuthService {
           nombre: nombre,
           tipo: "anonimo",
           fecha: fecha
+        }).then(()=>{
+          resolve("done");
         }).catch(error => rejected(error));
-        resolve("done");
       });
   }
 

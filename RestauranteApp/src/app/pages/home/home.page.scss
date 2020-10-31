@@ -25,7 +25,6 @@
     display: grid;
     align-items: center;
     justify-items: center;
-
     ion-card{
         height: 100%;
         width: 80%;
@@ -48,12 +47,35 @@
             grid-row: span 2;
             font-size: xx-large;
         }
+        .boton-comenzal{
+            font-size: xx-large;
+            height: 80%;
+        }
+    }
+    .acceso-card{
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-items: center;
+        ion-card-title{
+            justify-content: center;
+            text-justify: newspaper;
+        }
+        ion-checkbox{
+            align-self: center;
+            justify-self: center;
+            height: 50%;
+            width: 50%;
+        }
     }
     .div-escanear{
         display: grid;
-        height: 80%;
+        height: 90%;
         width: 70%;
-        grid-template-rows: 15% 85%;
+        //grid-template-rows: 15% 85%;
         label{
             background-color: var(--ion-color-medium);
             height: 100%;
@@ -84,18 +106,7 @@
         justify-self: center;
         grid-row: span 1;
     }
-    .acceso-card{
-        ion-card-title{
-            padding-left: 2.5%;
-            padding-right: 2.5%;
-        }
-        ion-checkbox{
-            align-self: center;
-            justify-self: center;
-            height: 50%;
-            width: 50%;
-        }
-    }
+    
 }
 .reservas-tab{
     ion-card{

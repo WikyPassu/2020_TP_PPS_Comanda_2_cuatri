@@ -1,34 +1,46 @@
 <div class="page-container">
+
+  <!--DIV SPINNER-->
   <div class="spinner-tab" *ngIf="tab == 'cambiando'">
     <ion-spinner name="crescent" color="light"></ion-spinner>
   </div>
+
+  <!--DIV LOCAL-->
   <div class="tab local-tab" *ngIf="tab == 'local'">
     <ion-card>
+
+      <!--CARD COMENZALES-->
       <ion-card-title>¿Cuantos comenzales?</ion-card-title>
       <div class="comenzales-div">
-        <label>1</label>
-        <ion-button color="medium">+</ion-button>
-        <ion-button color="medium">-</ion-button>
+        <label>{{comenzales}}</label>
+        <ion-button color="medium" class="boton-comenzal" (click)="agregarComenzal(1)">+</ion-button>
+        <ion-button color="medium" class="boton-comenzal" (click)="agregarComenzal(-1)">-</ion-button>
       </div>
     </ion-card>
+
+    <!--CARD DISCAPACITADOS-->
     <ion-card class="acceso-card">
       <ion-card-title>¿Necesita acceso para discapacitados?</ion-card-title>
         <ion-checkbox color="bordo"></ion-checkbox>
     </ion-card>
+
+    <!--DIV ESCANEAR-->
     <div class="div-escanear">
-      <label>Escanear codigo</label>
+      <!--label>Escanear codigo</label-->
       <ion-button (click)="escanear()" class="boton-escanear" color="medium">
         <ion-icon name="barcode-outline" class="icono-escanear"></ion-icon>
       </ion-button>
     </div>
   </div>
 
+  <!--DIV RESERVAS-->
   <div class="tab" *ngIf="tab == 'reservas'">
     <ion-card>
       <ion-card-title>En construcción</ion-card-title>
     </ion-card>
   </div>
 
+  <!--DIV DELIVERY-->
   <div class="tab" *ngIf="tab == 'delivery'">
     <ion-card>
       <ion-card-title>En construcción</ion-card-title>
@@ -37,15 +49,15 @@
 </div>
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="Local" (click)="cambiarTab('local')">
+    <ion-tab-button (click)="cambiarTab('local')">
       <ion-label>Local</ion-label>
       <ion-icon name="list-outline"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="Reservas" (click)="cambiarTab('reservas')">
+    <ion-tab-button  (click)="cambiarTab('reservas')">
       <ion-label>Reservas</ion-label>
       <ion-icon name="calendar-outline"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="Delivary" (click)="cambiarTab('delivery')">
+    <ion-tab-button (click)="cambiarTab('delivery')">
       <ion-label>Delivery</ion-label>
       <ion-icon name="delivery-outline"></ion-icon>
     </ion-tab-button>

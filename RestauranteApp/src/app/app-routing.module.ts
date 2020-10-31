@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/alta-admins/alta-admins.module').then( m => m.AltaAdminsPageModule)
   },
   {
-    path: 'home',
+    path: 'home/:user',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
 
