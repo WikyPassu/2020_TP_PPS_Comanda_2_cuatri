@@ -5,8 +5,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner, BarcodeScannerOptions, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
-import { InputVerifierService } from '../../services/input-verifier.service';
-
 
 @Component({
   selector: 'app-home',
@@ -15,25 +13,23 @@ import { InputVerifierService } from '../../services/input-verifier.service';
 })
 export class HomePage implements OnInit {
 
-  public tab: string = 'delivery';
+  public tab: string = '';
   public comenzales: number;
   public email: string;
 
   constructor(
     private scanner: BarcodeScanner,
-    private verificador: InputVerifierService,
   ) { }
 
   ngOnInit() {
-    //this.cambiarTab('local');
+    this.cambiarTab('local');
   }
 
   cambiarTab(tabName: string){
     this.tab = 'cambiando';
     setTimeout( () => {this.tab = tabName}, 1000)
   }
-  escanear(){
-    console.log(this.verificador.verifyEmailFormat(this.email));
-  }
+  escanear(){}
+    
 
 }
