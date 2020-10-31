@@ -54,8 +54,13 @@ export class LoginPage implements OnInit {
         this.authService.login(this.email, this.pwd).then(res =>{
           this.spinner = false;
           //ACA SE PASA LA VARIABLE APROBADO Y PERFIL HACIA EL HOME!
-          console.log(this.perfil);
-          this.router.navigate(["/home"], {state : {email: this.email, perfil : this.perfil, aprobado: this.aprobado}});
+          //console.log(this.perfil);
+          let user = JSON.stringify({email: this.email, perfil : this.perfil, aprobado: this.aprobado});
+          if(this.perfil == "cliente"){
+            this.router.navigate(["home/"+user]);
+          } else if (this.perfil === "dueño" || this.perfil === "supervisor"){
+            this.router.navigate(["supervisor"]);
+          }
           this.clean();
         }).catch(error =>{
           this.spinner = false;
@@ -94,6 +99,7 @@ export class LoginPage implements OnInit {
   }
 
   loginCliente(){
+    this.perfil = 'cliente';
     this.email="ruiz@gmail.com";
     this.pwd="123456";
     this.onSubmitLogin();

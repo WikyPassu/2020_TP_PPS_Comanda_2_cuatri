@@ -56,7 +56,7 @@ export class AltaAdminsPage implements OnInit {
       else if (this.apellido.length < 3){
         this.error = "¡El apellido es muy corto!";
       }
-      else if(!this.inputVerifier.verifyEmailFormat(this.correo)){
+      else if(!InputVerifierService.verifyEmailFormat(this.correo)){
         this.error = "¡El correo tiene caracteres invalidos!";
       }
 

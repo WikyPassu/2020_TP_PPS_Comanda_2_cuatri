@@ -89,7 +89,7 @@ export class RegistroPage implements OnInit {
       else if (this.apellido.length < 3){
         this.error = "El apellido es muy corto!";
       }
-      else if(!this.verifier.verifyEmailFormat(this.email)){
+      else if(!InputVerifierService.verifyEmailFormat(this.email)){
         this.error = "El correo tiene caracteres invalidos!";
       }
       else if(this.clave.length < 6){
@@ -180,7 +180,7 @@ export class RegistroPage implements OnInit {
     return palabra.join(' ');
   }
   
-  scanCode(){
+  scanCode(){ //anda solamente con el formato nuevo
     this.barcodeScanner.scan({formats: "PDF_417"}).then(barcodeData => {
       let scannedCode = barcodeData.text;
       let userQR = scannedCode.split("@");

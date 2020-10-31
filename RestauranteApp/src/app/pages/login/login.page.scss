@@ -1,3 +1,51 @@
+.login-page{
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    
+    ion-card{
+        display: grid;
+
+        width:80%;
+        height:85%;
+
+        align-self: center;
+        justify-self: center;
+
+        --background:white;      
+        
+        .div-logo-empresa{
+            height: 25%;
+
+            display: grid;
+
+            justify-items: center;
+            align-items: center;
+
+            .img-logo{
+                height: 90%;
+                width: auto;
+            }
+        }
+
+        ion-item{
+            margin-bottom:2vw;
+            
+            --ion-border-color:#ff000086;
+            border-radius: 1vw;
+            
+            color: var(--ion-color-medium);
+            --ion-background-color: var(--ion-color-light);
+            --highlight-color-focused: pink !important;
+        
+            --ion-font-family: "IowanOldStyleBlack";
+            font-size: large;
+            //--ion-background-color: var(--ion-color-bordo);
+            //--color:rgb(31, 31, 31);
+        }
+
+    }
+}
 ion-button{
     --background:rgb(112, 112, 112);
     --color:white;
@@ -8,20 +56,8 @@ ion-button{
     width:40vw;
 }
 
-ion-item{
-    --ion-border-color:#ff000086;
-    border-radius: 1vw;
-    color:black;
-    --ion-background-color: bordo;
-    --ion-font-family: "IowanOldStyleBlack";
-    --color:rgb(31, 31, 31);
-    font-size:5vw;
-    --highlight-color-focused: pink !important;
-    margin-bottom:2vw;
-}
-
 ion-item.item-has-focus > ion-label {
-    color:#ff336d !important;
+    color: var(--ion-color-bordo)!important; //#ff336d !important;
 }
 
 
@@ -47,17 +83,7 @@ ion-card-title{
 }
 
 ion-content{
-    --ion-background-color:#841c3a;
-}
-
-ion-card{
-    width:80%;
-    --background:white;
-    position: flex;
-    top: 50%;
-    left: 50%;
-    transform: translate(-53%, -50%);
-    height:65vh;
+    --ion-background-color: var(--ion-color-bordo);
 }
 
 ion-icon{
@@ -79,18 +105,9 @@ ion-icon{
     background-color: rgb(207, 110, 126);
 }
 
-.imgLogo{
-    height:40vw;
-    width:auto;
-}
-
 .botones{ 
     display:flex;
     justify-content: center;
-}
-
-.logo{
-    text-align:center;
 }
 
 ion-label{
@@ -104,12 +121,12 @@ ion-label{
 
 @media screen and (orientation:landscape){
     
-    s
+    
         
-    .imgLogo{
+    /*.imgLogo{
         height:10vw;
         width:auto;
-    }
+    }*/
 
     ion-card{
         margin-top:0.2vw;

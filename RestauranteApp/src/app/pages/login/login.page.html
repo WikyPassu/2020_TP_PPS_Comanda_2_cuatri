@@ -1,30 +1,52 @@
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <div class="logo">
-        <img class="imgLogo" src="../../../assets/icono.png">
-      </div>
-      <ion-item>
-        <ion-label position="floating">Ingrese su correo</ion-label>
-        <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Ingrese su contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="pwd" name="password"></ion-input>
-      </ion-item>
-      <ion-item class="itemError" [hidden]=hide>
-        <ion-text style="text-align:center;" color="black">{{err}}</ion-text>
-      </ion-item>
-      <div class="botones">        
-        <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura" src="../../../assets/icon/basura.png"></ion-fab-button>
-        <ion-button class="btnEntrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>  
-     </div>
-     <div class="btnsRegistro">
-      <ion-button class="botonRegistro" (click)="irRegistro(true)">REGISTRARSE</ion-button>
-      <ion-button class="botonRegistro" (click)="irRegistro(false)">MODO ANONIMO</ion-button> 
-     </div>
-   </ion-card-content>
-  </ion-card>
+
+  <!--DIV CONTENEDOR-->
+  <div class="login-page">
+
+    <ion-card>
+
+      <ion-card-content>
+
+        <!--LOGO DE LA EMPRESA-->
+        <div class="div-logo-empresa">
+          <img class="img-logo" src="../../../assets/icono.png">
+        </div>
+
+        <!--INPUT DE CORREO-->
+        <ion-item>
+          <ion-label position="floating">Ingrese su correo</ion-label>
+          <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
+        </ion-item>
+
+        <!--INPUT DE CLAVE-->
+        <ion-item>
+          <ion-label position="floating">Ingrese su contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="pwd" name="password"></ion-input>
+        </ion-item>
+
+        <!--MENSAJE DE ERROR-->
+        <ion-item class="itemError" [hidden]=hide>
+          <ion-text style="text-align:center;" color="black">{{err}}</ion-text>
+        </ion-item>
+
+        <!--DIV BOTONES DE LOGIN-->
+        <div class="botones">        
+          <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura" src="../../../assets/icon/basura.png"></ion-fab-button>
+          <ion-button class="btnEntrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>  
+        </div>
+
+        <!--DIV BOTONES DE REGISTRO-->
+        <div class="btnsRegistro">
+          <ion-button class="botonRegistro" (click)="irRegistro(true)">REGISTRARSE</ion-button>
+          <ion-button class="botonRegistro" (click)="irRegistro(false)">MODO ANONIMO</ion-button> 
+        </div>
+
+      </ion-card-content>
+
+    </ion-card>
+
+  </div>
+
 </ion-content>
 
 <ion-fab class="users" vertical="bottom" horizontal="end" slot="fixed">
