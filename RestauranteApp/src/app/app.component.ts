@@ -11,7 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   
-  splash: boolean = false; //cambiar
+  splash: boolean = true;
   
   constructor(
     private platform: Platform,

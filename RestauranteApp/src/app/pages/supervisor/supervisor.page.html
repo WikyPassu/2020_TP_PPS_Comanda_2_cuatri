@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Dueño/Supervisor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content align="center">
+  <ion-card>
+    <ion-button (click)="irAltaAdmins()">Alta dueño/supervisor</ion-button>
+    <ion-button>Alta empleados</ion-button>  
+  </ion-card>
+  <ion-card class="lista" *ngIf="hayPendientes">
+    <h3>Clientes pendientes de aprobación:</h3>
+    <ion-grid>
+      <ion-row class="head">
+        <ion-col size="3"><b>Foto</b></ion-col>
+        <ion-col size="3"><b>Nombre</b></ion-col>
+        <ion-col size="3"><b>Correo</b></ion-col>
+        <ion-col size="3"><b>Opciones</b></ion-col>
+      </ion-row>
+      <ion-row *ngFor="let cliente of lista">
+        <ion-col size="3">
+          <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png">
+          <!-- <img src="cliente.foto"> -->
+        </ion-col>
+        <ion-col size="3">
+          <ion-label>{{cliente.apellido}}, {{cliente.nombre}}</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-label>{{cliente.correo}}</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button class="btnAceptar" (click)="aceptarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.nombre)">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </ion-button>
+          <ion-button class="btnRechazar" (click)="rechazarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.nombre)">
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

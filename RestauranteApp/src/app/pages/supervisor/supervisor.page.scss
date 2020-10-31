@@ -1,0 +1,121 @@
+ion-header{
+    --ion-background-color:#841c3a;
+    text-align:center;
+    --ion-font-family: "IowanOldStyleBlack";
+}
+  
+ion-title{
+    color:rgb(255, 255, 255);
+}
+
+ion-content{
+    --ion-background-color:--ion-color-bordo;
+    --ion-font-family: "IowanOldStyleBlack";
+    --ion-background-color:#841c3a;
+}
+
+ion-back-button{
+    color:white;
+}
+
+ion-card{
+    --ion-background-color: white;
+    text-align: center;
+}
+
+.lista{
+    height: 75%;
+    overflow: auto;
+}
+
+ion-button{
+    width: 75%;
+    --background: rgb(112, 112, 112);
+}
+
+.btnAceptar{
+    --background: rgba(73, 161, 73, 0.89);
+    width: 95%;
+}
+
+.btnRechazar{
+    --background: rgba(233, 47, 47, 0.76);
+    width: 95%;
+}
+
+ion-icon{
+    transform: scale(1.6);
+}
+
+h3{
+    font-size: 5vw;
+    color: black;
+}
+
+b{
+    font-size: 3.8vw;
+    color: black;
+}
+
+ion-label{
+    font-size: 3.5vw;
+    color: rgba(0, 0, 0, 0.842);
+}
+
+ion-row{
+    border-style: solid;
+    border-width: 1px 0px 1px 0px;
+    border-color: #841c3a;
+}
+
+ion-row.head{
+    background: rgba(204, 204, 204, 0.541);
+}
+
+ion-col{
+    border-style: solid;
+    border-width: 0px 1px 0px 1px;
+    border-color: #841c3a;
+}
+
+@media screen and (orientation:landscape){
+    
+    .lista{
+        --ion-background-color: white;
+        text-align: center;
+        height: 75%;
+        overflow: auto;
+    }
+    
+    ion-button{
+        width: 45%;
+    }
+    
+    .btnAceptar{
+        --background: rgba(73, 161, 73, 0.89);
+        height: 9vw;
+        width: 90%;
+    }
+    
+    .btnRechazar{
+        --background: rgba(233, 47, 47, 0.76);
+        height: 9vw;
+        width: 90%;
+    }
+
+    ion-icon{
+        transform: scale(2.5);
+    }
+
+    h3{
+        font-size: x-large;
+    }
+    
+    b{
+        font-size: large;
+    }
+
+    ion-label{
+        font-size: 2.8vw;
+    }
+}

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CorreosService } from "../../services/correos.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
 
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   aprobado:boolean = true;
   perfil: string = "cliente";
 
-  constructor(private authService : AuthService, public router : Router) { 
+  constructor(private authService : AuthService, public router : Router, private servicioCorreo: CorreosService) { 
   }
 
   ngOnInit() {
@@ -54,8 +54,13 @@ export class LoginPage implements OnInit {
         this.authService.login(this.email, this.pwd).then(res =>{
           this.spinner = false;
           //ACA SE PASA LA VARIABLE APROBADO Y PERFIL HACIA EL HOME!
-          console.log(this.perfil);
-          this.router.navigate(["/home"], {state : {email: this.email, perfil : this.perfil, aprobado: this.aprobado}});
+          //console.log(this.perfil);
+          let user = JSON.stringify({email: this.email, perfil : this.perfil, aprobado: this.aprobado});
+          if(this.perfil == "cliente"){
+            this.router.navigate(["home/"+user]);
+          } else if (this.perfil === "dueño" || this.perfil === "supervisor"){
+            this.router.navigate(["supervisor"]);
+          }
           this.clean();
         }).catch(error =>{
           this.spinner = false;
@@ -88,26 +93,27 @@ export class LoginPage implements OnInit {
   }
 
   loginDuenio(){
-    this.email="dueño@dueño.com";
-    this.pwd="111111";
+    this.email="duenio@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 
   loginCliente(){
-    this.email="cliente@cliente.com";
-    this.pwd="222222";
+    this.perfil = 'cliente';
+    this.email="ruiz@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 
   loginSupervisor(){
-    this.email="supervisor@supervisor.com";
-    this.pwd="333333";
+    this.email="supervisor@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 
   loginEmpleado(){
-    this.email="empleado@empleado.com";
-    this.pwd="444444";
+    this.email="metre@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 

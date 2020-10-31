@@ -71,6 +71,9 @@ export class AuthService {
       }).catch(error =>rejected(error));
     });
   }
+  
+  verificarSiEstaAceptado(){
+  }
 
   registroAnonimo(nombre : string, fecha){
     return new Promise((resolve, rejected) => {
@@ -90,11 +93,68 @@ export class AuthService {
       });
   }
 
+  registroAdmins(apellido:string,nombre:string,dni:number,cuil:number,perfil:string,correo:string,clave:string,foto:string){
+    let fecha = Date.now();
+    return new Promise((resolve, rejected) => {
+      this.AFauth.createUserWithEmailAndPassword(correo, clave).then(res => {
+        resolve(res);
+        this.db.collection("empleados").doc(dni+"."+fecha).set({
+          id: dni+"."+fecha,
+          apellido: apellido,
+          nombre: nombre,
+          dni: dni,
+          cuil: cuil,
+          perfil: perfil,
+          correo: correo,
+          clave: clave,
+          foto: foto
+        }).catch(error => rejected(error));
+      }).catch(error => rejected(error));
+    });
+  }
+
+  /**
+   * Esta es igual a traerClientesSinAprobar pero con valueChanges porque no me funcionaba la otra
+   */
+  traerClientesPendientesAprobacion(){
+    return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).valueChanges();
+  }
+
   traerClientesSinAprobar(){
     return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
   }
 
   traerEmpleados(){
     return this.db.collection("empleados").snapshotChanges();
+  }
+
+  /**
+   * Hardcodea un cliente para probar cositas ricas, tiene pocos atributos.
+   */
+  registrarCliente(){
+    return this.db.collection("clientes").doc("123123123.111111").set({
+      id: 123123123.111111,
+      dni: 123123123,
+      nombre: "porta",
+      apellido: "queteim",
+      fecha: 111111,
+      aprobado: false
+    });
+  }
+
+  /**
+   * Actualiza la aprobacion de un cliente.
+   * @param uid uid del cliente a actualizar.
+   */
+  actualizarAprobacionRegistro(uid){
+    return this.db.collection("clientes").doc(uid).update({aprobado: true});
+  }
+
+  /**
+   * Elimina un cliente de la coleccion.
+   * @param uid uid del cliente a eliminar.
+   */
+  eliminarCliente(uid){
+    return this.db.collection("clientes").doc(uid).delete();
   }
 }
