@@ -1,0 +1,119 @@
+@font-face{
+    font-family: IowanOldStyleBlack;
+    src: url('../../../assets/fonts/IowanOldStyleBlack.woff2');
+}
+.page-container{
+    background: var(--ion-color-bordo);
+    height: 100%;
+    width: 100%;
+}
+.spinner-tab{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    ion-spinner{
+        transform: scale(3);
+    }
+}
+.tab{
+    padding-top: 10%;
+    padding-bottom: 20%;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+
+    ion-card{
+        height: 100%;
+        width: 80%;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        --ion-font-family: IowanOldStyleBlack;
+    }
+}
+.local-tab{
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-row-gap: 5%;
+    .comenzales-div{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        label{
+            align-self: center;
+            justify-self: center;
+            grid-row: span 2;
+            font-size: xx-large;
+        }
+    }
+    .div-escanear{
+        display: grid;
+        height: 80%;
+        width: 70%;
+        grid-template-rows: 15% 85%;
+        label{
+            background-color: var(--ion-color-medium);
+            height: 100%;
+            //padding: 5px;
+            border-radius: 5px;
+            padding-right: 10px;
+            padding-left: 10px;
+            justify-self: center;
+            align-self: center;
+            align-content: center;
+        }
+        .boton-escanear{
+            height: 100%;
+            //width: 70%;
+            display: grid;
+        }
+    }
+    ion-card{
+        grid-template-rows: 1fr 5fr;
+    }
+    ion-card-title{
+        grid-row: span 1;
+    }
+    .icono-escanear{
+        color: var(--ion-color-bordo);
+        transform: scale(8);
+        align-self: center;
+        justify-self: center;
+        grid-row: span 1;
+    }
+    .acceso-card{
+        ion-card-title{
+            padding-left: 2.5%;
+            padding-right: 2.5%;
+        }
+        ion-checkbox{
+            align-self: center;
+            justify-self: center;
+            height: 50%;
+            width: 50%;
+        }
+    }
+}
+.reservas-tab{
+    ion-card{
+        height: 20%;
+        width: 80%;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        --ion-font-family: IowanOldStyleBlack;
+    }
+}
+.delivery-tab{
+    ion-card{
+        height: 20%;
+        width: 80%;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        --ion-font-family: IowanOldStyleBlack;
+    }
+}
