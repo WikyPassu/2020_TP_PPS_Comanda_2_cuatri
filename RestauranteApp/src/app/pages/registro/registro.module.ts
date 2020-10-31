@@ -8,6 +8,8 @@ import { RegistroPageRoutingModule } from './registro-routing.module';
 
 import { RegistroPage } from './registro.page';
 
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { RegistroPage } from './registro.page';
     IonicModule,
     RegistroPageRoutingModule
   ],
-  declarations: [RegistroPage]
+  declarations: [RegistroPage, SpinnerComponent],
+  exports: [SpinnerComponent]
 })
 export class RegistroPageModule {}
