@@ -89,7 +89,7 @@ export class RegistroPage implements OnInit {
       else if (this.apellido.length < 3){
         this.error = "El apellido es muy corto!";
       }
-      else if(!this.verifier.verifyEmailFormat(this.email)){
+      else if(!InputVerifierService.verifyEmailFormat(this.email)){
         this.error = "El correo tiene caracteres invalidos!";
       }
       else if(this.clave.length < 6){

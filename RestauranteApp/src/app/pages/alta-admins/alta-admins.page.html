@@ -19,7 +19,7 @@
     <ion-row>
       <ion-col>
         <div align="center">
-          <img class="imgAvatar" [src]="foto" (click)="sacarFoto()">
+          <img class="imgAvatar" [src]="preview" (click)="sacarFoto()">
         </div>
       </ion-col>
     </ion-row>
@@ -59,7 +59,7 @@
           <ion-radio-group (ionChange)="guardarPerfil($event)">
             <ion-item>
               <ion-label>Dueño</ion-label>
-              <ion-radio slot="start" value="dueño"></ion-radio>
+              <ion-radio slot="start" value="dueño" checked></ion-radio>
             </ion-item>
             <ion-item>
               <ion-label>Supervisor</ion-label>
@@ -103,10 +103,10 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <div *ngIf="mostrarAgregado" align="center">
+        <div *ngIf="agregado" align="center">
           <ion-label text-wrap class="lblAgregado">{{mensaje}}</ion-label>
         </div>
-        <div *ngIf="mostrarError" align="center">
+        <div *ngIf="hayError" align="center">
           <ion-label text-wrap class="lblError">{{error}}</ion-label>
         </div>
       </ion-col>
@@ -114,7 +114,7 @@
     <ion-row>
       <ion-col style="text-align:center;">      
         <ion-button class="btnAceptar" (click)="registrar()">Aceptar</ion-button>
-        <ion-button class="btnCancelar" (click)="cancelar()">Cancelar</ion-button>
+        <ion-button class="btnCancelar" (click)="limpiar()">Cancelar</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
