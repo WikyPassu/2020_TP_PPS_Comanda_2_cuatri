@@ -88,26 +88,26 @@ export class LoginPage implements OnInit {
   }
 
   loginDuenio(){
-    this.email="dueño@dueño.com";
-    this.pwd="111111";
+    this.email="duenio@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 
   loginCliente(){
-    this.email="cliente@cliente.com";
-    this.pwd="222222";
+    this.email="ruiz@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 
   loginSupervisor(){
-    this.email="supervisor@supervisor.com";
-    this.pwd="333333";
+    this.email="supervisor@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 
   loginEmpleado(){
-    this.email="empleado@empleado.com";
-    this.pwd="444444";
+    this.email="metre@gmail.com";
+    this.pwd="123456";
     this.onSubmitLogin();
   }
 

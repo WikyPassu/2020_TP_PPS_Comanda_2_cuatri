@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { CorreosService } from "../../services/correos.service";
+import { Router } from "@angular/router";
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-supervisor',
@@ -10,13 +12,17 @@ import { CorreosService } from "../../services/correos.service";
 export class SupervisorPage implements OnInit {
 
   lista = new Array();
+  hayPendientes: boolean = false;
 
-  constructor(private db: AuthService, private cs: CorreosService) {
-    //this.db.registrarCliente();
-  }
+  constructor(private db: AuthService, private cs: CorreosService, private router: Router) { }
 
   ngOnInit() {
-    this.db.traerClientesPendientesAprobacion().subscribe(doc => this.lista = doc);
+    this.db.traerClientesPendientesAprobacion().subscribe(doc => {
+      this.lista = doc;
+      if(this.lista.length != 0){
+        this.hayPendientes = true;
+      }
+    });
   }
 
   aceptarRegistro(dni: number, fecha: number, correo: string, nombre: string){
@@ -43,5 +49,9 @@ export class SupervisorPage implements OnInit {
         Saludos, EL CIRCULO RESTAURANTE`
       );
     });
+  }
+
+  irAltaAdmins(){
+    this.router.navigate(["/alta-admins"]);
   }
 }

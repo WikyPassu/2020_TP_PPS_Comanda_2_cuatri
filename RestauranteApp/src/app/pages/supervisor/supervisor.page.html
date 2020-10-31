@@ -7,9 +7,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content align="center">
   <ion-card>
-    <h3>Pendientes de aprobación:</h3>
+    <ion-button (click)="irAltaAdmins()">Alta dueño/supervisor</ion-button>
+    <ion-button>Alta empleados</ion-button>  
+  </ion-card>
+  <ion-card class="lista" *ngIf="hayPendientes">
+    <h3>Clientes pendientes de aprobación:</h3>
     <ion-grid>
       <ion-row class="head">
         <ion-col size="3"><b>Foto</b></ion-col>
@@ -19,8 +23,8 @@
       </ion-row>
       <ion-row *ngFor="let cliente of lista">
         <ion-col size="3">
-          <!-- <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png"> -->
-          <img src="cliente.foto">
+          <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png">
+          <!-- <img src="cliente.foto"> -->
         </ion-col>
         <ion-col size="3">
           <ion-label>{{cliente.apellido}}, {{cliente.nombre}}</ion-label>

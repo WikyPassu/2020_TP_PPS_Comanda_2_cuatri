@@ -21,12 +21,16 @@ ion-back-button{
 ion-card{
     --ion-background-color: white;
     text-align: center;
-    height: 95%;
+}
+
+.lista{
+    height: 75%;
     overflow: auto;
 }
 
 ion-button{
-    width: 70%;
+    width: 75%;
+    --background: rgb(112, 112, 112);
 }
 
 .btnAceptar{
@@ -76,15 +80,15 @@ ion-col{
 
 @media screen and (orientation:landscape){
     
-    ion-card{
+    .lista{
         --ion-background-color: white;
         text-align: center;
-        height: 90%;
+        height: 75%;
         overflow: auto;
     }
     
     ion-button{
-        width: 70%;
+        width: 45%;
     }
     
     .btnAceptar{
