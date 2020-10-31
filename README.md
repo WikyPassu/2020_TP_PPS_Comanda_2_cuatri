@@ -9,16 +9,22 @@
 <p>➤ <a href="https://github.com/murraydemian">Suarez Murray Demian José (Gamma)</a></p>
 <hr>
 <h2>Diagramas:</h2>
+<p>Diagrama 1</p>
 <img src="http://drive.google.com/uc?export=view&id=13VsMJO7v0DaC8T6AzY0DQOt59h2gjIfu">
 <hr>
+<p>Diagrama 2</p>
 <img src="http://drive.google.com/uc?export=view&id=1csMc_npXi9i1B86heTScvJyElnezpVKm">
 <hr>
+<p>Diagrama 3</p>
 <img src="http://drive.google.com/uc?export=view&id=1B3D0TWxEqtxI6LsA6u7XBHeILChptEB6">
 <hr>
+<p>Diagrama 4</p>
 <img src="http://drive.google.com/uc?export=view&id=1gq8U8TycnWLC7Be5oYEQRfiPx4bcaLcy">
 <hr>
+<p>Diagrama 5</p>
 <img src="http://drive.google.com/uc?export=view&id=1Zixq-qE1TBjF_dDQsd6ir1kXAniodb28">
 <hr>
+<p>Diagrama 6</p>
 <img src="http://drive.google.com/uc?export=view&id=1Dpuem7TEEVpfGF_7l9tOG-pBkkJPHFPs">
 <hr>
 <h2>Tareas semanales:</h2>
