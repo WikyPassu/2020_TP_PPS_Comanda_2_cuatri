@@ -128,20 +128,7 @@ export class RegistroPage implements OnInit {
             this.limpiarCampos();
           })
           .catch((error) => {
-            this.mostrarBotonera = false;
-            this.mostrarError = true;
-            if (error.code == "auth/weak-password") {
-              this.error = "La clave es muy corta";
-            }
-            else if (error.code == "auth/email-already-in-use") {
-              this.error = "El correo ya existe";
-            }
-            else if (error.code == "auth/invalid-email") {
-              this.error = "El correo ya existe";
-            }
-            else {
-              this.error = error;
-            }
+            this.error = error;
             this.error += ". Por favor, vuelva a intentarlo"
           });
       }
@@ -188,6 +175,7 @@ export class RegistroPage implements OnInit {
   }
 
   sacarFoto() {
+    this.error= "";
     this.auth.borrarFoto(this.preview);
     const opciones: CameraOptions = {
       quality: 50,
@@ -242,7 +230,7 @@ export class RegistroPage implements OnInit {
             lista.items.forEach(foto => {
               if (foto.name == nombreFoto){
                 foto.getDownloadURL().then((link)=>{
-                  this.preview=link;
+                    this.preview=link;
                 });
               }
             });
