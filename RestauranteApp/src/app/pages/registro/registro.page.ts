@@ -121,7 +121,7 @@ export class RegistroPage implements OnInit {
       if (this.modoRegistro == true) {
         tipoRegistro = "registrado"
 
-        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, tipoRegistro, this.fecha)
+        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, tipoRegistro, this.fecha, this.foto)
           .then(() => {
             this.mostrarAgregado = true;
             this.mostrarBotonera = false;
@@ -133,7 +133,7 @@ export class RegistroPage implements OnInit {
           });
       }
       else{
-        this.auth.registroAnonimo(this.nombre, this.fecha)
+        this.auth.registroAnonimo(this.nombre, this.fecha, this.foto)
           .then(() => {
             this.limpiarCampos();
             this.router.navigate(["/home"], {state : {perfil: "cliente"}});

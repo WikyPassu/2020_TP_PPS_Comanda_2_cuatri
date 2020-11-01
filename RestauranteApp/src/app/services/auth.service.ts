@@ -74,7 +74,7 @@ export class AuthService {
 
   }
 
-  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, tipoRegistro : string, fecha){
+  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, tipoRegistro : string, fecha, foto : string){
     return new Promise((resolve, rejected) => {
         this.db.collection("clientes").doc(dni + '.' + fecha).set({
           id: dni + '.' + fecha,
@@ -82,7 +82,7 @@ export class AuthService {
           aprobado : false,
           correo: correo,
           dni: dni,
-          foto: nombre + "." + fecha,
+          foto: foto,
           nombre: nombre,
           tipo: "registrado",
           fecha: fecha
@@ -95,7 +95,7 @@ export class AuthService {
   verificarSiEstaAceptado(){
   }
 
-  registroAnonimo(nombre : string, fecha){
+  registroAnonimo(nombre : string, fecha, foto){
     return new Promise((resolve, rejected) => {
         this.db.collection("clientes").doc(nombre + '.' + fecha).set({
           id: nombre + '.' + fecha,
@@ -104,7 +104,7 @@ export class AuthService {
           clave: "",
           correo: "",
           dni: "",
-          foto: nombre + "." + fecha,
+          foto: foto,
           nombre: nombre,
           tipo: "anonimo",
           fecha: fecha
