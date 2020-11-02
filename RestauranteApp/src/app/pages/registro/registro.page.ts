@@ -121,7 +121,7 @@ export class RegistroPage implements OnInit {
       if (this.modoRegistro == true) {
         tipoRegistro = "registrado"
 
-        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, tipoRegistro, this.fecha)
+        this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, this.fecha, this.foto)
           .then(() => {
             this.mostrarAgregado = true;
             this.mostrarBotonera = false;
@@ -190,7 +190,7 @@ export class RegistroPage implements OnInit {
       this.camera.getPicture(opciones).then((ImageData) => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
-        this.fecha = new Date();
+        this.fecha = Date.now();
         let nombreFoto = this.dni + "." + this.fecha +".jpg";
 
         let childRef = storageRef.child(nombreFoto);
@@ -200,7 +200,7 @@ export class RegistroPage implements OnInit {
             lista.items.forEach(foto => {
               if (foto.name == nombreFoto){
                 foto.getDownloadURL().then((link)=>{
-                  this.preview=link;
+                  this.preview = link;
                 });
               }
             });
@@ -221,7 +221,7 @@ export class RegistroPage implements OnInit {
       this.camera.getPicture(opciones).then((ImageData) => {
         let base64Str = 'data:image/jpeg;base64,' + ImageData;
         let storageRef = firebase.storage().ref();
-        this.fecha = new Date();
+        this.fecha = Date.now();
         let nombreFoto = this.nombre+ "." + this.fecha +".jpg";
 
         let childRef = storageRef.child(nombreFoto);
@@ -230,7 +230,7 @@ export class RegistroPage implements OnInit {
             lista.items.forEach(foto => {
               if (foto.name == nombreFoto){
                 foto.getDownloadURL().then((link)=>{
-                    this.preview=link;
+                    this.preview = link;
                 });
               }
             });

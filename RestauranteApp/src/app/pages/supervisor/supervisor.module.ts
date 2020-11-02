@@ -8,6 +8,8 @@ import { SupervisorPageRoutingModule } from './supervisor-routing.module';
 
 import { SupervisorPage } from './supervisor.page';
 
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { SupervisorPage } from './supervisor.page';
     IonicModule,
     SupervisorPageRoutingModule
   ],
-  declarations: [SupervisorPage]
+  declarations: [SupervisorPage, SpinnerComponent]
 })
 export class SupervisorPageModule {}

@@ -10,7 +10,7 @@
 <ion-content align="center">
   <ion-card>
     <ion-button (click)="irAltaAdmins()">Alta dueño/supervisor</ion-button>
-    <ion-button>Alta empleados</ion-button>  
+    <ion-button (click)="test()">Alta empleados</ion-button>  
   </ion-card>
   <ion-card class="lista" *ngIf="hayPendientes">
     <h3>Clientes pendientes de aprobación:</h3>
@@ -23,8 +23,7 @@
       </ion-row>
       <ion-row *ngFor="let cliente of lista">
         <ion-col size="3">
-          <img src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png">
-          <!-- <img src="cliente.foto"> -->
+          <img [src]="cliente.link">
         </ion-col>
         <ion-col size="3">
           <ion-label>{{cliente.apellido}}, {{cliente.nombre}}</ion-label>
@@ -33,7 +32,7 @@
           <ion-label>{{cliente.correo}}</ion-label>
         </ion-col>
         <ion-col size="3">
-          <ion-button class="btnAceptar" (click)="aceptarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.nombre)">
+          <ion-button class="btnAceptar" (click)="aceptarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.clave,cliente.nombre)">
             <ion-icon name="checkmark-circle"></ion-icon>
           </ion-button>
           <ion-button class="btnRechazar" (click)="rechazarRegistro(cliente.dni,cliente.fecha,cliente.correo,cliente.nombre)">
@@ -44,3 +43,5 @@
     </ion-grid>
   </ion-card>
 </ion-content>
+
+<app-spinner *ngIf="spinner"></app-spinner>

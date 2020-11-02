@@ -3,13 +3,18 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) { }
+  constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) {
+    // Actualizo la lista actual de clientes en la coleccion
+    this.traerClientes().subscribe(data => this.clientesRegistrados = data);
+  }
   base;
+  clientesRegistrados = new Array(); //Lista de clientes en la coleccion
 
   login(email:string, pwd:string){
     return new Promise((resolve, rejected) => {
@@ -34,6 +39,24 @@ export class AuthService {
     return this.db.collection("Usuarios").snapshotChanges();
   }
 
+  /**
+   * Trae el link de la foto con el nombre pasado por parametro
+   * @param nombreFoto Nombre de la foto de la que se quiere el link
+   */
+  buscarFotoPorNombre(nombreFoto){
+    let storageRef = firebase.storage().ref();
+    return new Promise(resolve => {
+      storageRef.listAll().then(lista => {
+        lista.items.forEach(foto => {
+          if(foto.name == nombreFoto){
+            foto.getDownloadURL().then(link => {
+              resolve(link);
+            });
+          }
+        });
+      })
+    });
+  }
 
   borrarFoto(linkFoto){
     let storageRef = firebase.storage().ref();
@@ -74,15 +97,39 @@ export class AuthService {
 
   }
 
-  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, tipoRegistro : string, fecha){
+  /**
+   * Registra un cliente en el auth
+   * @param correo
+   * @param clave
+   */
+  registroAuth(correo: string, clave:string){
+    return new Promise((resolve, rejected) => {
+      this.AFauth.createUserWithEmailAndPassword(correo, clave)
+      .then(user => resolve(user))
+      .catch(error => rejected(error));
+    });
+  }
+
+  /**
+   * Registra un cliente en la coleccion con aprobado = false
+   * @param correo
+   * @param clave 
+   * @param apellido 
+   * @param nombre 
+   * @param dni 
+   * @param fecha 
+   * @param foto 
+   */
+  registroCliente(correo:string, clave:string, apellido:string, nombre:string, dni:number, fecha:number, foto:string){
     return new Promise((resolve, rejected) => {
         this.db.collection("clientes").doc(dni + '.' + fecha).set({
           id: dni + '.' + fecha,
           apellido: apellido,
           aprobado : false,
           correo: correo,
+          clave: clave, //agrego clave porque la necesito para hacer auth
           dni: dni,
-          foto: nombre + "." + fecha,
+          foto: foto,
           nombre: nombre,
           tipo: "registrado",
           fecha: fecha
@@ -177,5 +224,46 @@ export class AuthService {
    */
   eliminarCliente(uid){
     return this.db.collection("clientes").doc(uid).delete();
+  }
+
+  /**
+   * Trae todos los docs de la coleccion clientes
+   */
+  traerClientes(){
+    return this.db.collection("clientes").valueChanges();
+  }
+
+  /**
+   * Recorre la lista de clientes (que se actualiza en el constructor)
+   * y se fija si existe un cliente registrado en la coleccion con el
+   * correo pasado por parametro 
+   * @param correo Correo del cliente que quiero saber si esta registrado en
+   * la coleccion
+   */
+  verificarEmailFire(correo: string): boolean{
+    let existe = false;
+    this.clientesRegistrados.forEach(cliente => {
+      if(cliente.correo == correo){
+        existe = true;
+      }
+    });
+    return existe;
+  }
+
+  /**
+   * Recorre la lista de clientes (que se actualiza en el constructor)
+   * y se fija si existe un cliente registrado y aprobado en la coleccion
+   * con el correo pasado por parametro
+   * @param correo Correo del cliente que quiero saber si esta registrado en
+   * el auth
+   */
+  verificarEmailAuth(correo: string){
+    let existe = false;
+    this.clientesRegistrados.forEach(cliente => {
+      if(cliente.correo == correo && cliente.aprobado){
+        existe = true;
+      }
+    });
+    return existe;
   }
 }
