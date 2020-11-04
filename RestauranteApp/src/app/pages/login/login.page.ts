@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CorreosService } from "../../services/correos.service";
+import { InputVerifierService } from '../../services/input-verifier.service';
+import { ToastController } from '@ionic/angular';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +13,40 @@ import { CorreosService } from "../../services/correos.service";
 })
 export class LoginPage implements OnInit {
 
-  email:string = "";
-  pwd:string = "";
-  err:string;
-  hide:boolean = true;
-  spinner:boolean = false;
-  aprobado:boolean = true;
+  email: string = "";
+  pwd: string = "";
+  err: string = '';
+  hide: boolean = true;
+  spinner: boolean = false;
+  aprobado: boolean = true;
   perfil: string = "cliente";
+  private usuario: any = null;
 
-  constructor(private authService : AuthService, public router : Router, private servicioCorreo: CorreosService) { 
-  }
+  constructor(
+    private authService: AuthService,
+    public router: Router,
+    private servicioCorreo: CorreosService,
+    private toast: ToastController,
+    private fire: AngularFirestore,
+    ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmitLogin(){
+    if(!InputVerifierService.verifyEmailFormat(this.email))
+      {this.presentToast('Formato de correo invalido.'); return;}
+    if(InputVerifierService.verifyPasswordStrength(this.pwd) == 0)
+      {this.presentToast('Clave invalida.'); return;}
+    this.spinner = true;
+    this.authService.login(this.email, this.pwd)
+    .then( (response) => {
+      this.manejarLoginExitoso(response);
+    })
+    .catch( (reason) => {
+      this.presentToast(this.traducirErrorCode(reason.code));
+      this.spinner = false;
+    });
+    /*
     this.verificarSiEstaAprobado();
     this.traerTipoEmpleado();
 
@@ -83,7 +105,26 @@ export class LoginPage implements OnInit {
           this.hide = false;
         });  
       }, 2000);
+    }*/
+  }
+
+  /**
+   * Traduce el codigo de error (string) que entrega Fire Auth y devuelve un equivalente aceptable
+   * para PPS. Si no encuentra un equivalente devuelve "Error en login".
+   * @param codigo Codigo de error entregado por Angular Fire Auth
+   */
+  traducirErrorCode(codigo: string) : string{
+    let mensaje: string = 'Error en login';
+    if(codigo == "auth/invalid-email"){
+      mensaje = "Ingrese un correo válido!";
     }
+    else if(codigo == "auth/user-not-found"){
+      mensaje = "No existe un usuario con dicho correo electrónico.";
+    }
+    else if(codigo == "auth/wrong-password"){
+      mensaje = "Contraseña incorrecta.";
+    }
+    return mensaje;
   }
 
   clean(){
@@ -161,5 +202,75 @@ export class LoginPage implements OnInit {
         }
       });
     });
+  }
+  /**
+   * Presenta un toast en el medio de la pantalla, muestra el mensaje recibido como parametro.
+   * El toast se ubica en el medio de la pantalla.
+   * @param message Mensaje a presentar
+   */
+  async presentToast(message) {
+    const toast = await this.toast.create({
+      message: message,
+      duration: 2000,
+      position: "middle",
+      animated: true,
+      mode: "md",
+    });
+    toast.present();
+  }
+
+  /**
+   * Llama a TraerUserInfo y se encarga de redireccionar a la pagina correspondiente.
+   * Puede entregar la info del usuario a dicha pagina.
+   * @param response Respuesta de auth.
+   */
+  manejarLoginExitoso(response){
+    this.traerUserInfo()
+    .then( (usr) => {
+      this.spinner = false
+      this.usuario = usr;
+      if(this.usuario.perfil == 'cliente'){
+        //console.log(JSON.stringify(this.usuario));
+        this.router.navigate(['home/' + JSON.stringify(this.usuario)]);
+      }else if(this.usuario.perfil == 'dueño' || this.usuario.perfil == 'supervisor'){
+        this.router.navigate(['supervisor']);
+      }else if(this.usuario.perfil == 'metre'){
+        //console.log(JSON.stringify(this.usuario));
+        this.router.navigate(['lista-espera/' + JSON.stringify(this.usuario)]);
+      }else{
+        this.presentToast('Oof, se rompio.');
+      }
+    })
+    .catch( () => {
+      this.spinner = false;
+      this.presentToast('Oof, se rompio.');
+    });
+  }
+
+  /**
+   * Realiza una peticion sobre una coleecion y verifica si existe una instancia donde el correo
+   * coincida con el almacenado en this.email, puede llamarse a si misma e iterar sobre una segunda coleccion.
+   * Retorna una promesa que de ser exitosa retorna un json con el usuario, caso contrario retorna null.
+   * @param collection Colecion donde hace la peticion
+   * @param recursive Define si la funcion se vuelve a llamar y realiza el query sobre la sengunda coleccion
+   * @param segundo Segunda coleccion
+   */
+  traerUserInfo(collection: string = 'clientes', recursive: boolean = true, segundo: string = 'empleados'){
+    let usuario;
+    return new Promise( (resolve, reject) =>
+    this.fire.collection(collection, 
+    (ref) => ref.where('correo', '==', this.email))
+    .valueChanges().subscribe( (data) => {
+      if(data.length > 0){
+        usuario = data[0];
+        resolve(usuario);
+      }else if(recursive){
+        this.traerUserInfo(segundo, false)
+        .then( dataRec => {resolve(dataRec)})
+        .catch( () => {reject(null)} );
+      }else{
+        reject(null);
+      }
+    }));
   }
 }

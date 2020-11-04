@@ -27,6 +27,11 @@ const routes: Routes = [
     path: 'home/:user',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
+  {
+    path: 'lista-espera/:user',
+    loadChildren: () => import('./pages/lista-espera/lista-espera.module').then( m => m.ListaEsperaPageModule)
+  },
+
 
 ];
 

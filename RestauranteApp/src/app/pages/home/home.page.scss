@@ -3,7 +3,6 @@
     src: url('../../../assets/fonts/IowanOldStyleBlack.woff2');
 }
 .page-container{
-    background: var(--ion-color-bordo);
     height: 100%;
     width: 100%;
 }
@@ -18,6 +17,7 @@
     }
 }
 .tab{
+    background-color: var(--ion-color-bordo);
     padding-top: 10%;
     padding-bottom: 20%;
     height: 100%;
@@ -26,6 +26,7 @@
     align-items: center;
     justify-items: center;
     ion-card{
+        background: var(--ion-color-light);
         height: 100%;
         width: 80%;
         display: grid;
@@ -34,40 +35,62 @@
         --ion-font-family: IowanOldStyleBlack;
     }
 }
+p{
+    padding-top: 5%;
+    color: black;
+    font-size: large;
+    text-align: center;
+    font-family: IowanOldStyleBlack;
+}
+label{
+    font-family: IowanOldStyleBlack;
+}
 .local-tab{
     grid-template-rows: 1fr 1fr 1fr;
     grid-row-gap: 5%;
+    .card{
+        width: 80vw;
+        height: 25vh;
+
+        padding: 5%;
+
+        background: var(--ion-color-light);
+
+        border-radius: 1vh;
+    }
     .comenzales-div{
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        
+        p{
+            padding-top: 0%;
+            grid-column: span 2;
+            grid-row: span 1;
+        }
         label{
+            height: 65%;
+            width: auto;
+
             align-self: center;
             justify-self: center;
-            grid-row: span 2;
+
+            grid-row: span 1;
+
             font-size: xx-large;
         }
         .boton-comenzal{
             font-size: xx-large;
-            height: 80%;
         }
     }
     .acceso-card{
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-
-        align-items: center;
-        justify-items: center;
-        ion-card-title{
-            justify-content: center;
-            text-justify: newspaper;
-        }
+        display: grid;
+        grid-template-rows: 1fr 2.5fr ;
+        align-content: center;
+        justify-content: center;
         ion-checkbox{
-            align-self: center;
             justify-self: center;
-            height: 50%;
+            height: 60%;
             width: 50%;
         }
     }
@@ -126,5 +149,13 @@
         align-content: center;
         justify-content: center;
         --ion-font-family: IowanOldStyleBlack;
+    }
+}
+.footer-toolbar{
+    display: flex;
+    justify-content: space-evenly !important;
+
+    ion-button{
+        width: 30vw ;
     }
 }
