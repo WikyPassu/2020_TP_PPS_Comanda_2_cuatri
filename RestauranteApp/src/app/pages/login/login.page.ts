@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
-  private usuarioListo: Event = new Event('usuarioListo');
 
   constructor(
     private authService: AuthService,
@@ -231,9 +230,13 @@ export class LoginPage implements OnInit {
       this.spinner = false
       this.usuario = usr;
       if(this.usuario.perfil == 'cliente'){
+        //console.log(JSON.stringify(this.usuario));
         this.router.navigate(['home/' + JSON.stringify(this.usuario)]);
       }else if(this.usuario.perfil == 'dueño' || this.usuario.perfil == 'supervisor'){
         this.router.navigate(['supervisor']);
+      }else if(this.usuario.perfil == 'metre'){
+        //console.log(JSON.stringify(this.usuario));
+        this.router.navigate(['lista-espera/' + JSON.stringify(this.usuario)]);
       }else{
         this.presentToast('Oof, se rompio.');
       }

@@ -8,6 +8,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { BarcodeScanner, BarcodeScannerOptions, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { ToastController } from '@ionic/angular';
+import { BackButtonEvent } from '@ionic/core';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +17,15 @@ import { ToastController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
-  public tab: string = '';
+  public spinner: boolean = false;
+  public tab: string = 'cambiando';
   public comenzales: number = 1;
   public email: string;
   public maximo: number = 4;
   public minimo: number = 1;
-  public acceso;
+  public acceso: boolean = false; 
   private user: any;
-
+  
 
   constructor(
     private scanner: BarcodeScanner,
@@ -34,10 +36,11 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    document.addEventListener('ionBackButton', this.verificarListaEspera);
     this.tab = 'local';
-    /*try{
-      this.user = JSON.parse(this.route.snapshot.paramMap.get('user'));
-      
+    try{
+      this.user = JSON.parse(this.route.snapshot.paramMap.get('user'));    
+      this.verificarListaEspera();  
       if(this.user.perfil == 'cliente'){
         this.cambiarTab('local');
       } else if (this.user.perfil == 'dueño' || this.user.perfil == 'supervisor'){
@@ -47,25 +50,30 @@ export class HomePage implements OnInit {
       }
     } catch {
       this.router.navigate(['login']);
-    }*/
+    }
   }
 
   cambiarTab(tabName: string){
     this.tab = 'cambiando';
     setTimeout( () => {this.tab = tabName}, 1000)
   }
-  escanear(foo){
-    this.presentToast('Escaner');
+  escanear(){
+    //this.presentToast('Escaner');
     let resultado: string = 'OqJvTwaXF5GvroLveLvQ';
     this.fire.doc('codigos/' + resultado)
-    .get().subscribe( (data) => {
-      console.log(data.data() );
-    });
+    .get().subscribe( (data => {
+      let code = data.data();
+      if(code.tipo == 'lista-espera'){
+        this.agregarAListaDeEspera();
+      }else{
+        this.presentToast('El codigo escaneado no de entrada.');
+      }
+    }));
   }
   agregarComenzal(cantidad: number){
     let resultado = this.comenzales + cantidad;
     this.comenzales = resultado > this.maximo ? this.maximo : resultado < this.minimo ? this.minimo : resultado;
-    console.log(this.comenzales);
+    //console.log(this.comenzales);
   }
   async presentToast(message) {
     const toast = await this.toast.create({
@@ -76,5 +84,34 @@ export class HomePage implements OnInit {
       mode: "md",
     });
     toast.present();
+  }
+  agregarAListaDeEspera(){
+    let nuevoEnLista = {
+      nombre: this.user.nombre,
+      id: this.user.id,
+      foto: this.user.foto,
+      fecha: Date.now(),
+      comenzales: this.comenzales,
+      acceso: this.acceso,
+    }
+    //console.log(nuevoEnLista);
+    this.fire.collection('listaespera').add(nuevoEnLista)
+    .then( () => {
+      this.router.navigate(['lista-espera']);
+    })
+    .catch( () => {
+      this.presentToast('Hubo un error, vuelva a intentar.');
+    });
+  }
+
+  async verificarListaEspera(){
+    let userStr: string = JSON.stringify(this.user);
+    this.fire.collection('listaespera', (ref) => ref.where('id', '==', this.user.id))
+    .valueChanges().subscribe( (resultList) => {
+      //console.log(resultList);
+      if(resultList.length > 0){
+        this.router.navigate(['lista-espera/' + userStr]);
+      }
+    });
   }
 }
