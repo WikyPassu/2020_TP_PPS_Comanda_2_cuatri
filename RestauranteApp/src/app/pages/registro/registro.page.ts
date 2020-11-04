@@ -8,6 +8,7 @@ import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType
 import { StorageService } from "../../services/storage.service";
 import { AngularFireStorage } from "@angular/fire/storage";
 import * as firebase from 'firebase';
+import { observable } from 'rxjs';
 
 @Component({
   selector: 'app-registro',
@@ -133,10 +134,11 @@ export class RegistroPage implements OnInit {
           });
       }
       else{
-        this.auth.registroAnonimo(this.nombre, this.fecha)
+        this.auth.registroAnonimo(this.nombre, this.fecha, this.foto)
           .then(() => {
             this.limpiarCampos();
-            this.router.navigate(["/home"], {state : {perfil: "cliente"}});
+            let user = JSON.stringify({nombre: this.nombre, id : this.nombre + "." + this.fecha, tipo : "anonimo", "linkFoto" : this.preview, "nombreFoto" : this.foto});
+            this.router.navigate(["/home/" + user], {state : {perfil: "cliente"}});
           })
           .catch((error) => {
             this.mostrarError = true;
@@ -252,12 +254,7 @@ export class RegistroPage implements OnInit {
   continuar(){
     this.validarCampos();
     if (this.error == ""){
-      if (this.modoRegistro == false){
         this.sinContinuar = false;
-      }
-      else if(this.modoRegistro == true){
-        this.sinContinuar = false;
-      }
     }
     else{
       this.mostrarError = true;

@@ -142,7 +142,7 @@ export class AuthService {
   verificarSiEstaAceptado(){
   }
 
-  registroAnonimo(nombre : string, fecha){
+  registroAnonimo(nombre : string, fecha, foto){
     return new Promise((resolve, rejected) => {
         this.db.collection("clientes").doc(nombre + '.' + fecha).set({
           id: nombre + '.' + fecha,
@@ -151,7 +151,7 @@ export class AuthService {
           clave: "",
           correo: "",
           dni: "",
-          foto: nombre + "." + fecha,
+          foto: foto,
           nombre: nombre,
           tipo: "anonimo",
           fecha: fecha
