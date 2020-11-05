@@ -1,8 +1,8 @@
 .login-page{
     display: grid;
-    height: 100vh;
-    width: 100vw;
-    
+    height : 100%;
+    width : 100%;
+
     ion-card{
         display: grid;
 
@@ -29,7 +29,7 @@
         }
 
         ion-item{
-            margin-bottom:2vw;
+            margin-bottom:2vh;
             
             --ion-border-color:#ff000086;
             border-radius: 1vw;
@@ -45,6 +45,7 @@
         }
     }
 }
+
 ion-button{
     --background:rgb(112, 112, 112);
     --color:white;
@@ -129,72 +130,70 @@ ion-label{
 }
 
 @media screen and (orientation:landscape){
-    
-    
-        
-    /*.imgLogo{
-        height:10vw;
-        width:auto;
-    }*/
+    .img-logo{
+        height:20vh !important ;
+        width:auto !important ;
+        margin-bottom: 4vh;
+    }
 
     ion-card{
-        margin-top:0.2vw;
-        height:47vw;
-        border-radius: 4vw;
+        margin-top:5vh !important ;
+        height:95vh !important ;
+        border-radius: 4vw !important ;
     }
 
     ion-card-title{    
-        font-size:3vw;
+        font-size:3vw !important ;
     }
 
     ion-item{
-        width:70vw;
-        margin-left:3vw;
-        height:8vw;
-        font-size:2.75vw;
+        width:70vw !important ;
+        margin-left:3vw !important ;
+        height:8vw !important ;
+        font-size:2.75vw !important ;
     }
 
     ion-input{
-        height:1.75vw;
+        height:1.75vw !important ;
     }
 
     ion-label{
-        height:3.5vw;
+        height:3.5vw !important ;
     }
     
     .itemError{
-        margin-top:0vw;
-        height:6vw;
+        margin-top:0vw !important ;
+        height:6vw !important ;
     }
 
     ion-button{
-        margin-top:0vw;
-        height:6vw;
-        width:30vw;
+        margin-top:0vw !important ;
+        height:6vw !important ;
+        width:30vw !important ;
     }
 
     .btnEntrar{
-        font-size:4vw;
+        font-size:4vw !important ;
     }
 
     .fabLimpiar{
-        height:6vw;
-        width:6vw;
+        height:6vw !important ;
+        width:6vw !important ;
     }
 
     .imgBasura{
-        height:4vw;
-        width:4vw;
+        height:4vw !important ;
+        width:4vw !important ;
     }
     
     .botonRegistro{
-        font-size:2vw;
-        width:40vw;
-        height:5vw;
+        font-size:2vw !important ;
+        width:40vw !important ;
+        height:5vw !important ;
     }
 
     .btnsRegistro{
-        display:flex;
+        display:flex !important ;
     }
 }
 
