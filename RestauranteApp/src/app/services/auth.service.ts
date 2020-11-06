@@ -244,7 +244,7 @@ export class AuthService {
   verificarEmailFire(correo: string): boolean{
     let existe = false;
     this.clientesRegistrados.forEach(cliente => {
-      if(cliente.correo == correo){
+      if(cliente.correo == correo && !cliente.aprobado){
         existe = true;
       }
     });
