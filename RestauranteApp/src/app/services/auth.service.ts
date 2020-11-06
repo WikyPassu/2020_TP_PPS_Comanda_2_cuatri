@@ -8,8 +8,14 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) { }
+  
   base;
+  userObs;
+
+  constructor(
+    private AFauth:AngularFireAuth, 
+    private db:AngularFirestore,
+    ) { }
 
   login(email:string, pwd:string){
     return new Promise((resolve, rejected) => {
@@ -156,5 +162,17 @@ export class AuthService {
    */
   eliminarCliente(uid){
     return this.db.collection("clientes").doc(uid).delete();
+  }
+  /**
+   * Trae el observable de los datos de usuario en firestore.
+   * @param correo Correo del usuario
+   */
+  async traerInfoFirestore(correo){
+    return new Promise( (resolve, rejected) => {
+      this.db.collection('clientes', (ref) => ref.where('correo', '==', correo))
+      .get().subscribe( data => {
+        resolve(data);
+      });
+    });
   }
 }

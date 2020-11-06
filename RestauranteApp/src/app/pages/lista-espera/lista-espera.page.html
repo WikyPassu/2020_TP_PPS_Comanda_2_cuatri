@@ -6,7 +6,7 @@
         <ion-card-title class="nombre-title">{{cmzl.nombre}}</ion-card-title>
         <ion-icon name="accesible" [color]="cmzl.acceso ? 'bordo' : 'light'" style="font-size: xx-large;"></ion-icon>
         <ion-card-title class="mesa-title">Mesa para {{cmzl.comenzales}}</ion-card-title>
-        <ion-button color="medium" (click)="sentar(cmzl.id)">Sentar</ion-button>
+        <ion-button color="medium" (click)="sentar(cmzl.id)">{{cmzl.puedeSentarse ? 'Cancelar' : 'Sentar'}}</ion-button>
       </ion-card>
     </div>
     <div class="cards-container" *ngIf="!cargando && cliente">
@@ -16,7 +16,13 @@
           <ion-card-title class="en-espera">En espera {{enEspera.length}}</ion-card-title>
           <ion-card-title class="delante">Personas delante {{personasDelante}}</ion-card-title>
         </div>
+        <ion-button color="medium" (click)="abandonarLista()">Abandonar Lista</ion-button>
       </ion-card>
+      <div class="div-escanear" *ngIf="userData.puedeSentarse">
+        <ion-button (click)="escanear()" class="boton-escanear" color="medium">
+          <ion-icon name="barcode-outline" class="icono-escanear" color="bordo"></ion-icon>
+        </ion-button>
+      </div>
     </div>
   </div>
 </ion-content>

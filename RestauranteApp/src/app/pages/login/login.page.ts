@@ -236,7 +236,7 @@ export class LoginPage implements OnInit {
         this.router.navigate(['supervisor']);
       }else if(this.usuario.perfil == 'metre'){
         //console.log(JSON.stringify(this.usuario));
-        this.router.navigate(['lista-espera/' + JSON.stringify(this.usuario)]);
+        this.router.navigate(['listaespera/' + JSON.stringify(this.usuario)]);
       }else{
         this.presentToast('Oof, se rompio.');
       }
