@@ -149,7 +149,6 @@ export class RegistroPage implements OnInit {
   }
 
   cancelar(){
-    this.auth.borrarFoto(this.preview);
     this.router.navigate(["/login"]);
   }
 
