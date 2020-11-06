@@ -231,19 +231,8 @@ export class RegistroPage implements OnInit {
         let storageRef = firebase.storage().ref();
         this.fecha = Date.now();
         let nombreFoto = this.nombre+ "." + this.fecha +".jpg";
-
         let childRef = storageRef.child(nombreFoto);
-        childRef.putString(base64Str, 'data_url').then((res)=>{
-          storageRef.listAll().then((lista)=>{
-            lista.items.forEach(foto => {
-              if (foto.name == nombreFoto){
-                foto.getDownloadURL().then((link)=>{
-                    this.preview = link;
-                });
-              }
-            });
-          })
-        });
+        this.preview = 'data:image/jpeg;base64,' + ImageData;
         this.foto = nombreFoto;
         }).catch(e=>{
           if(e == "No Image Selected"){
