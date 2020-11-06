@@ -9,23 +9,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-<<<<<<< HEAD
   constructor(private AFauth:AngularFireAuth, private db:AngularFirestore) {
     // Actualizo la lista actual de clientes en la coleccion
     this.traerClientes().subscribe(data => this.clientesRegistrados = data);
   }
   base;
   clientesRegistrados = new Array(); //Lista de clientes en la coleccion
-=======
-  
-  base;
   userObs;
-
-  constructor(
-    private AFauth:AngularFireAuth, 
-    private db:AngularFirestore,
-    ) { }
->>>>>>> gamma
 
   login(email:string, pwd:string){
     return new Promise((resolve, rejected) => {
