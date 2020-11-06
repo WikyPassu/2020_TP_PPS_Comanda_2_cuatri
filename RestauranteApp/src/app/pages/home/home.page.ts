@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { BarcodeScanner, BarcodeScannerOptions, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { ToastController } from '@ionic/angular';
 import { BackButtonEvent } from '@ionic/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -53,65 +54,109 @@ export class HomePage implements OnInit {
     }
   }
 
+  /**
+   * Cambia de tab
+   * @param tabName Nombre del tab.
+   */
   cambiarTab(tabName: string){
     this.tab = 'cambiando';
-    setTimeout( () => {this.tab = tabName}, 1000)
+    setTimeout( () => {this.tab = tabName}, 1000);
   }
+
+  /**
+   * Abre la camara para escanear un codigo QR. Si el QR es el de lista de espera
+   * agrega al usuario a la lista, si no es QR de lista, lo notifica mediante un toast.
+   */
   escanear(){
-    //this.presentToast('Escaner');
-    let resultado: string = 'OqJvTwaXF5GvroLveLvQ';
-    this.fire.doc('codigos/' + resultado)
-    .get().subscribe( (data => {
-      let code = data.data();
-      if(code.tipo == 'lista-espera'){
-        this.agregarAListaDeEspera();
-      }else{
-        this.presentToast('El codigo escaneado no de entrada.');
-      }
-    }));
+    this.scanner.scan().then( (code) => {
+      this.fire.doc('codigos/' + code)
+      .get().subscribe( (data => {
+        let code = data.data();
+        if(code.tipo == 'lista-espera'){
+          this.agregarAListaDeEspera();
+        }else{
+          this.presentToast('El codigo escaneado no es de entrada.', 'middle');
+        }
+      }));
+    }).catch( reason => {
+      this.presentToast('Error en escaneo', 'middle');
+    });
   }
+
+  /**
+   * Cambia la cantidad de comenzales para la reserva
+   * @param cantidad Comenzales a sumar
+   */
   agregarComenzal(cantidad: number){
     let resultado = this.comenzales + cantidad;
     this.comenzales = resultado > this.maximo ? this.maximo : resultado < this.minimo ? this.minimo : resultado;
-    //console.log(this.comenzales);
   }
-  async presentToast(message) {
+
+  /**
+   * Presenta un toast con el mensaje indicado en la posicion indicada, la posicion por default es top.
+   * @param message Mensaje a presentar
+   * @param pos Posicion del toast
+   */
+  async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "top") {
     const toast = await this.toast.create({
       message: message,
       duration: 2000,
-      position: "top",
+      position: pos,
       animated: true,
       mode: "md",
     });
     toast.present();
   }
-  agregarAListaDeEspera(){
-    let nuevoEnLista = {
-      nombre: this.user.nombre,
-      id: this.user.id,
-      foto: this.user.foto,
-      fecha: Date.now(),
-      comenzales: this.comenzales,
-      acceso: this.acceso,
-    }
-    //console.log(nuevoEnLista);
-    this.fire.collection('listaespera').add(nuevoEnLista)
-    .then( () => {
-      this.router.navigate(['lista-espera']);
-    })
-    .catch( () => {
-      this.presentToast('Hubo un error, vuelva a intentar.');
+
+  /**
+   * Verifica si el usuario ya esta en la lista de espera, si ya esta redirecciona
+   * a la pagina de lista de espera, si no esta, agrega al usuario a la lista y redirecciona
+   * a la pagina de lista de espera. Presenta errores por medio de toast.
+   */
+  async agregarAListaDeEspera(){
+    this.verificarListaEspera().then( alreadyExists => {
+      let userStr: string = JSON.stringify(this.user);
+      if(alreadyExists){
+        this.presentToast('Ya estas en la lista de espera.', 'middle');
+        setTimeout( () => {
+          this.router.navigate(['listaespera/' + userStr]);
+        }, 1500);
+      } else {
+        let nuevoEnLista = {
+          nombre: this.user.nombre,
+          id: this.user.id,
+          foto: this.user.foto,
+          fecha: Date.now(),
+          comenzales: this.comenzales,
+          acceso: this.acceso,
+          puedeSentarse: false,
+        }
+        this.fire.collection('listaespera').add(nuevoEnLista)
+        .then( () => {
+          this.router.navigate(['listaespera/' + userStr]);
+        })
+        .catch( () => {
+          this.presentToast('Hubo un error, vuelva a intentar.');
+        });
+      }
     });
   }
 
-  async verificarListaEspera(){
-    let userStr: string = JSON.stringify(this.user);
-    this.fire.collection('listaespera', (ref) => ref.where('id', '==', this.user.id))
-    .valueChanges().subscribe( (resultList) => {
-      //console.log(resultList);
-      if(resultList.length > 0){
-        this.router.navigate(['lista-espera/' + userStr]);
-      }
+  /**
+   * Verifica si el usuario ya esta en la lista de espera y retorma una promesa
+   * que, una vez cuncluida, devuelve un boolean en true si ya esta en la lista
+   * y en false si no esta en la lista.
+   */
+  async verificarListaEspera(): Promise<boolean>{
+    return new Promise( (resolve, reject) => {
+      this.fire.collection('listaespera', (ref) => ref.where('id', '==', this.user.id))
+      .valueChanges().subscribe( (resultList) => {
+        if(resultList.length > 0){
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
     });
   }
 }
