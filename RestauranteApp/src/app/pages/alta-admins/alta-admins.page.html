@@ -19,7 +19,7 @@
     <ion-row>
       <ion-col>
         <div align="center">
-          <img class="imgAvatar" [src]="preview" (click)="sacarFoto()">
+          <img class="imgAvatar" [src]="preview">
         </div>
       </ion-col>
     </ion-row>
@@ -47,7 +47,7 @@
       <ion-col>
         <ion-item>
           <ion-icon class="inputIcon" name="card" ></ion-icon>
-          <ion-input placeholder="CUIL" type="number" [(ngModel)]="cuil" name="cuil"></ion-input>  
+          <ion-input placeholder="CUIL" type="number" [(ngModel)]="cuil" name="cuil" min="208000009" max="27999999999"></ion-input>  
         </ion-item>
       </ion-col>
     </ion-row>
@@ -97,16 +97,16 @@
       <ion-col>
         <ion-item>
           <ion-icon class="inputIcon" name="camera"></ion-icon>
-          <ion-button class="foto">Tomar foto</ion-button>
+          <ion-button class="foto" (click)="sacarFoto()">Tomar foto</ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <div *ngIf="agregado" align="center">
+        <div style="background: white; border-radius: 1vw;" *ngIf="agregado" align="center">
           <ion-label text-wrap class="lblAgregado">{{mensaje}}</ion-label>
         </div>
-        <div *ngIf="hayError" align="center">
+        <div style="background: white; border-radius: 1vw;" *ngIf="hayError" align="center">
           <ion-label text-wrap class="lblError">{{error}}</ion-label>
         </div>
       </ion-col>
