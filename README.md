@@ -8,6 +8,12 @@
 <p>➤ <a href="https://github.com/Lulil4">Morel Melany Lucia (Beta)</a></p>
 <p>➤ <a href="https://github.com/murraydemian">Suarez Murray Demian José (Gamma)</a></p>
 <hr>
+<h2>Splash y Spinner</h2>
+<p>Splash</p>
+<img src="http://drive.google.com/uc?export=view&id=1EPIPIhYzF4dODLTaJky8Spfs19apGUSD">
+<p>Spinner</p>
+<img src="http://drive.google.com/uc?export=view&id=1annN_8fdygJim6xYbdeRuXs5LoObmLC-">
+<hr>
 <h2>Diagramas:</h2>
 <p>Diagrama 1</p>
 <img src="http://drive.google.com/uc?export=view&id=13VsMJO7v0DaC8T6AzY0DQOt59h2gjIfu">
