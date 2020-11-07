@@ -35,7 +35,7 @@
 <hr>
 <h2>Tareas semanales:</h2>
 <img src="http://drive.google.com/uc?export=view&id=14J9NrUHI_5bjpzcXquxIvzTjm26oWb2S">
-<a href="">Link al video de funcionalidades</a>
+<a href="https://drive.google.com/file/d/1ZI0IWuVfaP4Ih6NzpziBcOceP-RjiBli/view?usp=sharing">Link al video de funcionalidades</a>
 <hr>
 <img src="http://drive.google.com/uc?export=view&id=1t-QoWsOfxEfAMX7IS27TEN-DW-yHc1kw">
 <a href="https://drive.google.com/file/d/1jW4dKBtAKMNx2alXMXaAGwtT41wSshdO/view?usp=sharing">Link al video de funcionalidades</a>
