@@ -137,7 +137,7 @@ export class RegistroPage implements OnInit {
         this.auth.registroAnonimo(this.nombre, this.fecha, this.foto)
           .then(() => {
             this.limpiarCampos();
-            let user = JSON.stringify({nombre: this.nombre, id : this.nombre + "." + this.fecha, tipo : "anonimo", "nombreFoto" : this.foto});
+            let user = JSON.stringify({nombre: this.nombre, id : this.nombre + "." + this.fecha, tipo : "anonimo", "linkFoto" : this.preview, "nombreFoto" : this.foto});
             this.router.navigate(["/home/" + user], {state : {perfil: "cliente"}});
           })
           .catch((error) => {
@@ -149,6 +149,7 @@ export class RegistroPage implements OnInit {
   }
 
   cancelar(){
+    this.auth.borrarFoto(this.preview);
     this.router.navigate(["/login"]);
   }
 
@@ -176,6 +177,7 @@ export class RegistroPage implements OnInit {
   }
 
   sacarFoto() {
+    this.auth.borrarFoto(this.preview);
     this.error= "";
     const opciones: CameraOptions = {
       quality: 50,
@@ -224,7 +226,18 @@ export class RegistroPage implements OnInit {
         this.fecha = Date.now();
         let nombreFoto = this.nombre+ "." + this.fecha +".jpg";
         let childRef = storageRef.child(nombreFoto);
-        this.preview = 'data:image/jpeg;base64,' + ImageData;
+        
+        childRef.putString(base64Str, 'data_url').then((res)=>{
+          storageRef.listAll().then((lista)=>{
+            lista.items.forEach(foto => {
+              if (foto.name == nombreFoto){
+                foto.getDownloadURL().then((link)=>{
+                  this.preview = link;
+                });
+              }
+            });
+          })
+        });
         this.foto = nombreFoto;
         }).catch(e=>{
           if(e == "No Image Selected"){
