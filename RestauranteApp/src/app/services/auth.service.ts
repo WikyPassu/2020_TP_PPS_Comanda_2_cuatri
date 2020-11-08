@@ -156,7 +156,7 @@ export class AuthService {
           tipo: "anonimo",
           fecha: fecha
         }).then(()=>{
-          resolve("done");
+          resolve();
         }).catch(error => rejected(error));
       });
   }

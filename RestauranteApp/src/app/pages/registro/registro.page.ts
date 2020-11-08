@@ -14,14 +14,14 @@ import { observable } from 'rxjs';
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
-  providers:[
+  providers: [
     Camera
   ]
 })
 export class RegistroPage implements OnInit {
   mostrarSpinner = false;
   sinContinuar = true;
-  mostrarNombre = true; 
+  mostrarNombre = true;
   modoRegistro = true;
   mostrarAgregado = false;
   mostrarError = false;
@@ -38,12 +38,12 @@ export class RegistroPage implements OnInit {
   preview = "../../../assets/img/avatarVacio.jpg";
   mostrarBotonera = true;
 
-  constructor(private auth: AuthService, 
-    private router: Router, 
+  constructor(private auth: AuthService,
+    private router: Router,
     private barcodeScanner: BarcodeScanner,
-    private verifier : InputVerifierService, 
+    private verifier: InputVerifierService,
     private camera: Camera,
-    private dbStorage: StorageService) {}
+    private dbStorage: StorageService) { }
 
   ngOnInit() {
     this.modoRegistro = this.router.getCurrentNavigation().extras.state.modo;
@@ -75,25 +75,25 @@ export class RegistroPage implements OnInit {
         this.error = "Las claves no coinciden!";
       }
 
-      if(this.dni < 800000 || this.dni > 99999999){
+      if (this.dni < 800000 || this.dni > 99999999) {
         this.error = "El DNI no existe!";
       }
-      else if (this.nombre.length > 21){
+      else if (this.nombre.length > 21) {
         this.error = "El nombre es muy largo!";
       }
-      else if (this.nombre.length < 3){
+      else if (this.nombre.length < 3) {
         this.error = "El nombre es muy corto!";
       }
-      else if (this.nombre.length > 21){
+      else if (this.nombre.length > 21) {
         this.error = "El nombre es muy largo!";
       }
-      else if (this.apellido.length < 3){
+      else if (this.apellido.length < 3) {
         this.error = "El apellido es muy corto!";
       }
-      else if(!InputVerifierService.verifyEmailFormat(this.email)){
+      else if (!InputVerifierService.verifyEmailFormat(this.email)) {
         this.error = "El correo tiene caracteres invalidos!";
       }
-      else if(this.clave.length < 6){
+      else if (this.clave.length < 6) {
         this.error = "La clave debe tener al menos 6 caracteres!";
       }
     }
@@ -104,9 +104,9 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  validarFoto(){
-    if (this.foto == ""){
-      this.error = "Por favor, cargue una foto!"; 
+  validarFoto() {
+    if (this.foto == "") {
+      this.error = "Por favor, cargue una foto!";
     }
   }
 
@@ -116,7 +116,7 @@ export class RegistroPage implements OnInit {
     if (this.error != "") {
       this.mostrarError = true;
     }
-    else{
+    else {
       let tipoRegistro = "anonimo";
 
       if (this.modoRegistro == true) {
@@ -124,6 +124,10 @@ export class RegistroPage implements OnInit {
 
         this.auth.registroCliente(this.email, this.clave, this.apellido, this.nombre, this.dni, this.fecha, this.foto)
           .then(() => {
+            let storageRef = firebase.storage().ref();
+            let childRef = storageRef.child(this.foto);
+            childRef.putString(this.preview, 'data_url');
+
             this.mostrarAgregado = true;
             this.mostrarBotonera = false;
             this.limpiarCampos();
@@ -133,37 +137,43 @@ export class RegistroPage implements OnInit {
             this.error += ". Por favor, vuelva a intentarlo"
           });
       }
-      else{
+      else {
+
         this.auth.registroAnonimo(this.nombre, this.fecha, this.foto)
           .then(() => {
+            let storageRef = firebase.storage().ref();
+            let childRef = storageRef.child(this.foto);
+            
+            childRef.putString(this.preview, 'data_url');
+            let user = JSON.stringify({ nombre: this.nombre, id: this.nombre + "." + this.fecha, tipo: "anonimo", "nombreFoto": this.foto, perfil: "cliente" });
             this.limpiarCampos();
-            let user = JSON.stringify({nombre: this.nombre, id : this.nombre + "." + this.fecha, tipo : "anonimo", "linkFoto" : this.preview, "nombreFoto" : this.foto});
-            this.router.navigate(["/home/" + user], {state : {perfil: "cliente"}});
+            this.router.navigate(["/home/" + user]);
+
           })
           .catch((error) => {
             this.mostrarError = true;
-            this.error = error;
+            this.error = error.message;
           });
-        }
+
+      }
     }
   }
 
-  cancelar(){
-    this.auth.borrarFoto(this.preview);
+  cancelar() {
     this.router.navigate(["/login"]);
   }
 
-  
-  formatear(s: string){
+
+  formatear(s: string) {
     let palabra = s.toLowerCase().split(' ');
-    for(let i=0; i<palabra.length; i++){
+    for (let i = 0; i < palabra.length; i++) {
       palabra[i] = palabra[i].charAt(0).toUpperCase() + palabra[i].substring(1);
     }
     return palabra.join(' ');
   }
-  
-  scanCode(){ //anda solamente con el formato nuevo
-    this.barcodeScanner.scan({formats: "PDF_417"}).then(barcodeData => {
+
+  scanCode() { //anda solamente con el formato nuevo
+    this.barcodeScanner.scan({ formats: "PDF_417" }).then(barcodeData => {
       let scannedCode = barcodeData.text;
       let userQR = scannedCode.split("@");
       this.apellido = this.formatear(userQR[1]);
@@ -178,7 +188,7 @@ export class RegistroPage implements OnInit {
 
   sacarFoto() {
     this.auth.borrarFoto(this.preview);
-    this.error= "";
+    this.error = "";
     const opciones: CameraOptions = {
       quality: 50,
       targetHeight: 600,
@@ -188,75 +198,76 @@ export class RegistroPage implements OnInit {
       correctOrientation: true,
     }
 
-    if (this.modoRegistro == true){
+    if (this.modoRegistro == true) {
       this.camera.getPicture(opciones).then((ImageData) => {
-        let base64Str = 'data:image/jpeg;base64,' + ImageData;
-        let storageRef = firebase.storage().ref();
-        this.fecha = Date.now();
-        let nombreFoto = this.dni + "." + this.fecha +".jpg";
-
-        let childRef = storageRef.child(nombreFoto);
-        
-        childRef.putString(base64Str, 'data_url').then((res)=>{
-          storageRef.listAll().then((lista)=>{
-            lista.items.forEach(foto => {
-              if (foto.name == nombreFoto){
-                foto.getDownloadURL().then((link)=>{
-                  this.preview = link;
+        /*
+                let storageRef = firebase.storage().ref();
+                let childRef = storageRef.child(nombreFoto);
+                
+                childRef.putString(base64Str, 'data_url').then((res)=>{
+                  storageRef.listAll().then((lista)=>{
+                    lista.items.forEach(foto => {
+                      if (foto.name == nombreFoto){
+                        foto.getDownloadURL().then((link)=>{
+                          this.preview = link;
+                        });
+                      }
+                    });
+                  })
                 });
-              }
-            });
-          })
-        });
-        this.foto = nombreFoto;
-      }).catch(e=>{
-          if(e == "No Image Selected"){
-            this.error = "Por favor, saque una foto";
-          }
-          else{
-            this.error=e;
-          }
-          this.mostrarError = true;
+                */
+        this.fecha = Date.now();
+        this.preview = 'data:image/jpeg;base64,' + ImageData;
+        this.foto = this.dni + "." + this.fecha + ".jpg";
+
+      }).catch(e => {
+        if (e == "No Image Selected") {
+          this.error = "Por favor, saque una foto";
+        }
+        else {
+          this.error = e;
+        }
+        this.mostrarError = true;
       });
     }
-    else{
+    else {
       this.camera.getPicture(opciones).then((ImageData) => {
-        let base64Str = 'data:image/jpeg;base64,' + ImageData;
-        let storageRef = firebase.storage().ref();
-        this.fecha = Date.now();
-        let nombreFoto = this.nombre+ "." + this.fecha +".jpg";
-        let childRef = storageRef.child(nombreFoto);
-        
-        childRef.putString(base64Str, 'data_url').then((res)=>{
-          storageRef.listAll().then((lista)=>{
-            lista.items.forEach(foto => {
-              if (foto.name == nombreFoto){
-                foto.getDownloadURL().then((link)=>{
-                  this.preview = link;
+        /*
+                let storageRef = firebase.storage().ref();
+                let childRef = storageRef.child(nombreFoto);
+                childRef.putString(base64Str, 'data_url').then((res)=>{
+                  storageRef.listAll().then((lista)=>{
+                    lista.items.forEach(foto => {
+                      if (foto.name == nombreFoto){
+                        foto.getDownloadURL().then((link)=>{
+                          this.preview = link;
+                        });
+                      }
+                    });
+                  })
                 });
-              }
-            });
-          })
-        });
-        this.foto = nombreFoto;
-        }).catch(e=>{
-          if(e == "No Image Selected"){
-            this.error = "Por favor, saque una foto";
-          }
-          else{
-            this.error=e;
-          }
-          this.mostrarError = true;
-        });
+                */
+        this.fecha = Date.now();
+        this.preview = 'data:image/jpeg;base64,' + ImageData;
+        this.foto = this.nombre + "." + this.fecha + ".jpg";
+      }).catch(e => {
+        if (e == "No Image Selected") {
+          this.error = "Por favor, saque una foto";
+        }
+        else {
+          this.error = e;
+        }
+        this.mostrarError = true;
+      });
     }
-}
+  }
 
-  continuar(){
+  continuar() {
     this.validarCampos();
-    if (this.error == ""){
-        this.sinContinuar = false;
+    if (this.error == "") {
+      this.sinContinuar = false;
     }
-    else{
+    else {
       this.mostrarError = true;
     }
   }
