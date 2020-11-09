@@ -5,6 +5,7 @@
 .page-container{
     height: 100%;
     width: 100%;
+    --ion-background-color: var(--ion-color-bordo);
 }
 .spinner-tab{
     height: 100%;
@@ -18,7 +19,7 @@
 }
 .tab{
     background-color: var(--ion-color-bordo);
-    padding-top: 10%;
+    padding-top: 2.5vh;
     padding-bottom: 20%;
     height: 100%;
     width: 100%;
@@ -36,7 +37,7 @@
     }
 }
 p{
-    padding-top: 5%;
+    //padding-top: 5%;
     color: black;
     font-size: large;
     text-align: center;
@@ -52,7 +53,7 @@ label{
         width: 80vw;
         height: 25vh;
 
-        padding: 5%;
+        //padding: 5%;
 
         background: var(--ion-color-light);
 
@@ -61,17 +62,12 @@ label{
     .comenzales-div{
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto auto;
-        
-        p{
-            padding-top: 0%;
+        grid-template-rows: 20% 80%;
+        .pregunta-p{
             grid-column: span 2;
             grid-row: span 1;
         }
-        label{
-            height: 65%;
-            width: auto;
-
+        .cantidad-comenzales{
             align-self: center;
             justify-self: center;
 
@@ -79,33 +75,33 @@ label{
 
             font-size: xx-large;
         }
-        .boton-comenzal{
-            font-size: xx-large;
+        .button-section{
+            align-self: center;
+            padding-top: 10%;
+            height: 100%;
+            .boton-comenzal{
+                font-size: xx-large;
+            }
         }
     }
     .acceso-card{
         display: grid;
-        grid-template-rows: 1fr 2.5fr ;
-        align-content: center;
-        justify-content: center;
+        grid-template-rows: 30% 70%;
+        align-items: center;
+        justify-items: center;
         ion-checkbox{
-            justify-self: center;
-            height: 60%;
+            height: 80%;
             width: 50%;
+            
         }
     }
     .div-escanear{
         display: grid;
-        height: 90%;
+        height: 25vh;
         width: 70%;
-        //grid-template-rows: 15% 85%;
         label{
             background-color: var(--ion-color-medium);
             height: 100%;
-            //padding: 5px;
-            border-radius: 5px;
-            padding-right: 10px;
-            padding-left: 10px;
             justify-self: center;
             align-self: center;
             align-content: center;
