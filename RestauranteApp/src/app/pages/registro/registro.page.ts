@@ -171,10 +171,17 @@ export class RegistroPage implements OnInit {
     this.barcodeScanner.scan({formats: "PDF_417"}).then(barcodeData => {
       let scannedCode = barcodeData.text;
       let userQR = scannedCode.split("@");
-      this.apellido = this.formatear(userQR[1]);
-      this.nombre = this.formatear(userQR[2]);
-      let auxDni = this.formatear(userQR[4]);
-      this.dni = parseInt(auxDni);
+      if(userQR.length > 9){
+        this.apellido = this.formatear(userQR[4]);
+        this.nombre = this.formatear(userQR[5]);
+        let auxDni = this.formatear(userQR[1]);
+        this.dni = parseInt(auxDni);
+      } else {
+        this.apellido = this.formatear(userQR[1]);
+        this.nombre = this.formatear(userQR[2]);
+        let auxDni = this.formatear(userQR[4]);
+        this.dni = parseInt(auxDni);
+      }
     }).catch(error => {
       this.mostrarError = true;
       this.error = error;

@@ -133,7 +133,8 @@ export class AuthService {
           foto: foto,
           nombre: nombre,
           tipo: "registrado",
-          fecha: fecha
+          fecha: fecha,
+          perfil: 'cliente'
         }).then(()=>{
           resolve();})
         .catch(error =>rejected(error))
