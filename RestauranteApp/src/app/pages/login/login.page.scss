@@ -1,13 +1,16 @@
+
 .login-page{
     display: grid;
-    height : 100%;
-    width : 100%;
-
+    height : 100%!important;
+    width : 100%!important;
+    background-color: var(--ion-color-bordo);
+    overflow: scroll;
     ion-card{
+        overflow: scroll;
         display: grid;
 
-        width:80%;
-        height:85%;
+        width:80vw !important;
+        height:85vh !important;
 
         align-self: center;
         justify-self: center;
@@ -29,7 +32,7 @@
         }
 
         ion-item{
-            margin-bottom:2vh;
+            margin-bottom:2%;
             
             --ion-border-color:#ff000086;
             border-radius: 1vw;
@@ -40,8 +43,6 @@
         
             --ion-font-family: "IowanOldStyleBlack";
             font-size: large;
-            //--ion-background-color: var(--ion-color-bordo);
-            //--color:rgb(31, 31, 31);
         }
     }
 }
@@ -51,8 +52,8 @@ ion-button{
     --color:white;
     --ion-font-family: "IowanOldStyleBlack";
     font-weight: bold;
-    font-size:5vw;
-    height:15vw;
+    font-size: large;
+    height:15vh;
     width:40vw;
 }
 
@@ -76,7 +77,7 @@ ion-input{
 }
 
 ion-card-title{
-    font-size:8vw;
+    font-size: large;
     font-family: "IowanOldStyleBlack";
     font-weight: bolder;
     color:rgb(24, 24, 24);  
@@ -143,14 +144,14 @@ ion-label{
     }
 
     ion-card-title{    
-        font-size:3vw !important ;
+        font-size: large !important ;
     }
 
     ion-item{
         width:70vw !important ;
         margin-left:3vw !important ;
         height:8vw !important ;
-        font-size:2.75vw !important ;
+        font-size: large !important ;
     }
 
     ion-input{
@@ -173,7 +174,7 @@ ion-label{
     }
 
     .btnEntrar{
-        font-size:4vw !important ;
+        font-size:large !important ;
     }
 
     .fabLimpiar{
@@ -187,7 +188,7 @@ ion-label{
     }
     
     .botonRegistro{
-        font-size:2vw !important ;
+        font-size:large !important ;
         width:40vw !important ;
         height:5vw !important ;
     }

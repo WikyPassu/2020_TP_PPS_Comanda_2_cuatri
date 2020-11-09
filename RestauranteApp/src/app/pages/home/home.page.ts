@@ -36,12 +36,16 @@ export class HomePage implements OnInit {
     private fire: AngularFirestore,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     document.addEventListener('ionBackButton', this.verificarListaEspera);
-    this.tab = 'local';
     try{
-      this.user = JSON.parse(this.route.snapshot.paramMap.get('user'));    
-      this.verificarListaEspera();  
+      let userStr = this.route.snapshot.paramMap.get('user')
+      this.user = JSON.parse(userStr);
+      await this.verificarListaEspera().then(estaEnLista => {
+        if(estaEnLista){
+          this.router.navigate(['listaespera/' + userStr]);
+        }
+      });
       if(this.user.perfil == 'cliente'){
         this.cambiarTab('local');
       } else if (this.user.perfil == 'dueño' || this.user.perfil == 'supervisor'){
@@ -68,11 +72,11 @@ export class HomePage implements OnInit {
    * agrega al usuario a la lista, si no es QR de lista, lo notifica mediante un toast.
    */
   escanear(){
-    this.scanner.scan().then( (code) => {
-      this.fire.doc('codigos/' + code)
+    this.scanner.scan().then( (code) => {      
+      this.fire.doc('codigos/' + code.text)
       .get().subscribe( (data => {
-        let code = data.data();
-        if(code.tipo == 'lista-espera'){
+        let codigoQR = data.data();
+        if(codigoQR.tipo == 'lista-espera'){
           this.agregarAListaDeEspera();
         }else{
           this.presentToast('El codigo escaneado no es de entrada.', 'middle');
