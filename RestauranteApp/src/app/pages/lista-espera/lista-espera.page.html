@@ -1,3 +1,8 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Lista de espera</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <div class="page-container">
     <div class="cards-container" *ngIf="!cargando && !cliente">
@@ -10,7 +15,7 @@
       </ion-card>
     </div>
     <div class="cards-container" *ngIf="!cargando && cliente">
-      <ion-card class="card-en-espera">
+      <ion-card class="card-en-espera-cliente">
         <img src="../../../assets/icono.png" alt="">
         <div class="titles-div">
           <ion-card-title class="en-espera">En espera {{enEspera.length}}</ion-card-title>

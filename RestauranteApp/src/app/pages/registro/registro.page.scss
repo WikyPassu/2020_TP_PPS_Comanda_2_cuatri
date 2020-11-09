@@ -29,7 +29,7 @@ ion-item{
     --background:white;
     color:black;
     border-radius:3vw;
-    font-size:5vw;
+    font-size: large;
 }
 
 .inputIcon{
@@ -82,7 +82,7 @@ ion-back-button{
 
 .lblAgregado{
     color:rgb(76, 163, 76);
-    font-size:5vw;
+    font-size:large;
 }
 
 .imgAvatar{
@@ -91,13 +91,13 @@ ion-back-button{
 
 .lblError{
     color:whitesmoke;
-    font-size:5vw;
+    font-size:large;
 }
 
 @media screen and (orientation:landscape) {
 
     ion-item{
-        font-size:3vw;
+        font-size:large;
         width:100%;
     }
 
@@ -114,7 +114,7 @@ ion-back-button{
     }
 
     .lblAgregado{
-        font-size:3vw;
+        font-size:large;
     }
 
     .imgAvatar{

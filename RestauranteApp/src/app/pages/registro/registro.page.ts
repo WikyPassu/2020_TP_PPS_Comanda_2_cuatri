@@ -75,7 +75,6 @@ export class RegistroPage implements OnInit {
         this.error = "¡Las claves no coinciden!";
       }
 
-<<<<<<< HEAD
       else if(this.dni < 800000 || this.dni > 99999999){
         this.error = "¡El DNI no existe!";
       }
@@ -102,28 +101,6 @@ export class RegistroPage implements OnInit {
       }
       else if(this.clave.length < 6){
         this.error = "¡La clave debe tener al menos 6 caracteres!";
-=======
-      if (this.dni < 800000 || this.dni > 99999999) {
-        this.error = "El DNI no existe!";
-      }
-      else if (this.nombre.length > 21) {
-        this.error = "El nombre es muy largo!";
-      }
-      else if (this.nombre.length < 3) {
-        this.error = "El nombre es muy corto!";
-      }
-      else if (this.nombre.length > 21) {
-        this.error = "El nombre es muy largo!";
-      }
-      else if (this.apellido.length < 3) {
-        this.error = "El apellido es muy corto!";
-      }
-      else if (!InputVerifierService.verifyEmailFormat(this.email)) {
-        this.error = "El correo tiene caracteres invalidos!";
-      }
-      else if (this.clave.length < 6) {
-        this.error = "La clave debe tener al menos 6 caracteres!";
->>>>>>> beta
       }
     }
     else {
@@ -133,15 +110,9 @@ export class RegistroPage implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   validarFoto(){
     if (this.foto == ""){
       this.error = "¡Por favor, cargue una foto!"; 
-=======
-  validarFoto() {
-    if (this.foto == "") {
-      this.error = "Por favor, cargue una foto!";
->>>>>>> beta
     }
   }
 
@@ -171,14 +142,9 @@ export class RegistroPage implements OnInit {
             this.error = error;
             this.error += ". Por favor, vuelva a intentarlo.";
           });
-<<<<<<< HEAD
         }
-      else{
-=======
-      }
       else {
 
->>>>>>> beta
         this.auth.registroAnonimo(this.nombre, this.fecha, this.foto)
           .then(() => {
             let storageRef = firebase.storage().ref();

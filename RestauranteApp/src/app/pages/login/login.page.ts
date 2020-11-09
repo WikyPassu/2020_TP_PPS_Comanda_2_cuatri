@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
+  h;
 
   constructor(
     private authService: AuthService,
@@ -30,7 +31,9 @@ export class LoginPage implements OnInit {
     private fire: AngularFirestore,
     ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    //this.h = (document.body.clientHeight * 0.8) + 'px';
+  }
 
   onSubmitLogin(){
     if(!InputVerifierService.verifyEmailFormat(this.email))
