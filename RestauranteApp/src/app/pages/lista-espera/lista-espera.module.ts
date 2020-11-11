@@ -8,6 +8,8 @@ import { ListaEsperaPageRoutingModule } from './lista-espera-routing.module';
 
 import { ListaEsperaPage } from './lista-espera.page';
 
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { ListaEsperaPage } from './lista-espera.page';
     IonicModule,
     ListaEsperaPageRoutingModule
   ],
-  declarations: [ListaEsperaPage]
+  declarations: [ListaEsperaPage, SpinnerComponent]
 })
 export class ListaEsperaPageModule {}

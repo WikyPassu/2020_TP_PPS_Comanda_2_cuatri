@@ -4,7 +4,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+
+  <!--SPINNER--> 
+  <app-spinner *ngIf="spinner"></app-spinner>
+
   <div class="page-container">
+
     <div class="cards-container" *ngIf="!cargando && !cliente">
       <ion-card *ngFor="let cmzl of enEspera" class="card-en-espera">
         <img src="{{pre}}{{cmzl.foto}}{{pos}}" alt="foto cliente" class="foto-cliente">
@@ -14,6 +19,7 @@
         <ion-button color="medium" (click)="sentar(cmzl.id)">{{cmzl.puedeSentarse ? 'Cancelar' : 'Sentar'}}</ion-button>
       </ion-card>
     </div>
+
     <div class="cards-container" *ngIf="!cargando && cliente">
       <ion-card class="card-en-espera-cliente">
         <img src="../../../assets/icono.png" alt="">
@@ -23,11 +29,12 @@
         </div>
         <ion-button color="medium" (click)="abandonarLista()">Abandonar Lista</ion-button>
       </ion-card>
-      <div class="div-escanear" *ngIf="userData.puedeSentarse">
+      <div class="div-escanear" *ngIf="userData ? userData.puedeSentarse : false">
         <ion-button (click)="escanear()" class="boton-escanear" color="medium">
           <ion-icon name="barcode-outline" class="icono-escanear" color="bordo"></ion-icon>
         </ion-button>
       </div>
     </div>
+
   </div>
 </ion-content>

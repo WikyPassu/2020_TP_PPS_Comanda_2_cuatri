@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { ToastController } from '@ionic/angular';
 import { firestore } from 'firebase';
 
@@ -20,12 +21,14 @@ export class ListaEsperaPage implements OnInit {
   public personasDelante: number;
   public userData;
   private userObs;
+  public spinner: boolean = true;
 
   constructor(
     private fire: AngularFirestore,
     private router: Router,
     private route: ActivatedRoute,
     private toast: ToastController,
+    private scanner: BarcodeScanner,
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,7 @@ export class ListaEsperaPage implements OnInit {
       }, 1500);
     }
     this.traerEnEspera();
+    this.spinner = false;
   }
 
   traerEnEspera(){
@@ -84,6 +88,74 @@ export class ListaEsperaPage implements OnInit {
       this.router.navigate(['home/' + this.route.snapshot.paramMap.get('user')]);
     });
     
+  }
+
+  escanear(){
+    this.spinner = true;
+    this.scanner.scan()
+    .then( codeInfo => {
+      this.manejarCodigoEscaneado(codeInfo);
+    })
+    .catch( reason => {
+      this.presentToast('Hubo un error al escanear. Vuelva a intentar.');
+      this.spinner = false;
+    });
+  }
+
+  manejarCodigoEscaneado(codigo){
+    if(codigo.text){
+      this.fire.collection('codigos').doc(codigo.text)
+      .get().subscribe( docRef => {
+        this.manejarDocRef(docRef);
+      });
+    }else{
+      this.presentToast('Hubo un error al escanear. Vuelva a intentar.');
+      this.spinner = false;
+    }
+  }
+
+  manejarDocRef(docRef){
+    let codeData = docRef.data();
+    if(codeData.tipo == 'mesa'){
+      this.manejarMesaEscaneada(codeData);
+    }else {
+      this.presentToast('El codigo escaneado no es de una mesa.');
+      this.spinner = false;
+    }
+  }
+
+  manejarMesaEscaneada(codeData){
+    this.fire.collection('mesas').doc(codeData.valor)
+    .get().subscribe( mesaRef => {
+      this.spinner = false;
+      let mesaData = mesaRef.data();
+      if(!mesaData.ocupada){
+        mesaData.ocupada = true;
+        mesaData.idcliente = this.userData.id;
+        mesaRef.ref.set(mesaData);
+        this.abandonarLista();
+        //rutear a pagina mesa
+      }else{
+        this.presentToast('La mesa esta ocupada o reservada.');
+        this.spinner = false;
+      }
+    });
+  }
+
+  /**
+   * Presenta un toast con el mensaje indicado en la posicion indicada, la posicion por default es top.
+   * @param message Mensaje a presentar
+   * @param pos Posicion del toast
+   */
+  async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "top") {
+    const toast = await this.toast.create({
+      message: message,
+      duration: 2000,
+      position: pos,
+      animated: true,
+      mode: "md",
+    });
+    toast.present();
   }
 
 }

@@ -151,7 +151,7 @@ export class RegistroPage implements OnInit {
             let childRef = storageRef.child(this.foto);
             
             childRef.putString(this.preview, 'data_url');
-            let user = JSON.stringify({ nombre: this.nombre, id: this.nombre + "." + this.fecha, tipo: "anonimo", "nombreFoto": this.foto, perfil: "cliente" });
+            let user = JSON.stringify({ nombre: this.nombre, id: this.nombre + "." + this.fecha, tipo: "anonimo", foto: this.foto, perfil: "cliente" });
             this.limpiarCampos();
             this.router.navigate(["/home/" + user]);
 

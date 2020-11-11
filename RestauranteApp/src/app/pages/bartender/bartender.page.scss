@@ -1,0 +1,15 @@
+ion-header{
+    --ion-background-color: var(--ion-color-light);
+    --ion-font-family: "IowanOldStyleBlack";
+    ion-toolbar{
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+}
+ion-content{
+    --ion-background-color: var(--ion-color-bordo);
+}
+.div-estilizado-pedido{
+    background-color: var(--ion-color-light);
+}

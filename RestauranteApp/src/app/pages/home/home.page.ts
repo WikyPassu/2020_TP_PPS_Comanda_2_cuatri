@@ -135,6 +135,7 @@ export class HomePage implements OnInit {
           acceso: this.acceso,
           puedeSentarse: false,
         }
+        console.log(nuevoEnLista);
         this.fire.collection('listaespera').add(nuevoEnLista)
         .then( () => {
           this.router.navigate(['listaespera/' + userStr]);
