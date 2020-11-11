@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'listaespera/:user',
     loadChildren: () => import('./pages/lista-espera/lista-espera.module').then( m => m.ListaEsperaPageModule)
+  },  {
+    path: 'mesa',
+    loadChildren: () => import('./pages/mesa/mesa.module').then( m => m.MesaPageModule)
   },
+
 
 
 ];
