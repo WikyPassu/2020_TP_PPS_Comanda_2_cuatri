@@ -187,7 +187,6 @@ export class RegistroPage implements OnInit {
   }
 
   sacarFoto() {
-    this.auth.borrarFoto(this.preview);
     this.error = "";
     const opciones: CameraOptions = {
       quality: 50,

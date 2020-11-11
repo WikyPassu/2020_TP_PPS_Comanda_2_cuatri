@@ -31,6 +31,18 @@ const routes: Routes = [
     path: 'lista-espera/:user',
     loadChildren: () => import('./pages/lista-espera/lista-espera.module').then( m => m.ListaEsperaPageModule)
   },
+  {
+    path: 'listado-productos',
+    loadChildren: () => import('./pages/listado-productos/listado-productos.module').then( m => m.ListadoProductosPageModule)
+  },
+  {
+    path: 'encuesta',
+    loadChildren: () => import('./pages/encuesta/encuesta.module').then( m => m.EncuestaPageModule)
+  },
+  {
+    path: 'juegos',
+    loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
+  },
 
 
 ];

@@ -30,17 +30,17 @@
         </ion-item>
 
         <!--DIV BOTONES DE LOGIN-->
-        <div class="botones">        
-          <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura" src="../../../assets/icon/basura.png"></ion-fab-button>
-          <ion-button class="btnEntrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>  
+        <div class="botones">
+          <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura"
+              src="../../../assets/icon/basura.png"></ion-fab-button>
+          <ion-button class="btnEntrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>
         </div>
 
         <!--DIV BOTONES DE REGISTRO-->
         <div class="btnsRegistro">
           <ion-button class="botonRegistro" (click)="irRegistro(true)">REGISTRARSE</ion-button>
-          <ion-button class="botonRegistro" (click)="irRegistro(false)">MODO ANONIMO</ion-button> 
+          <ion-button class="botonRegistro" (click)="irRegistro(false)">MODO ANONIMO</ion-button>
         </div>
-
       </ion-card-content>
 
     </ion-card>
@@ -54,10 +54,18 @@
     <ion-icon name="code-slash-outline"></ion-icon>
   </ion-fab-button>
   <ion-fab-list side="start">
-    <ion-fab-button (click)="loginEmpleado()"><ion-icon name="pizza"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginSupervisor()"><ion-icon name="clipboard"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginCliente()"><ion-icon name="happy"></ion-icon></ion-fab-button>
-    <ion-fab-button (click)="loginDuenio()"><ion-icon name="key"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="loginEmpleado()">
+      <ion-icon name="pizza"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="loginSupervisor()">
+      <ion-icon name="clipboard"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="loginCliente()">
+      <ion-icon name="happy"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="loginDuenio()">
+      <ion-icon name="key"></ion-icon>
+    </ion-fab-button>
   </ion-fab-list>
 </ion-fab>
 

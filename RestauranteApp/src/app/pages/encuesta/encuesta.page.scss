@@ -1,0 +1,82 @@
+@font-face{
+    font-family: IowanOldStyleBlack;
+    src: url('../../../assets/fonts/IowanOldStyleBlack.woff2');
+}
+
+ion-content{
+    --ion-background-color: var(--ion-color-bordo);
+    text-align:center;
+}
+
+ion-toolbar{
+    height:7vh; 
+    text-align: center;
+    --ion-background-color: var(--ion-color-bordo);
+    font-family: IowanOldStyleBlack;
+}
+
+ion-title{
+    color:whitesmoke;
+    font-size:large;
+    font-family: IowanOldStyleBlack;
+}
+
+ion-item-divider{
+    min-height: 1.5vh!important;
+    color:white;
+}
+
+strong,p, label{
+    color:white;
+    font-family: IowanOldStyleBlack;
+}
+
+img{
+    height:30vw;
+    width:30vw;
+    margin:1.6vw;
+    border-radius:4vw;
+}
+
+label{
+    margin-left:1vw;
+}
+
+.comentario{
+    font-family: IowanOldStyleBlack;
+    color:black;
+    background-color:white;
+    border-radius:5vw;
+    margin:1vw;
+}
+
+.divGracias{
+    padding:10%;
+    text-align: center;
+}
+
+.flex{
+    ion-button{
+        margin:1vw;
+        --background:rgb(112, 112, 112);
+        font-family: IowanOldStyleBlack;
+        margin-top:5vw;
+        margin-bottom:10vh;
+    }
+}
+
+ion-button{
+    --background:rgb(112, 112, 112);
+    font-family: IowanOldStyleBlack;
+}
+
+
+@media screen and (orientation:landscape) {
+    ion-toolbar{
+        height:13vh; 
+    }
+
+    ion-button{
+        margin-left:3vw;
+    }
+}

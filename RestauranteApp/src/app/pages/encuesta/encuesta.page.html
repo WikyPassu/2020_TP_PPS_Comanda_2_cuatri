@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Encuesta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!enviado">
+
+  <strong>Desea cargar alguna foto?</strong>
+  <br>
+  <img (click)="sacarFoto(fotoUser1)" [src]="fotoUser1.base64">
+  <img (click)="sacarFoto(fotoUser2)" [src]="fotoUser2.base64">
+  <img (click)="sacarFoto(fotoUser3)" [src]="fotoUser3.base64">
+
+  <ion-item-divider></ion-item-divider>
+
+  <strong>Cuál es su edad?</strong>
+  <ion-radio-group (ionChange)="cambiarEdad($event)">
+    <ion-item>
+      <ion-label color="light">13 a 20</ion-label>
+      <ion-radio slot="start" value="13a20"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label color="light">20 a 30</ion-label>
+      <ion-radio slot="start" value="20a30"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label color="light">30 a 40</ion-label>
+      <ion-radio slot="start" value="30a40"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label color="light">Más de 40</ion-label>
+      <ion-radio slot="start" value="40mas"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item-divider></ion-item-divider>
+
+  <strong>Qué le hizo sentir más a gusto?</strong>
+  <ion-item>
+    <ion-label color="light">Elija una opción</ion-label>
+    <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
+      <ion-select-option value="cuadros">Cuadros</ion-select-option>
+      <ion-select-option value="television">Television</ion-select-option>
+      <ion-select-option value="musica">Música</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item-divider></ion-item-divider>
+
+  <strong>Qué le pareció nuestro protocolo de limpieza?</strong>
+  <br>
+  <ion-item>
+    <ion-range min="0" max="10" step="1" (ionChange)="cambiarValorProtocolo($event)">
+      <ion-icon size="small" color="light" slot="start" name="sad"></ion-icon>
+      <ion-icon slot="end" color="light" name="happy"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item-divider></ion-item-divider>
+
+  <strong>Nos recomendaría para...</strong>
+  <br>
+
+    <ion-item (ionChange)="cambiarValorRecomendadosAmigos($event)">
+      <ion-label color="light">Salidas con amigos</ion-label>
+      <ion-checkbox slot="end"></ion-checkbox>
+    </ion-item>
+    <ion-item (ionChange)="cambiarValorRecomendadosFamilia($event)">
+      <ion-label color="light">Reuniones familiares</ion-label>
+      <ion-checkbox slot="end"></ion-checkbox>
+    </ion-item>
+    <ion-item (ionChange)="cambiarValorRecomendadosTrabajo($event)">
+      <ion-label color="light">Comida entre horas de trabajo</ion-label>
+      <ion-checkbox slot="end"></ion-checkbox>
+    </ion-item>
+
+  <ion-item-divider></ion-item-divider>
+
+  <strong>Tiene alguna sugerencia?</strong>
+  <br>
+  <ion-textarea class="comentario" rows="3" cols="30" placeholder="Escriba un comentario..." name="message"
+    [(ngModel)]="comentario" #message='ngModel'></ion-textarea>
+  <ion-item-divider></ion-item-divider>
+  <ion-button (click)="enviarRespuestas()">ENVIAR</ion-button>
+  <ion-button>VER RESULTADOS</ion-button>
+</ion-content>
+
+<ion-content *ngIf="enviado">
+  <div class="divGracias">
+    <strong>Muchas gracias!!</strong>
+    <br>
+    <div class="flex">
+      <ion-button>Ver estadísticas</ion-button>
+      <ion-button>Volver</ion-button>
+    </div>
+  </div>
+</ion-content>
