@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-
+import { PushNotificationService } from "../../services/push-notification.service";
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 import { init } from "emailjs-com";
 init("user_HmGWxdqAC7p1mfhW8tjX3");
@@ -16,18 +16,42 @@ export class SupervisorPage implements OnInit {
   lista = new Array();
   hayPendientes: boolean = false;
   spinner: boolean = false;
+  primerPasada: boolean = false;
 
-  constructor(private db: AuthService, private router: Router) { }
+  constructor(private db: AuthService, private router: Router, private pn: PushNotificationService) { }
 
   ngOnInit() {
     this.db.traerClientesPendientesAprobacion().subscribe(doc => {
+      // let fechaActual = Date.now() + 60000;
+      // let fechaHaceUnMinuto = fechaActual - 90000;
       this.lista = doc;
-      this.lista.forEach(cliente => {
-        this.db.buscarFotoPorNombre(cliente.foto)
-        .then(link => cliente.link = link);
-      });
+      setTimeout(() => {
+        this.lista.forEach(cliente => {
+          this.db.buscarFotoPorNombre(cliente.foto)
+          .then(link => cliente.link = link);
+        });  
+      }, 1000);
       if(this.lista.length != 0){
         this.hayPendientes = true;
+      }
+      else{
+        this.hayPendientes = false;
+      }
+      // setTimeout(() => {
+      //   for(let i=0; i<this.lista.length; i++){
+      //     if(this.lista[i].fecha >= fechaHaceUnMinuto && this.lista[i].fecha <= fechaActual){
+      //       this.pn.pushNotification("¡Nueva solicitud pendiente de aprobación!", "Un nuevo cliente se ha registrado.", 1);
+      //       break;
+      //     }
+      //   }
+      // }, 1000);
+    });
+    this.db.hayNuevoRegistro().subscribe(() => {
+      if(this.primerPasada){
+        this.pn.pushNotification("¡Nueva solicitud pendiente de aprobación!", "Un nuevo cliente se ha registrado.", 1);
+      }
+      else{
+        this.primerPasada = true;
       }
     });
   }
@@ -75,5 +99,6 @@ export class SupervisorPage implements OnInit {
   }
 
   test(){
+    //this.pn.pushNotification("Testeando", "Hola Mundo", 2);
   }
 }

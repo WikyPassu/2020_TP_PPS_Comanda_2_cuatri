@@ -30,10 +30,10 @@ export class AppComponent {
       }, 4000);
     });
 
-    if(this.splash){
-      setTimeout(() => {
-        this.splash = false;
-      }, 5000);
-    }
+    // if(this.splash){
+    //   setTimeout(() => {
+    //     this.splash = false;
+    //   }, 5000);
+    // }
   }
 }

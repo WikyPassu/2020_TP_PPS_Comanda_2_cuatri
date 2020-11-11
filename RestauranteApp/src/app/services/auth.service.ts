@@ -184,6 +184,12 @@ export class AuthService {
   }
 
   /**
+   * Permite saber cuando hay un nuevo registro pendiente de aprobacion, retorna el documento encriptado recientemente agregado
+   */
+  hayNuevoRegistro(){
+    return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).stateChanges(["added"]);
+  }
+  /**
    * Esta es igual a traerClientesSinAprobar pero con valueChanges porque no me funcionaba la otra
    */
   traerClientesPendientesAprobacion(){
