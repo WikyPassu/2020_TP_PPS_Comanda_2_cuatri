@@ -14,201 +14,208 @@
 </ion-header>
 
 <ion-content #content>
-  <div class="tab" *ngIf="tab == 'Carrito'">
-    <div *ngIf="this.carrito.length != 0" class="centrar">
-      <ion-button class="btnEnviar" (click)="enviarPedido()">ENVIAR PEDIDO</ion-button>
-    </div>
-    <div *ngIf="this.carrito.length == 0" class="centrar">
-      <strong class="vacio">El pedido está vacio.</strong>
-    </div>
-    <div *ngFor="let producto of carrito">
-      <ion-grid>
-        <ion-row>
-          <ion-col colsize="12">
-            <ion-slides pager #imageSlides>
-              <ion-slide *ngFor="let foto of producto.fotos; let i = index">
-                <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
-                <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
-              </ion-slide>
-            </ion-slides>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="cantidad">{{producto.cantidad}}x</strong>
-            <strong class="precio">${{producto.precio}}</strong>
-            <strong class="nombreProducto">{{producto.nombre}}</strong>
-            <br>
-            <strong class="precio">${{producto.precio * producto.cantidad}}</strong>
-            <br>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="precio">{{producto.descripcion}}</strong>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <div style="display:flex; justify-content:center;">
-              <ion-fab-button class="plusminus" (click)="restarCantidadCarrito(producto)">
-                <ion-icon name="remove-outline"></ion-icon>
-              </ion-fab-button>
-              <strong class="cantidad">{{producto.cantidad}}</strong>
-              <ion-fab-button class="plusminus" (click)="sumarCantidadCarrito(producto)">
-                <ion-icon name="add-outline"></ion-icon>
-              </ion-fab-button>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-item-divider></ion-item-divider>
-    </div>
+  <div *ngIf="terminado" class="centrar">
+    <strong class="vacio">Pedido enviado!</strong>
+    <br>
+    <ion-button class="btnEnviar" (click)="volverAMesa()">Volver a mi mesa</ion-button>
   </div>
-
-  <div class="tab" *ngIf="tab == 'Comidas'">
-    <div *ngFor="let producto of listaComidas">
-      <ion-grid>
-        <ion-row>
-          <ion-col colsize="12">
-            <ion-slides pager #imageSlides>
-              <ion-slide *ngFor="let foto of producto.fotos; let i = index">
-                <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
-                <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
-              </ion-slide>
-            </ion-slides>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="nombreProducto">{{producto.nombre}}</strong>
-            <br>
-            <strong class="precio">${{producto.precio}}</strong>
-            <br>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="precio">{{producto.descripcion}}</strong>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col colsize="6">
-            <div style="display:flex; justify-content:center;">
-              <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
-                <ion-icon name="remove-outline"></ion-icon>
-              </ion-fab-button>
-              <strong  *ngIf="producto.cantidad != -1"class="cantidad">{{producto.cantidad}}</strong>
-              <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
-                <ion-icon name="add-outline"></ion-icon>
-              </ion-fab-button>
-            </div>
-          </ion-col>
-          <ion-col colsize="6">
-            <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col *ngIf="producto.cantidad == -1">
-            <strong class="nombreProducto">Por favor, seleccione la cantidad!</strong>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-item-divider></ion-item-divider>
+  <div *ngIf="!terminado">
+    <div class="tab" *ngIf="tab == 'Carrito'">
+      <div *ngIf="this.carrito.length != 0" class="centrar">
+        <ion-button class="btnEnviar" (click)="enviarPedido()">ENVIAR PEDIDO</ion-button>
+      </div>
+      <div *ngIf="this.carrito.length == 0" class="centrar">
+        <strong class="vacio">El pedido está vacio.</strong>
+      </div>
+      <div *ngFor="let producto of carrito">
+        <ion-grid>
+          <ion-row>
+            <ion-col colsize="12">
+              <ion-slides pager #imageSlides>
+                <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+                  <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
+                  <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="cantidad">{{producto.cantidad}}x</strong>
+              <strong class="precio">${{producto.precio}}</strong>
+              <strong class="nombreProducto">{{producto.nombre}}</strong>
+              <br>
+              <strong class="precio">${{producto.precio * producto.cantidad}}</strong>
+              <br>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="precio">{{producto.descripcion}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div style="display:flex; justify-content:center;">
+                <ion-fab-button class="plusminus" (click)="restarCantidadCarrito(producto)">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-fab-button>
+                <strong class="cantidad">{{producto.cantidad}}</strong>
+                <ion-fab-button class="plusminus" (click)="sumarCantidadCarrito(producto)">
+                  <ion-icon name="add-outline"></ion-icon>
+                </ion-fab-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item-divider></ion-item-divider>
+      </div>
     </div>
-  </div>
 
-  <div class="tab" *ngIf="tab == 'Bebidas'">
-    <div *ngFor="let producto of listaBebidas">
-      <ion-grid>
-        <ion-row>
-          <ion-col colsize="12">
-            <ion-slides pager #imageSlides>
-              <ion-slide *ngFor="let foto of producto.fotos; let i = index">
-                <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
-                <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
-              </ion-slide>
-            </ion-slides>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="nombreProducto">{{producto.nombre}}</strong>
-            <br>
-            <strong class="precio">${{producto.precio}}</strong>
-            <br>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="precio">{{producto.descripcion}}</strong>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col colsize="6">
-            <div style="display:flex; justify-content:center;">
-              <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
-                <ion-icon name="remove-outline"></ion-icon>
-              </ion-fab-button>
-              <strong class="cantidad">{{producto.cantidad}}</strong>
-              <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
-                <ion-icon name="add-outline"></ion-icon>
-              </ion-fab-button>
-            </div>
-          </ion-col>
-          <ion-col colsize="6">
-            <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-item-divider></ion-item-divider>
+    <div class="tab" *ngIf="tab == 'Comidas'">
+      <div *ngFor="let producto of listaComidas">
+        <ion-grid>
+          <ion-row>
+            <ion-col colsize="12">
+              <ion-slides pager #imageSlides>
+                <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+                  <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
+                  <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="nombreProducto">{{producto.nombre}}</strong>
+              <br>
+              <strong class="precio">${{producto.precio}}</strong>
+              <br>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="precio">{{producto.descripcion}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col colsize="6">
+              <div style="display:flex; justify-content:center;">
+                <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-fab-button>
+                <strong *ngIf="producto.cantidad != -1" class="cantidad">{{producto.cantidad}}</strong>
+                <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
+                  <ion-icon name="add-outline"></ion-icon>
+                </ion-fab-button>
+              </div>
+            </ion-col>
+            <ion-col colsize="6">
+              <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col *ngIf="producto.cantidad == -1">
+              <strong class="nombreProducto">Por favor, seleccione la cantidad!</strong>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item-divider></ion-item-divider>
+      </div>
     </div>
-  </div>
 
-  <div class="tab" *ngIf="tab == 'Postres'">
-    <div *ngFor="let producto of listaPostres">
-      <ion-grid>
-        <ion-row>
-          <ion-col colsize="12">
-            <ion-slides pager #imageSlides>
-              <ion-slide *ngFor="let foto of producto.fotos; let i = index">
-                <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
-                <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
-              </ion-slide>
-            </ion-slides>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="nombreProducto">{{producto.nombre}}</strong>
-            <br>
-            <strong class="precio">${{producto.precio}}</strong>
-            <br>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <strong class="precio">{{producto.descripcion}}</strong>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col colsize="6">
-            <div style="display:flex; justify-content:center;">
-              <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
-                <ion-icon name="remove-outline"></ion-icon>
-              </ion-fab-button>
-              <strong class="cantidad">{{producto.cantidad}}</strong>
-              <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
-                <ion-icon name="add-outline"></ion-icon>
-              </ion-fab-button>
-            </div>
-          </ion-col>
-          <ion-col colsize="6">
-            <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-item-divider></ion-item-divider>
+    <div class="tab" *ngIf="tab == 'Bebidas'">
+      <div *ngFor="let producto of listaBebidas">
+        <ion-grid>
+          <ion-row>
+            <ion-col colsize="12">
+              <ion-slides pager #imageSlides>
+                <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+                  <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
+                  <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="nombreProducto">{{producto.nombre}}</strong>
+              <br>
+              <strong class="precio">${{producto.precio}}</strong>
+              <br>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="precio">{{producto.descripcion}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col colsize="6">
+              <div style="display:flex; justify-content:center;">
+                <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-fab-button>
+                <strong class="cantidad">{{producto.cantidad}}</strong>
+                <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
+                  <ion-icon name="add-outline"></ion-icon>
+                </ion-fab-button>
+              </div>
+            </ion-col>
+            <ion-col colsize="6">
+              <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item-divider></ion-item-divider>
+      </div>
+    </div>
+
+    <div class="tab" *ngIf="tab == 'Postres'">
+      <div *ngFor="let producto of listaPostres">
+        <ion-grid>
+          <ion-row>
+            <ion-col colsize="12">
+              <ion-slides pager #imageSlides>
+                <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+                  <img src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
+                  <img class="subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="nombreProducto">{{producto.nombre}}</strong>
+              <br>
+              <strong class="precio">${{producto.precio}}</strong>
+              <br>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <strong class="precio">{{producto.descripcion}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col colsize="6">
+              <div style="display:flex; justify-content:center;">
+                <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-fab-button>
+                <strong class="cantidad">{{producto.cantidad}}</strong>
+                <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
+                  <ion-icon name="add-outline"></ion-icon>
+                </ion-fab-button>
+              </div>
+            </ion-col>
+            <ion-col colsize="6">
+              <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item-divider></ion-item-divider>
+      </div>
     </div>
   </div>
 </ion-content>

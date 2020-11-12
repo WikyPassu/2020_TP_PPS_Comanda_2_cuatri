@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from "@ionic/angular";
 import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-listado-productos',
@@ -16,10 +17,11 @@ export class ListadoProductosPage implements OnInit {
   tab = "Comidas";
   subtotal = 0;
   carrito = new Array();
+  terminado = false;
 
   @ViewChild(IonContent, { read: IonContent, static: false }) myContent: IonContent;
 
-  constructor(private db: AuthService) { }
+  constructor(private router: Router, private db: AuthService) { }
 
   ngOnInit() {
     this.db.traerProductos().subscribe(lista => {
@@ -165,6 +167,13 @@ export class ListadoProductosPage implements OnInit {
   }
 
   enviarPedido(){
-    this.db.cargarPedido(idcliente, mesa, this.carrito);
+    let mesa = this.router.getCurrentNavigation().extras.state.mesa;
+    let idCliente = this.router.getCurrentNavigation().extras.state.mesa;
+    this.db.cargarPedido(idCliente, mesa, this.carrito);
+    this.terminado = true;
+  }
+
+  volverAMesa(){
+    this.router.navigate(["/mesa"]);
   }
 }

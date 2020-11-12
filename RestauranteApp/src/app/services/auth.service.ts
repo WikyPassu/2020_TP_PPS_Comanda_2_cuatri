@@ -211,7 +211,7 @@ export class AuthService {
       this.db.collection("pedidos").add({
         confirmado : false,
         descuento : 0,
-        estado : "En preparacion",
+        estado : "En preparación",
         idCliente : idCliente,
         mesa : mesa,
         productos : productos 
