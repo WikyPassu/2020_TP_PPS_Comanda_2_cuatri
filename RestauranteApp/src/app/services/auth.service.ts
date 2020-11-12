@@ -304,4 +304,8 @@ export class AuthService {
   traerCliente(id: string){
     return this.db.collection("clientes").doc(id).get();
   }
+
+  traerPedidoCliente(idcliente: string){
+    return this.db.collection("pedidos", ref => ref.where('idcliente', "==", idcliente)).get();
+  }
 }

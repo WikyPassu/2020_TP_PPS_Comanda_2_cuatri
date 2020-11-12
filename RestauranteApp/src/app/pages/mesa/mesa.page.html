@@ -7,24 +7,27 @@
 <ion-content>
   <div align="center">
     <ion-card>
-      
+      <div *ngIf="!deshabilitado">
+        <ion-button>Hacer una consulta</ion-button>
+        
+      </div>
     </ion-card>
   </div>
 </ion-content>
 
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button>
+    <ion-tab-button (click)="redireccionar(1)" [disabled]="deshabilitado">
       <ion-icon name="fast-food"></ion-icon>
       <ion-label>Pedido</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button>
+    <ion-tab-button (click)="redireccionar(2)" [disabled]="deshabilitado">
       <ion-icon name="game-controller"></ion-icon>
       <ion-label>Juegos</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button>
+    <ion-tab-button (click)="redireccionar(3)" [disabled]="deshabilitado">
       <ion-icon name="clipboard"></ion-icon>
       <ion-label>Encuesta</ion-label>
     </ion-tab-button>
