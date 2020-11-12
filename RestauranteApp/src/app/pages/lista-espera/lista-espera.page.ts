@@ -134,7 +134,7 @@ export class ListaEsperaPage implements OnInit {
         mesaData.idcliente = this.userData.id;
         mesaRef.ref.set(mesaData);
         this.abandonarLista();
-        //rutear a pagina mesa
+        this.router.navigate(["mesa"], {state : {mesa: mesaData.mesa}});
       }else{
         this.presentToast('La mesa esta ocupada o reservada.');
         this.spinner = false;

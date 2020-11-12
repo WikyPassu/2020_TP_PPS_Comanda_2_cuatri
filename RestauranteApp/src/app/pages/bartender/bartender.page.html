@@ -9,7 +9,7 @@
   <!--SPINNER--> 
   <app-spinner *ngIf="spinner"></app-spinner>
 
-  <div class="page-container">
+  <div class="page-container" *ngIf="tab == 'pedidos'">
     <div *ngFor="let pedido of pedidos" class="div-estilizado-pedido">
       <p class="mesa-p">Mesa {{pedido.mesa}}</p>
       <ion-item class="estado-item">
@@ -22,6 +22,22 @@
           <p>x{{item.cantidad}}</p>
         </ion-item>
       </div>
+      <ion-button
+        *ngIf="puedeEntregar && pedido.estado == 'Listo'"
+        expand="block"
+        color="medium"
+        (click)="entregarPedido(pedido, 'Entrega a confirmar')">Entregar</ion-button>
+      <ion-button
+        *ngIf="puedeEntregar && pedido.estado == 'Entrega a confirmar'"
+        expand="block"
+        color="medium"
+        (click)="entregarPedido(pedido, 'Listo')">Cancelar entrega</ion-button>
+    </div>
+  </div>
+
+  <div class="encuesta-container" *ngIf="tab == 'encuesta'">
+    <div class="foto-container">
+      <img src="../../../assets/custom-ion-icons/camara-custom.svg" alt="foto-estado" class="foto-estado">
     </div>
   </div>
 
@@ -61,12 +77,12 @@
         </p>
       </ion-item>
       <ion-button 
-        *ngIf="itemSeleccionado.estado != 'Listo'"
+        *ngIf="puedeModificar && itemSeleccionado.estado != 'Listo'"
         expand="full" 
         color="medium" 
         (click)="productoListo('Listo')">Esta listo</ion-button>
       <ion-button 
-      *ngIf="itemSeleccionado.estado == 'Listo'"
+        *ngIf="puedeModificar && itemSeleccionado.estado == 'Listo'"
         expand="full" 
         color="medium" 
         (click)="productoListo('En preparacion')">No esta listo</ion-button>
@@ -74,3 +90,20 @@
   </div>  
 
 </ion-content>
+
+<!--TABS FOOTER-->
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-toolbar">
+
+    <ion-button (click)="cambiarTab('pedidos')" fill="clear" color="bordo" class="footer-button">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Pedidos</ion-label>
+    </ion-button>
+
+    <ion-button  (click)="cambiarTab('encuestas')" fill="clear" color="bordo" class="footer-button">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Encuestas</ion-label>
+    </ion-button>
+
+  </ion-toolbar>
+</ion-footer>

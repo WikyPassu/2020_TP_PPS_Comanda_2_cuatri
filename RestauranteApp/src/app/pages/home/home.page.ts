@@ -46,6 +46,9 @@ export class HomePage implements OnInit {
           this.router.navigate(['listaespera/' + userStr]);
         }
       });
+      await this.verificarSentado().then( mesa => {
+        this.router.navigate(["mesa"], {state : {mesa: mesa}});
+      });
       if(this.user.perfil == 'cliente'){
         this.cambiarTab('local');
       } else if (this.user.perfil == 'dueño' || this.user.perfil == 'supervisor'){
@@ -160,6 +163,19 @@ export class HomePage implements OnInit {
           resolve(true);
         } else {
           resolve(false);
+        }
+      })
+    });
+  }
+
+  async verificarSentado(){
+    return new Promise( (resolve, reject) => {
+      this.fire.collection('mesas', (ref) => ref.where('idcliente', '==' , this.user.id))
+      .valueChanges().subscribe( (resultList) => {
+        if(resultList.length > 0){
+          resolve((<any>resultList[0]).mesa);
+        } else {
+          resolve(false)
         }
       })
     });
