@@ -20,19 +20,19 @@
     <strong *ngIf="intentosDiez != 0">Ojo! Intentos: {{intentosDiez}}</strong>
   </div>
   <ion-item-divider></ion-item-divider>
-  <strong>Jugá por una bebida gratis!</strong>
+  <strong>Jugá por un descuento del 15% sobre el total!</strong>
   <br>
-  <ion-button [disabled]="intentosBebida == 0 || sacarBotones" (click)="descuentoBebida()">Ta te ti</ion-button>
+  <ion-button [disabled]="intentosQuince == 0 || sacarBotones" (click)="descuentoQuinceTotal()">Ta te ti</ion-button>
   <br>
   <div>
-    <strong class="result">{{resultBebida}}</strong>
+    <strong class="result">{{resultQuince}}</strong>
     <br>
-    <div class="divContainer" *ngIf="resultBebida == 'SI!!'">
+    <div class="divContainer" *ngIf="resultQuince == 'SI!!'">
       <div class="divGanaste">
         <strong class="strongGanador">GANASTE!!!</strong>
       </div>
     </div>
-    <strong  *ngIf="intentosBebida != 0">Ojo! Intentos: {{intentosBebida}}</strong>
+    <strong  *ngIf="intentosBebida != 0">Ojo! Intentos: {{intentosQuince}}</strong>
   </div>
   <ion-item-divider></ion-item-divider>
   <strong>Jugá por un descuento del 30% sobre el total!!</strong>

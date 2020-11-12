@@ -208,7 +208,7 @@ export class AuthService {
   */
  cargarPedido(idCliente, mesa, productos){
   return new Promise((resolve, rejected) => {
-      this.db.collection("pedidos").add({
+      this.db.collection("pedidos").doc(idCliente).set({
         confirmado : false,
         descuento : 0,
         estado : "En preparación",
@@ -219,6 +219,28 @@ export class AuthService {
   });
 }
 
+ /*
+  * hola
+  */
+ guardarEncuesta(mesa, idCliente, rangoEdad, llamativo, puntajeProtocolo, arrayRecomendados, sugerencia, arrayFotos){
+  alert(arrayFotos);
+  return new Promise((resolve, rejected) => {
+    this.db.collection("encuestas").add({
+      mesa: mesa,
+      cliente: idCliente,
+      fecha: Date.now(),
+      rangoEdad: rangoEdad,
+      llamativo: llamativo,
+      puntajeProtocolo: puntajeProtocolo,
+      recomendados: arrayRecomendados,
+      sugerencia: sugerencia,
+      fotos: arrayFotos
+    }).catch(error => {
+      alert(error);
+      rejected(error)
+    });
+});
+ }
 
   traerClientesSinAprobar(){
     return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
@@ -329,6 +351,10 @@ export class AuthService {
   }
 
   traerPedidoCliente(idcliente: string){
-    return this.db.collection("pedidos", ref => ref.where('idcliente', "==", idcliente)).valueChanges();
+    return this.db.collection("pedidos", ref => ref.where('idCliente', "==", idcliente)).valueChanges();
+  }
+
+  setearDescuentoPedido(idCliente: string, descuentoNuevo: number){
+    return this.db.collection("pedidos").doc(idCliente).update({descuento: descuentoNuevo});
   }
 }

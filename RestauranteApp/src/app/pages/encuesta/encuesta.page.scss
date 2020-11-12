@@ -70,6 +70,25 @@ ion-button{
     font-family: IowanOldStyleBlack;
 }
 
+.btnVolverPrinc{
+    margin-left:5vw;
+}
+
+.container{
+    display:flex;
+    justify-content: center;
+}
+
+.centrar{
+    text-align:center;
+    background-color: rgb(184, 1, 1);
+    border-radius: 5vh;
+    width: 80vw;
+}
+
+.error{
+    font-size: x-large;
+}
 
 @media screen and (orientation:landscape) {
     ion-toolbar{

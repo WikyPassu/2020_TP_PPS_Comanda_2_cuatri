@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
+
 @Component({
   selector: 'app-juegos',
   templateUrl: './juegos.page.html',
@@ -8,18 +11,21 @@ import { Component, OnInit } from '@angular/core';
 export class JuegosPage implements OnInit {
 
   intentosDiez = 3;
-  intentosBebida = 3;
+  intentosQuince = 3;
   intentosTreinta = 1;
 
   resultDiez = "";
-  resultBebida = "";
+  resultQuince = "";
   resultTreint = "";
 
   sacarBotones = false;
+  idCliente = null; 
 
-  constructor() { }
+  constructor(private router: Router, private db: AuthService) { }
+
 
   ngOnInit() {
+    this.idCliente = this.router.getCurrentNavigation().extras.state.idCliente;
   }
 
   descuentoDiezTotal(){
@@ -33,6 +39,8 @@ export class JuegosPage implements OnInit {
           this.intentosDiez = 0;
         this.resultDiez = "LO HICISTE!!";
         this.sacarBotones = false;
+
+         this.db.setearDescuentoPedido(this.idCliente, 10);
         }, 2000);
       }
       else{
@@ -50,29 +58,31 @@ export class JuegosPage implements OnInit {
 
   }
 
-  descuentoBebida(){
-    if(this.intentosBebida > 0){
+  descuentoQuinceTotal(){
+    if(this.intentosQuince > 0){
       this.sacarBotones = true;
-      this.resultBebida = "Espera..."
+      this.resultQuince = "Espera..."
       let descuento = Math.random() * (11 - 1) + 1;
       descuento = Math.round(descuento);
       if (descuento == 10){
         setTimeout(() => {
-          this.intentosBebida = 0;
-        this.resultBebida = "SI!!";
+          this.intentosQuince = 0;
+        this.resultQuince = "SI!!";
         this.sacarBotones = false;
+
+        this.db.setearDescuentoPedido(this.idCliente, 15);
         }, 2000);
       }
       else{
         setTimeout(() => {
-          this.intentosBebida--;
-        this.resultBebida = "Mejor suerte la próxima :(";
+          this.intentosQuince--;
+        this.resultQuince = "Mejor suerte la próxima :(";
         this.sacarBotones = false;
         }, 2000);
       }
     }
     else{
-      this.resultBebida = "No te quedan más intentos :("
+      this.resultQuince = "No te quedan más intentos :("
       this.sacarBotones = false;
     }
   }
@@ -88,6 +98,8 @@ export class JuegosPage implements OnInit {
           this.intentosTreinta = 0;
         this.resultTreint = "ES TU DIA!!";
         this.sacarBotones = false;
+
+        this.db.setearDescuentoPedido(this.idCliente, 30);
         }, 2000);
       }
       else{

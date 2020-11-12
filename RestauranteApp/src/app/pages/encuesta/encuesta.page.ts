@@ -3,6 +3,10 @@ import { Chart } from 'chart.js';
 
 import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType } from '@ionic-native/camera/ngx';
 
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
+import * as firebase from 'firebase';
+
 @Component({
   selector: 'app-encuesta',
   templateUrl: './encuesta.page.html',
@@ -12,7 +16,6 @@ import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType
   ]
 })
 export class EncuestaPage implements OnInit {
-
   fotoUser1 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
   fotoUser2 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
   fotoUser3 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
@@ -24,11 +27,19 @@ export class EncuestaPage implements OnInit {
   recomendadosFamilia = false;
   recomendadosTrabajo = false;
   comentario = "";
-  
+
+  idCliente = null;
+  mesa = null;
+  arrFotos = new Array();
+
   enviado = false;
-  constructor(private camera: Camera,) { }
+  error = "";
+
+  constructor(private camera: Camera, private router: Router, private db: AuthService) { }
 
   ngOnInit() {
+    this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
+    this.idCliente = this.router.getCurrentNavigation().extras.state.mesa;
   }
 
   sacarFoto(punteroFoto) {
@@ -44,10 +55,9 @@ export class EncuestaPage implements OnInit {
     this.camera.getPicture(opciones).then((ImageData) => {
       punteroFoto.fecha = Date.now();
       punteroFoto.base64 = 'data:image/jpeg;base64,' + ImageData;
-      punteroFoto.nombre = "NOMBRECLIENTE" + "." + punteroFoto.fecha + ".jpg";
-      alert(punteroFoto);
+      punteroFoto.nombre = this.idCliente + "." + punteroFoto.fecha + ".jpg";
     }).catch(e => {
-      alert(e.message);
+      console.log(e.message);
     });
   }
 
@@ -70,51 +80,113 @@ export class EncuestaPage implements OnInit {
     }
   }
 
-  cambiarLlamativo(e){
+  cambiarLlamativo(e) {
     this.llamativo = e.detail.value;
   }
 
-  cambiarValorProtocolo(e){
-    this.protocolo = e.detail.value; 
+  cambiarValorProtocolo(e) {
+    this.protocolo = e.detail.value;
   }
 
-  cambiarValorRecomendadosAmigos(e){
-    if (!this.recomendadosAmigos){
+  cambiarValorRecomendadosAmigos(e) {
+    if (!this.recomendadosAmigos) {
       this.recomendadosAmigos = true;
     }
-    else{
+    else {
       this.recomendadosAmigos = false;
     }
   }
-  
-  cambiarValorRecomendadosFamilia(e){
-    if (!this.recomendadosFamilia){
+
+  cambiarValorRecomendadosFamilia(e) {
+    if (!this.recomendadosFamilia) {
       this.recomendadosFamilia = true;
     }
-    else{
+    else {
       this.recomendadosFamilia = false;
     }
   }
 
-  cambiarValorRecomendadosTrabajo(e){
-    if (!this.recomendadosTrabajo){
+  cambiarValorRecomendadosTrabajo(e) {
+    if (!this.recomendadosTrabajo) {
       this.recomendadosTrabajo = true;
     }
-    else{
+    else {
       this.recomendadosTrabajo = false;
     }
   }
 
-  enviarRespuestas(){
-    //range listo para enviar
-    //select listo para enviar
-    //rango edad listo para enviar
-    //fotos listas para enviar
-    //comentario listo para enviar
+  validarRespuestas(){
+    if (this.rangoEdad == ""){
+      this.error = "Seleccione su edad!!"
+    }
+    else if(this.llamativo == ""){
+      this.error = "Seleccione que le llamo la atención!!"
+    }
+    else if(this.protocolo == ""){
+      this.error = "Seleccione nivel de satisfaccion de protocolo!!"
+    }
+  }
+
+  async enviarRespuestas() {
+    this.error = "";
+    this.validarRespuestas();
+
+    if (this.error == "" ){
+
+      let arrRecomendados = new Array();
+      if (this.recomendadosTrabajo) {
+        arrRecomendados.push("trabajo");
+      }
+  
+      if (this.recomendadosAmigos) {
+        arrRecomendados.push("amigos");
+      }
+  
+      if (this.recomendadosFamilia) {
+        arrRecomendados.push("familia");
+      }
+      await this.traerFotos();
+  
+      setTimeout(() => {
+        alert("poner spinner");  
+         this.db.guardarEncuesta(this.mesa, this.idCliente, this.rangoEdad, this.llamativo, this.protocolo, arrRecomendados, this.comentario, this.arrFotos);
+          this.enviado = true;
+        }, 5000);
+    }
+  }
+
+  traerFotos() {
+    if (this.fotoUser1.fecha != null) {
+      this.guardarFoto(this.fotoUser1);
+    }
+
+    if (this.fotoUser2.fecha != null) {
+      this.guardarFoto(this.fotoUser2);
+    }
+
+    if (this.fotoUser3.fecha != null) {
+      this.guardarFoto(this.fotoUser3);
+    }
+  }
+
+  async guardarFoto(fotoUser) {
+    let storageRef = firebase.storage().ref();
+    let childRef = storageRef.child(fotoUser.nombre);
+
+    await childRef.putString(fotoUser.base64, 'data_url');
+    
+    await this.db.buscarFotoPorNombre(fotoUser.nombre).then(link => {
+      this.arrFotos.push(link);
+      alert("trajo link");
+    });
   }
 
   verResultados() {
     alert("NO SE HACER GRAFICOS XDDDDDDDD");
+  }
+
+  volverAMesa(){
+    this.router.navigate(["/mesa"]);
   }
 }
 
