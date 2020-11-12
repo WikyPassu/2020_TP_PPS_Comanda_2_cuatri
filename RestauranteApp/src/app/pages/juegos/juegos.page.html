@@ -7,20 +7,47 @@
 <ion-content>
   <strong>Jugá por un descuento del 10% sobre el total!</strong>
   <br>
-  <ion-button>Adivina el numero</ion-button>
+  <ion-button [disabled]="intentosDiez == 0 || sacarBotones" (click)="descuentoDiezTotal()">Adivina el numero</ion-button>
   <br>
-  <strong>Tenes 3 chances!</strong>
+  <div>
+    <strong  class="result">{{resultDiez}}</strong>
+    <br>
+  <div class="divContainer" *ngIf="resultDiez == 'LO HICISTE!!'">
+    <div class="divGanaste">
+      <strong class="strongGanador">GANASTE!!!</strong>
+    </div>
+  </div>
+    <strong *ngIf="intentosDiez != 0">Ojo! Intentos: {{intentosDiez}}</strong>
+  </div>
   <ion-item-divider></ion-item-divider>
-  <strong>Jugá por un descuento del 10% sobre un producto!</strong>
+  <strong>Jugá por una bebida gratis!</strong>
   <br>
-  <ion-button>Ta te ti</ion-button>
+  <ion-button [disabled]="intentosBebida == 0 || sacarBotones" (click)="descuentoBebida()">Ta te ti</ion-button>
   <br>
-  <strong>Tenes 3 chances!</strong>
+  <div>
+    <strong class="result">{{resultBebida}}</strong>
+    <br>
+    <div class="divContainer" *ngIf="resultBebida == 'SI!!'">
+      <div class="divGanaste">
+        <strong class="strongGanador">GANASTE!!!</strong>
+      </div>
+    </div>
+    <strong  *ngIf="intentosBebida != 0">Ojo! Intentos: {{intentosBebida}}</strong>
+  </div>
   <ion-item-divider></ion-item-divider>
   <strong>Jugá por un descuento del 30% sobre el total!!</strong>
   <br>
-  <ion-button>Memotest</ion-button>
+  <ion-button [disabled]="intentosTreinta == 0 || sacarBotones" (click)="descuentoTreintaTotal()">Memotest</ion-button>
   <br>
-  <strong>Ojo, tenes una sola chance!</strong>
+  <div>
+    <strong  class="result">{{resultTreint}}</strong>
+    <br>
+    <div class="divContainer" *ngIf="resultTreint == 'ES TU DIA!!'">
+      <div class="divGanaste">
+        <strong class="strongGanador">GANASTE!!!</strong>
+      </div>
+    </div>
+    <strong  *ngIf="intentosTreinta != 0">Ojo! Intentos: {{intentosTreinta}}</strong>
+  </div>
   <ion-item-divider></ion-item-divider>
 </ion-content>
