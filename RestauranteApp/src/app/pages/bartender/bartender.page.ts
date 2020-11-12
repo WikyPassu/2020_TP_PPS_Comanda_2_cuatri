@@ -40,7 +40,7 @@ export class BartenderPage implements OnInit {
 
   ngOnInit() {
     //console.log(this.auth.userObs);
-    this.tab = 'pedidos';
+    this.tab = 'encuesta';
     this.sector = this.route.snapshot.paramMap.get('sector');
     this.prepararSector();
     this.fire.collection('pedidos')
