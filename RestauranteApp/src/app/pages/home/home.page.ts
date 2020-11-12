@@ -47,7 +47,9 @@ export class HomePage implements OnInit {
         }
       });
       await this.verificarSentado().then( mesa => {
-        this.router.navigate(["mesa"], {state : {mesa: mesa}});
+        if(mesa){
+          this.router.navigate(["mesa"], {state : {mesa: mesa}});
+        }
       });
       if(this.user.perfil == 'cliente'){
         this.cambiarTab('local');
