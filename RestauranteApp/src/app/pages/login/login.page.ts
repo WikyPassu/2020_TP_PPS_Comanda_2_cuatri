@@ -168,6 +168,25 @@ export class LoginPage implements OnInit {
     this.onSubmitLogin();
   }
 
+  loginMozo(){
+    this.email="mesero@mesero.com";
+    this.pwd="123456789";
+    this.onSubmitLogin();
+  }
+
+  loginCocinero(){
+    this.email="cocinero@cocinero.com";
+    this.pwd="123456789";
+    this.onSubmitLogin();
+  }
+
+  loginBartender(){
+    this.email="bartender@bartender.com";
+    this.pwd="123456789";
+    this.onSubmitLogin();
+  }
+
+
   irRegistro(tipo : string){
     this.router.navigate(["/registro"], {state : {modo: tipo}});
   }
@@ -247,6 +266,12 @@ export class LoginPage implements OnInit {
       }else if(this.usuario.perfil == 'metre'){
         //console.log(JSON.stringify(this.usuario));
         this.router.navigate(['listaespera/' + JSON.stringify(this.usuario)]);
+      }else if(this.usuario.perfil == 'mozo'){
+        //this.router.navigate(['preparacion']);
+      }else if(this.usuario.perfil == 'bartender'){
+        this.router.navigate(['preparacion/bar']);
+      }else if(this.usuario.perfil == 'cocinero'){
+        this.router.navigate(['preparacion/cocina']);
       }else{
         this.presentToast('Oof, se rompió.');
       }

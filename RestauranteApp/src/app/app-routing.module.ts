@@ -36,12 +36,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mesa/mesa.module').then( m => m.MesaPageModule)
   },
   {
-    path: 'bartender',
+    path: 'preparacion/:sector',
     loadChildren: () => import('./pages/bartender/bartender.module').then( m => m.BartenderPageModule)
-  },
-  {
-    path: 'cocinero',
-    loadChildren: () => import('./pages/cocinero/cocinero.module').then( m => m.CocineroPageModule)
   },
   {
     path: 'listado-productos',
@@ -55,8 +51,10 @@ const routes: Routes = [
     path: 'juegos',
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
-
-
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];
 
 @NgModule({
