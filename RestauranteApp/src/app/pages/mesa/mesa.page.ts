@@ -13,6 +13,8 @@ export class MesaPage implements OnInit {
   cliente: any = {};
   header: string;
   deshabilitado: boolean = true;
+  pedido: any = {};
+  hayPedido: boolean = false;
   spinner: boolean = false;
 
   constructor(private router: Router, private db: AuthService) { }
@@ -30,7 +32,15 @@ export class MesaPage implements OnInit {
           this.header = "Mesa " + this.mesa.mesa + ": " + this.cliente.apellido + ", " + this.cliente.nombre;
           console.log(this.cliente);
           this.deshabilitado = false;
-          this.spinner = false;
+          this.db.traerPedidoCliente(this.cliente.id).subscribe(doc => {
+            if(doc != null){
+              this.pedido = doc[0];
+              this.pedido.productos = this.transformarProductos(this.pedido.productos);
+              console.log(this.pedido);
+              this.hayPedido = true;
+              this.spinner = false;
+            }
+          });
         });
       }
       else{
@@ -39,17 +49,31 @@ export class MesaPage implements OnInit {
     });
   }
 
+  transformarProductos(productos: any){
+    let arrayProductos = new Array();
+    let arrayObjProductos = new Array();
+    
+    productos.forEach(producto => {
+      arrayProductos.push(producto.split("/"));
+    });
+
+    arrayProductos.forEach(producto => {
+        let objProducto: any = {
+          id: producto[0],
+          nombre: producto[1],
+          precio: producto[2],
+          cantidad: producto[3],
+          estado: producto[4],
+        };
+        arrayObjProductos.push(objProducto);
+    
+    });
+
+    return arrayObjProductos;  
+  }
+
   redireccionar(opcion: number){
-    let state = {
-      state: [
-        {
-          mesa: this.mesa 
-        }, 
-        {
-          cliente: this.cliente
-        }
-      ]
-    };
+    let state = {state: [{mesa: this.mesa}, {cliente: this.cliente}]};
     switch(opcion){
       case 1:
         this.router.navigate(["/listado-productos"], state);

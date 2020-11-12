@@ -8,8 +8,30 @@
   <div align="center">
     <ion-card>
       <div *ngIf="!deshabilitado">
+        <br>
         <ion-button>Hacer una consulta</ion-button>
-        
+        <div *ngIf="!hayPedido">
+          <br>
+          <img style="width: 70vw;" src="../../../assets/icono.png">
+          <h3>Todavía no realizaste ningún pedido.</h3>
+          <ion-button>Hacer un pedido</ion-button>
+        </div>
+        <div *ngIf="hayPedido">
+          <h3 style="color: black;">Estado de tu pedido</h3>
+          <div align="center" *ngFor="let producto of pedido.productos">
+            <div class="producto">
+              <hr>
+              <ion-label>Nombre: {{producto.nombre}}</ion-label>
+              <hr>
+              <ion-label>Cantidad: {{producto.cantidad}}</ion-label>
+              <hr>
+              <ion-label>Precio unitario: ${{producto.precio}} c/u.</ion-label>
+              <hr>
+              <ion-label>Estado: {{producto.estado}}</ion-label>
+              <hr>
+            </div>
+          </div>
+        </div>
       </div>
     </ion-card>
   </div>
@@ -17,7 +39,7 @@
 
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button (click)="redireccionar(1)" [disabled]="deshabilitado">
+    <ion-tab-button (click)="redireccionar(1)" [disabled]="deshabilitado || hayPedido">
       <ion-icon name="fast-food"></ion-icon>
       <ion-label>Pedido</ion-label>
     </ion-tab-button>
