@@ -189,6 +189,7 @@ export class AuthService {
   hayNuevoRegistro(){
     return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).stateChanges(["added"]);
   }
+
   /**
    * Esta es igual a traerClientesSinAprobar pero con valueChanges porque no me funcionaba la otra
    */
@@ -286,5 +287,21 @@ export class AuthService {
         resolve(data);
       });
     });
+  }
+
+  /**
+   * Trae un documento de la coleccion de mesas a partir del id de la mesa pasado por parametro
+   * @param id Id de la mesa
+   */
+  traerMesa(id: string){
+    return this.db.collection("mesas").doc(id).get();
+  }
+
+  /**
+   * Trae un documento de la coleccion de clientes a partir del id del cliente pasado por parametro
+   * @param id Id del cliente
+   */
+  traerCliente(id: string){
+    return this.db.collection("clientes").doc(id).get();
   }
 }

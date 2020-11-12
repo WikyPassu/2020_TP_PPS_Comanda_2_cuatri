@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Mesa</ion-title>
+    <ion-title>{{header}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div align="center">
     <ion-card>
-
+      
     </ion-card>
   </div>
 </ion-content>
@@ -30,3 +30,5 @@
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
+
+<app-spinner *ngIf="spinner"></app-spinner>

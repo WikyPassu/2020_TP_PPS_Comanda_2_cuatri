@@ -8,6 +8,8 @@ import { MesaPageRoutingModule } from './mesa-routing.module';
 
 import { MesaPage } from './mesa.page';
 
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { MesaPage } from './mesa.page';
     IonicModule,
     MesaPageRoutingModule
   ],
-  declarations: [MesaPage]
+  declarations: [MesaPage, SpinnerComponent]
 })
 export class MesaPageModule {}
