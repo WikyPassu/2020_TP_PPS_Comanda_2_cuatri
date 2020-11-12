@@ -15,7 +15,10 @@
 
 <ion-content #content>
   <div class="tab" *ngIf="tab == 'Carrito'">
-    <div class="centrar">
+    <div *ngIf="this.carrito.length != 0" class="centrar">
+      <ion-button class="btnEnviar" (click)="enviarPedido()">ENVIAR PEDIDO</ion-button>
+    </div>
+    <div *ngIf="this.carrito.length == 0" class="centrar">
       <strong class="vacio">El pedido está vacio.</strong>
     </div>
     <div *ngFor="let producto of carrito">
@@ -38,6 +41,11 @@
             <br>
             <strong class="precio">${{producto.precio * producto.cantidad}}</strong>
             <br>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong class="precio">{{producto.descripcion}}</strong>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -80,12 +88,17 @@
           </ion-col>
         </ion-row>
         <ion-row>
+          <ion-col>
+            <strong class="precio">{{producto.descripcion}}</strong>
+          </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col colsize="6">
             <div style="display:flex; justify-content:center;">
               <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
                 <ion-icon name="remove-outline"></ion-icon>
               </ion-fab-button>
-              <strong class="cantidad">{{producto.cantidad}}</strong>
+              <strong  *ngIf="producto.cantidad != -1"class="cantidad">{{producto.cantidad}}</strong>
               <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
                 <ion-icon name="add-outline"></ion-icon>
               </ion-fab-button>
@@ -93,6 +106,11 @@
           </ion-col>
           <ion-col colsize="6">
             <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col *ngIf="producto.cantidad == -1">
+            <strong class="nombreProducto">Por favor, seleccione la cantidad!</strong>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -119,6 +137,11 @@
             <br>
             <strong class="precio">${{producto.precio}}</strong>
             <br>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong class="precio">{{producto.descripcion}}</strong>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -161,6 +184,11 @@
             <br>
             <strong class="precio">${{producto.precio}}</strong>
             <br>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong class="precio">{{producto.descripcion}}</strong>
           </ion-col>
         </ion-row>
         <ion-row>

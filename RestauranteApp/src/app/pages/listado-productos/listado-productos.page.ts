@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from "@ionic/angular";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-listado-productos',
@@ -8,6 +9,7 @@ import { IonContent } from "@ionic/angular";
 })
 export class ListadoProductosPage implements OnInit {
 
+  listaProd = new Array();
   listaComidas = new Array();
   listaBebidas = new Array();
   listaPostres = new Array();
@@ -17,34 +19,39 @@ export class ListadoProductosPage implements OnInit {
 
   @ViewChild(IonContent, { read: IonContent, static: false }) myContent: IonContent;
 
-  constructor() { }
+  constructor(private db: AuthService) { }
 
   ngOnInit() {
-    let prod1 = {
-      nombre: "Mi Pinga",
-      fotos: ["https://www.viuvalencia.com/netpublisher/minfo/imagenes/9485_22.jpg", "https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2020/05/churros-caseros-disney-chocolate.jpg", "https://i.pinimg.com/originals/cd/c8/63/cdc863190cf8953f94b2d109129191d9.jpg"],
-      tipo: "postre",
-      precio: "30",
-    };
+    this.db.traerProductos().subscribe(lista => {
 
-    let prod2 = {
-      nombre: "Sanguchoto",
-      fotos: ["https://i.ytimg.com/vi/telUPSOQL5A/maxresdefault.jpg", "https://i.pinimg.com/originals/67/a6/9b/67a69b6d316638d6241005d25d254c5e.jpg", "https://img-global.cpcdn.com/recipes/dd0edd31f3ef36f4/751x532cq70/sandwiches-de-miga-vegetarianos-y-de-los-otros-para-san-valentin-foto-principal.jpg"],
-      tipo: "comida",
-      precio: 60,
-    };
+      lista.forEach(prod => {
+        this.listaProd.push(prod);
+      });
 
-    let prod3 = {
-      nombre: "Coca Culo 360ml",
-      fotos: ["https://mui.today/__export/1586886992211/sites/mui/img/2020/04/14/pepsi-coca-cola-sabor-ingrediente.jpg_375107944.jpg", "https://assets.entrepreneur.com/content/3x2/2000/20181226163637-CocaCola.jpeg", "https://bradenbost.files.wordpress.com/2010/09/350lbs.jpg"],
-      tipo: "bebida",
-      precio: 80,
-    };
+      this.discriminarListas();
+      this.setearCantidades();
+    });
+  }
 
-    this.listaPostres.push(prod1);
-    this.listaComidas.push(prod2);
-    this.listaBebidas.push(prod3);
+  discriminarListas() {
+    this.listaProd.forEach(prod => {
+      switch (prod.tipo) {
+        case "bebida":
+          this.listaBebidas.push(prod);
+          break;
+        case "comida":
+          this.listaComidas.push(prod);
+          break;
+        case "postre":
+          this.listaPostres.push(prod);
+          break;
+        default:
+          break;
+      }
+    });
+  }
 
+  setearCantidades() {
     this.listaPostres.forEach(p => {
       p.cantidad = 1;
     });
@@ -61,42 +68,53 @@ export class ListadoProductosPage implements OnInit {
   cambiarTab(tabName: string) {
     this.tab = tabName;
     this.listaBebidas.forEach(p => {
-      p.cantidad = 0;
+      p.cantidad = 1;
     });
-    
+
     this.listaComidas.forEach(p => {
-      p.cantidad = 0;
+      p.cantidad = 1;
     });
-    
+
     this.listaPostres.forEach(p => {
-      p.cantidad = 0;
+      p.cantidad = 1;
     });
   }
 
   agregarAlCarrito(producto) {
-    let prod = {
-      nombre: producto.nombre,
-      fotos: producto.fotos,
-      tipo: producto.tipo,
-      precio: producto.precio,
-      cantidad: producto.cantidad,
-    }
-
-    producto.cantidad = 0;
-    let encontrado = false;
-
-    this.carrito.forEach(p => {
-      if (p.nombre==prod.nombre){
-        p.cantidad += prod.cantidad;
-        encontrado = true;
+    if (producto.cantidad != 0){
+      let prod = {
+        id: producto.id,
+        descripcion: producto.descripcion,
+        nombre: producto.nombre,
+        fotos: producto.fotos,
+        tipo: producto.tipo,
+        precio: producto.precio,
+        cantidad: producto.cantidad,
+        tiempo: producto.tiempo
       }
-    });
-
-    if (encontrado == false){
-      this.carrito.push(prod);
+  
+      producto.cantidad = 0;
+      let encontrado = false;
+  
+      this.carrito.forEach(p => {
+        if (p.nombre == prod.nombre) {
+          p.cantidad += prod.cantidad;
+          encontrado = true;
+        }
+      });
+  
+      if (encontrado == false) {
+        this.carrito.push(prod);
+      }
+  
+      this.calcularPrecioCarrito();
     }
-
-    this.calcularPrecioCarrito();
+    else{
+      producto.cantidad = -1;
+      setTimeout(() => {
+        producto.cantidad = 0;
+      }, 2000);
+    }
   }
 
   sumarCantidad(producto) {
@@ -144,5 +162,9 @@ export class ListadoProductosPage implements OnInit {
         p.cantidad = producto.cantidad;
       }
     });
+  }
+
+  enviarPedido(){
+    this.db.cargarPedido(idcliente, mesa, this.carrito);
   }
 }

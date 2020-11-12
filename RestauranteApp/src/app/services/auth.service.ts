@@ -187,6 +187,29 @@ export class AuthService {
   traerClientesPendientesAprobacion(){
     return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).valueChanges();
   }
+  /*
+  * hola
+  */
+  traerProductos(){
+    return this.db.collection("productos").valueChanges();
+  }
+
+  /*
+  * hola
+  */
+ cargarPedido(idCliente, mesa, productos){
+  return new Promise((resolve, rejected) => {
+      this.db.collection("pedidos").add({
+        confirmado : false,
+        descuento : 0,
+        estado : "En preparacion",
+        idCliente : idCliente,
+        mesa : mesa,
+        productos : productos 
+      }).catch(error => rejected(error));
+  });
+}
+
 
   traerClientesSinAprobar(){
     return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();

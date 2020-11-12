@@ -94,6 +94,13 @@ img{
     font-family: IowanOldStyleBlack;
 }
 
+.btnEnviar{
+    margin-left:2vw;
+    height:5vh;
+    --background: rgb(21, 75, 21);
+    font-family: IowanOldStyleBlack;
+}
+
 .cantidad{
     margin-left:2vw;
     margin-right:2vw;
@@ -148,5 +155,10 @@ ion-slides{
     .plusminus{
         height:10vh;
         width:10vh;
+    }
+
+    .btnEnviar{
+        height:15vh;
+        width:50vw;
     }
 }
