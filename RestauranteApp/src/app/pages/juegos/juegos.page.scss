@@ -1,0 +1,32 @@
+@font-face{
+    font-family: IowanOldStyleBlack;
+    src: url('../../../assets/fonts/IowanOldStyleBlack.woff2');
+}
+
+ion-content{
+    --ion-background-color: var(--ion-color-bordo);
+    text-align:center;
+}
+
+ion-toolbar{
+    height:7vh; 
+    text-align: center;
+    --ion-background-color: var(--ion-color-bordo);
+    font-family: IowanOldStyleBlack;
+}
+
+ion-title{
+    color:whitesmoke;
+    font-size:large;
+    font-family: IowanOldStyleBlack;
+}
+
+ion-button{
+    --background:rgb(112, 112, 112);
+    font-family: IowanOldStyleBlack;
+}
+
+strong,p, label{
+    color:white;
+    font-family: IowanOldStyleBlack;
+}

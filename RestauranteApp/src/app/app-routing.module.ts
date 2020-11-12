@@ -42,7 +42,21 @@ const routes: Routes = [
   {
     path: 'cocinero',
     loadChildren: () => import('./pages/cocinero/cocinero.module').then( m => m.CocineroPageModule)
-  }
+  },
+  {
+    path: 'listado-productos',
+    loadChildren: () => import('./pages/listado-productos/listado-productos.module').then( m => m.ListadoProductosPageModule)
+  },
+  {
+    path: 'encuesta',
+    loadChildren: () => import('./pages/encuesta/encuesta.module').then( m => m.EncuestaPageModule)
+  },
+  {
+    path: 'juegos',
+    loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
+  },
+
+
 ];
 
 @NgModule({

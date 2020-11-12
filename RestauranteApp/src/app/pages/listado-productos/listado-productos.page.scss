@@ -1,0 +1,142 @@
+@font-face{
+    font-family: IowanOldStyleBlack;
+    src: url('../../../assets/fonts/IowanOldStyleBlack.woff2');
+}
+
+ion-content{
+    --ion-background-color: var(--ion-color-bordo);
+}
+
+ion-toolbar{
+    height:7vh; 
+    text-align: right;
+    --ion-background-color: var(--ion-color-bordo);
+}
+
+ion-title{
+    color:whitesmoke;
+    font-size:large;
+    font-family: IowanOldStyleBlack;
+}
+
+.titleTab{
+    width:50%;
+    text-align: right;
+}
+
+.titleSubt{
+    width:50%;
+    text-align: right;
+}
+
+.sSubtotal{
+    font-size:medium;
+    color:white;
+    background-color:rgb(112, 112, 112);
+    border-radius:3vh;
+    padding:1vh;
+}
+
+ion-item-divider{
+    min-height: 1vh!important;
+    color:white;
+}
+
+.tab{
+    background-color: var(--ion-color-bordo);
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+p{
+    padding-top: 5%;
+    color: black;
+    font-size: large;
+    text-align: center;
+    font-family: IowanOldStyleBlack;
+}
+label{
+    font-family: IowanOldStyleBlack;
+}
+
+.prod{
+    text-align:left;
+    display:flex;
+}
+
+.nombreProducto{
+    color:white;
+    margin-left:1vw;
+}
+
+.precio{
+    color:white;
+    font-weight: 100;
+}
+
+img{
+    border-radius:2vw;
+    height:15vh;
+    width:15h;
+}
+
+.plusminus{
+    --background:rgb(112, 112, 112);
+    height:4vh;
+    width:4vh;  
+}
+
+.agregar{
+    margin-left:2vw;
+    height:3.5vh;
+    --background:rgb(112, 112, 112);
+    font-family: IowanOldStyleBlack;
+}
+
+.cantidad{
+    margin-left:2vw;
+    margin-right:2vw;
+    font-size:large;
+    color:white;
+    margin-top:1vh;
+}
+
+ion-slides{
+    --bullet-background:white;
+    --bullet-background-active: var(--ion-color-bordo);
+}
+.footer-toolbar{
+    display: flex;
+    justify-content:space-evenly;
+    --ion-background-color:whitesmoke;
+
+    ion-button{
+        width:23.8vw;
+    }
+}
+
+@media screen and (orientation:landscape) {
+    ion-toolbar{
+        height:13vh; 
+    }
+
+    .agregar{
+        height:10vh;
+    }
+
+    .cantidad{
+        font-size: x-large;
+    }
+
+    img{
+        height:40vh;
+        width:40vh;
+        border-radius:3vw;
+    }
+
+    .plusminus{
+        height:10vh;
+        width:10vh;
+    }
+}
