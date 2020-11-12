@@ -16,6 +16,8 @@ import { FormsModule } from "@angular/forms";
 
 import { EmailComposer } from "@ionic-native/email-composer/ngx";
 
+import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
+
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 
 @NgModule({
@@ -36,7 +38,7 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     EmailComposer,
     BarcodeScanner,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    LocalNotifications
   ],
   bootstrap: [AppComponent]
 })

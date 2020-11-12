@@ -28,8 +28,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'lista-espera/:user',
+    path: 'listaespera/:user',
     loadChildren: () => import('./pages/lista-espera/lista-espera.module').then( m => m.ListaEsperaPageModule)
+  },
+  {
+    path: 'mesa',
+    loadChildren: () => import('./pages/mesa/mesa.module').then( m => m.MesaPageModule)
+  },
+  {
+    path: 'preparacion/:sector',
+    loadChildren: () => import('./pages/bartender/bartender.module').then( m => m.BartenderPageModule)
   },
   {
     path: 'listado-productos',
@@ -43,8 +51,10 @@ const routes: Routes = [
     path: 'juegos',
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
-
-
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];
 
 @NgModule({

@@ -1,22 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Lista de espera</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
+
+  <!--SPINNER--> 
+  <app-spinner *ngIf="spinner"></app-spinner>
+
   <div class="page-container">
+
     <div class="cards-container" *ngIf="!cargando && !cliente">
       <ion-card *ngFor="let cmzl of enEspera" class="card-en-espera">
         <img src="{{pre}}{{cmzl.foto}}{{pos}}" alt="foto cliente" class="foto-cliente">
         <ion-card-title class="nombre-title">{{cmzl.nombre}}</ion-card-title>
         <ion-icon name="accesible" [color]="cmzl.acceso ? 'bordo' : 'light'" style="font-size: xx-large;"></ion-icon>
         <ion-card-title class="mesa-title">Mesa para {{cmzl.comenzales}}</ion-card-title>
-        <ion-button color="medium" (click)="sentar(cmzl.id)">Sentar</ion-button>
+        <ion-button color="medium" (click)="sentar(cmzl.id)">{{cmzl.puedeSentarse ? 'Cancelar' : 'Sentar'}}</ion-button>
       </ion-card>
     </div>
+
     <div class="cards-container" *ngIf="!cargando && cliente">
-      <ion-card class="card-en-espera">
+      <ion-card class="card-en-espera-cliente">
         <img src="../../../assets/icono.png" alt="">
         <div class="titles-div">
           <ion-card-title class="en-espera">En espera {{enEspera.length}}</ion-card-title>
           <ion-card-title class="delante">Personas delante {{personasDelante}}</ion-card-title>
         </div>
+        <ion-button color="medium" (click)="abandonarLista()">Abandonar Lista</ion-button>
       </ion-card>
+      <div class="div-escanear" *ngIf="userData ? userData.puedeSentarse : false">
+        <ion-button (click)="escanear()" class="boton-escanear" color="medium">
+          <ion-icon name="barcode-outline" class="icono-escanear" color="bordo"></ion-icon>
+        </ion-button>
+      </div>
     </div>
+
   </div>
 </ion-content>

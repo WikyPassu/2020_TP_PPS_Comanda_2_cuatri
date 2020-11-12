@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
+  h;
 
   constructor(
     private authService: AuthService,
@@ -30,22 +31,31 @@ export class LoginPage implements OnInit {
     private fire: AngularFirestore,
     ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    //this.h = (document.body.clientHeight * 0.8) + 'px';
+  }
 
   onSubmitLogin(){
     if(!InputVerifierService.verifyEmailFormat(this.email))
-      {this.presentToast('Formato de correo invalido.'); return;}
+      {this.presentToast('Formato de correo inválido.'); return;}
     if(InputVerifierService.verifyPasswordStrength(this.pwd) == 0)
-      {this.presentToast('Clave invalida.'); return;}
-    this.spinner = true;
-    this.authService.login(this.email, this.pwd)
-    .then( (response) => {
-      this.manejarLoginExitoso(response);
-    })
-    .catch( (reason) => {
-      this.presentToast(this.traducirErrorCode(reason.code));
-      this.spinner = false;
-    });
+      {this.presentToast('Clave inválida.'); return;}
+    
+    if(!this.authService.verificarEmailFire(this.email)){
+      this.spinner = true;
+      this.authService.login(this.email, this.pwd)
+      .then( (response) => {
+        this.manejarLoginExitoso(response);
+      })
+      .catch( (reason) => {
+        this.presentToast(this.traducirErrorCode(reason.code));
+        this.spinner = false;
+      });
+    }
+    else{
+      this.presentToast('Su solicitud de registro aún está pendiente de aprobación.');
+    }
+
     /*
     this.verificarSiEstaAprobado();
     this.traerTipoEmpleado();
@@ -116,7 +126,7 @@ export class LoginPage implements OnInit {
   traducirErrorCode(codigo: string) : string{
     let mensaje: string = 'Error en login';
     if(codigo == "auth/invalid-email"){
-      mensaje = "Ingrese un correo válido!";
+      mensaje = "¡Ingrese un correo válido!";
     }
     else if(codigo == "auth/user-not-found"){
       mensaje = "No existe un usuario con dicho correo electrónico.";
@@ -157,6 +167,25 @@ export class LoginPage implements OnInit {
     this.pwd="123456";
     this.onSubmitLogin();
   }
+
+  loginMozo(){
+    this.email="mesero@mesero.com";
+    this.pwd="123456789";
+    this.onSubmitLogin();
+  }
+
+  loginCocinero(){
+    this.email="cocinera@cocinera.com";
+    this.pwd="123456789";
+    this.onSubmitLogin();
+  }
+
+  loginBartender(){
+    this.email="bartender@bartender.com";
+    this.pwd="123456789";
+    this.onSubmitLogin();
+  }
+
 
   irRegistro(tipo : string){
     this.router.navigate(["/registro"], {state : {modo: tipo}});
@@ -236,14 +265,20 @@ export class LoginPage implements OnInit {
         this.router.navigate(['supervisor']);
       }else if(this.usuario.perfil == 'metre'){
         //console.log(JSON.stringify(this.usuario));
-        this.router.navigate(['lista-espera/' + JSON.stringify(this.usuario)]);
+        this.router.navigate(['listaespera/' + JSON.stringify(this.usuario)]);
+      }else if(this.usuario.perfil == 'mozo'){
+        this.router.navigate(['preparacion/salon']);
+      }else if(this.usuario.perfil == 'bartender'){
+        this.router.navigate(['preparacion/bar']);
+      }else if(this.usuario.perfil == 'cocinero'){
+        this.router.navigate(['preparacion/cocina']);
       }else{
-        this.presentToast('Oof, se rompio.');
+        this.presentToast('Oof, se rompió.');
       }
     })
     .catch( () => {
       this.spinner = false;
-      this.presentToast('Oof, se rompio.');
+      this.presentToast('Oof, se rompió.');
     });
   }
 

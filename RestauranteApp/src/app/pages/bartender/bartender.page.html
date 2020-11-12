@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>  
+
+  <!--SPINNER--> 
+  <app-spinner *ngIf="spinner"></app-spinner>
+
+  <div class="page-container" *ngIf="tab == 'pedidos'">
+    <div *ngFor="let pedido of pedidos" class="div-estilizado-pedido">
+      <p class="mesa-p">Mesa {{pedido.mesa}}</p>
+      <ion-item class="estado-item">
+        <p>Estado: </p>
+        <ion-chip [color]="colorearChip(pedido)">{{pedido.estado}}</ion-chip>
+      </ion-item>
+      <div class="producto-container" *ngFor="let item of pedido.productos" (click)="mostrarDetalle(item)">
+        <ion-item color="light">
+          <ion-chip class="producto-p" [color]="colorearChip(item, true)">{{item.nombre}}</ion-chip>
+          <p>x{{item.cantidad}}</p>
+        </ion-item>
+      </div>
+      <ion-button
+        *ngIf="puedeEntregar && pedido.estado == 'Listo'"
+        expand="block"
+        color="medium"
+        (click)="entregarPedido(pedido, 'Entrega a confirmar')">Entregar</ion-button>
+      <ion-button
+        *ngIf="puedeEntregar && pedido.estado == 'Entrega a confirmar'"
+        expand="block"
+        color="medium"
+        (click)="entregarPedido(pedido, 'Listo')">Cancelar entrega</ion-button>
+    </div>
+  </div>
+
+  <div class="encuesta-container" *ngIf="tab == 'encuesta'">
+    <div class="foto-container">
+      <img src="../../../assets/custom-ion-icons/camara-custom.svg" alt="foto-estado" class="foto-estado">
+    </div>
+    <div class="input-container">
+      <ion-label>¿En que sector trabaja?</ion-label>
+      <ion-radio-group>
+        <ion-item color="light" lines="none">
+          <ion-radio slot="start" value="Mañana" color="bordo"></ion-radio>
+          <ion-label>Mañana</ion-label>
+        </ion-item>
+        <ion-item color="light" lines="none">
+          <ion-radio slot="start" value="Tarde" color="bordo"></ion-radio>
+          <ion-label>Tarde</ion-label>
+        </ion-item>
+        <ion-item color="light" lines="none">
+          <ion-radio slot="start" value="Noche" color="bordo"></ion-radio>
+          <ion-label>Noche</ion-label>
+        </ion-item>
+      </ion-radio-group>
+      <br>
+    </div>
+    <div class="input-container">
+      <ion-label>¿Que tan limpio estaba?</ion-label>
+      <ion-range min="0" max="5" step="1" snaps="true" color="bordo"></ion-range>
+    </div>
+    
+  </div>
+
+  <div class="div-superpuesto" (click)="ocultarDetalle()" *ngIf="detalle">
+    <ion-card class="div-detalle">
+      <ion-item expand="block">
+        <ion-note>Detalle de producto</ion-note>
+        <ion-icon name="close" color="danger" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <p class="detalle-p">
+          {{itemSeleccionado.nombre}}
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Cantidad: 
+        </ion-label>
+        <p class="detalle-p">
+          {{itemSeleccionado.cantidad}}
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Precio c/u:
+        </ion-label>
+        <p class="detalle-p">
+          {{itemSeleccionado.precio}}
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Estado:
+        </ion-label>
+        <p class="detalle-p">
+          {{itemSeleccionado.estado}}
+        </p>
+      </ion-item>
+      <ion-button 
+        *ngIf="puedeModificar && itemSeleccionado.estado != 'Listo'"
+        expand="full" 
+        color="medium" 
+        (click)="productoListo('Listo')">Esta listo</ion-button>
+      <ion-button 
+        *ngIf="puedeModificar && itemSeleccionado.estado == 'Listo'"
+        expand="full" 
+        color="medium" 
+        (click)="productoListo('En preparacion')">No esta listo</ion-button>
+    </ion-card>
+  </div>  
+
+</ion-content>
+
+<!--TABS FOOTER-->
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-toolbar">
+
+    <ion-button (click)="cambiarTab('pedidos')" fill="clear" color="bordo" class="footer-button">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Pedidos</ion-label>
+    </ion-button>
+
+    <ion-button  (click)="cambiarTab('encuesta')" fill="clear" color="bordo" class="footer-button">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>Encuestas</ion-label>
+    </ion-button>
+
+  </ion-toolbar>
+</ion-footer>

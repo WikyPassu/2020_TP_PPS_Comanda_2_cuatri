@@ -1,0 +1,106 @@
+ion-header{
+    --ion-background-color: var(--ion-color-light);
+    --ion-font-family: "IowanOldStyleBlack";
+    ion-toolbar{
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+}
+ion-content{
+    --ion-background-color: var(--ion-color-bordo);
+    --ion-font-family: "IowanOldStyleBlack" !important;
+}
+ion-button, ion-chip, ion-label{
+    --ion-font-family: "IowanOldStyleBlack";
+}
+.footer-button{
+    width: 46vw;
+    ion-icon{
+        padding-left: 1vw;
+    }
+}
+.encuesta-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    .foto-container{
+        display: flex;
+        background-color: var(--ion-color-light);
+        width: 80%;
+        height: auto;
+        align-content: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-top: 10px;
+        .foto-estado{
+            width: 80%;
+        }
+    }
+    .input-container{
+        text-align: center;
+        background-color: var(--ion-color-light);
+        width: 80%;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+}
+.div-superpuesto{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    z-index: 10;
+    overflow: scroll;
+    .div-detalle{
+        justify-self: center;
+        align-self: center;
+        width: 85%;
+        margin-left: 7.5%;
+        margin-top: 20%;
+        --ion-background-color: var(--ion-color-light);
+        --ion-font-family: "IowanOldStyleBlack";
+        background-color: var(--ion-color-light);
+    }
+    ion-note{
+        align-self: center;
+        font-size: large;
+    }
+}
+p{
+    font-family: "IowanOldStyleBlack";
+    text-align: center;
+}
+.detalle-p{
+    text-align: center;
+}
+.mesa-p{
+    font-size: large;
+}
+.producto-p{
+    color: var(--ion-color-medium);
+}
+.estado-item{
+    --ion-font-family: "IowanOldStyleBlack";
+    display: flex;
+    justify-items: center;
+    --ion-background-color: var(--ion-color-light);
+}
+.page-container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    font-family: "IowanOldStyleBlack";
+}
+.div-estilizado-pedido{
+    margin-top: 10px;
+    justify-self: center;
+    background-color: var(--ion-color-light);
+    width: 80%;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}

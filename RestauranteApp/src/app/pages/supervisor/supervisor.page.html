@@ -42,6 +42,12 @@
       </ion-row>
     </ion-grid>
   </ion-card>
+  <ion-card *ngIf="!hayPendientes">
+    <h3>Aún no hay clientes pendientes de aprobación.</h3>
+    <br>
+    <img style="width: 70vw;" src="../../../assets/icono.png">
+    <br><br>
+  </ion-card>
 </ion-content>
 
 <app-spinner *ngIf="spinner"></app-spinner>

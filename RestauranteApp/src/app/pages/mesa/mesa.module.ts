@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ListaEsperaPageRoutingModule } from './lista-espera-routing.module';
+import { MesaPageRoutingModule } from './mesa-routing.module';
 
-import { ListaEsperaPage } from './lista-espera.page';
+import { MesaPage } from './mesa.page';
 
 import { SpinnerComponent } from "../../components/spinner/spinner.component";
 
@@ -15,8 +15,8 @@ import { SpinnerComponent } from "../../components/spinner/spinner.component";
     CommonModule,
     FormsModule,
     IonicModule,
-    ListaEsperaPageRoutingModule
+    MesaPageRoutingModule
   ],
-  declarations: [ListaEsperaPage, SpinnerComponent]
+  declarations: [MesaPage, SpinnerComponent]
 })
-export class ListaEsperaPageModule {}
+export class MesaPageModule {}

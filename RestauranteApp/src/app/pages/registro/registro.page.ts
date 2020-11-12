@@ -69,44 +69,50 @@ export class RegistroPage implements OnInit {
 
     if (this.modoRegistro == true) {
       if (this.apellido == "" || this.nombre == "" || this.dni == null || this.email == "" || this.clave == "" || this.claveConfirmada == "") {
-        this.error = "Por favor, ingrese todos los campos!";
+        this.error = "¡Por favor, ingrese todos los campos!";
       }
       else if (this.clave != this.claveConfirmada) {
-        this.error = "Las claves no coinciden!";
+        this.error = "¡Las claves no coinciden!";
       }
 
-      if (this.dni < 800000 || this.dni > 99999999) {
-        this.error = "El DNI no existe!";
+      else if(this.dni < 800000 || this.dni > 99999999){
+        this.error = "¡El DNI no existe!";
       }
-      else if (this.nombre.length > 21) {
-        this.error = "El nombre es muy largo!";
+      else if (this.nombre.length > 21){
+        this.error = "¡El nombre es muy largo!";
       }
-      else if (this.nombre.length < 3) {
-        this.error = "El nombre es muy corto!";
+      else if (this.nombre.length < 3){
+        this.error = "¡El nombre es muy corto!";
       }
-      else if (this.nombre.length > 21) {
-        this.error = "El nombre es muy largo!";
+      else if (this.nombre.length > 21){
+        this.error = "¡El nombre es muy largo!";
       }
-      else if (this.apellido.length < 3) {
-        this.error = "El apellido es muy corto!";
+      else if (this.apellido.length < 3){
+        this.error = "¡El apellido es muy corto!";
       }
-      else if (!InputVerifierService.verifyEmailFormat(this.email)) {
-        this.error = "El correo tiene caracteres invalidos!";
+      else if(!InputVerifierService.verifyEmailFormat(this.email)){
+        this.error = "¡El correo tiene caracteres inválidos!";
       }
-      else if (this.clave.length < 6) {
-        this.error = "La clave debe tener al menos 6 caracteres!";
+      else if(this.auth.verificarEmailAuth(this.email)){
+        this.error = "¡Ya existe una cuenta con ese correo electrónico!";
+      }
+      else if(this.auth.verificarEmailFire(this.email)){
+        this.error = "¡Ya existe un preregistro pendiente de aprobación con ese correo electrónico!";
+      }
+      else if(this.clave.length < 6){
+        this.error = "¡La clave debe tener al menos 6 caracteres!";
       }
     }
     else {
       if (this.nombre == "") {
-        this.error = "Por favor, ingrese su nombre!";
+        this.error = "¡Por favor, ingrese su nombre!";
       }
     }
   }
 
-  validarFoto() {
-    if (this.foto == "") {
-      this.error = "Por favor, cargue una foto!";
+  validarFoto(){
+    if (this.foto == ""){
+      this.error = "¡Por favor, cargue una foto!"; 
     }
   }
 
@@ -134,9 +140,9 @@ export class RegistroPage implements OnInit {
           })
           .catch((error) => {
             this.error = error;
-            this.error += ". Por favor, vuelva a intentarlo"
+            this.error += ". Por favor, vuelva a intentarlo.";
           });
-      }
+        }
       else {
 
         this.auth.registroAnonimo(this.nombre, this.fecha, this.foto)
@@ -145,7 +151,7 @@ export class RegistroPage implements OnInit {
             let childRef = storageRef.child(this.foto);
             
             childRef.putString(this.preview, 'data_url');
-            let user = JSON.stringify({ nombre: this.nombre, id: this.nombre + "." + this.fecha, tipo: "anonimo", "nombreFoto": this.foto, perfil: "cliente" });
+            let user = JSON.stringify({ nombre: this.nombre, id: this.nombre + "." + this.fecha, tipo: "anonimo", foto: this.foto, perfil: "cliente" });
             this.limpiarCampos();
             this.router.navigate(["/home/" + user]);
 

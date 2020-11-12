@@ -15,6 +15,7 @@ export class AuthService {
   }
   base;
   clientesRegistrados = new Array(); //Lista de clientes en la coleccion
+  userObs;
 
   login(email:string, pwd:string){
     return new Promise((resolve, rejected) => {
@@ -132,7 +133,8 @@ export class AuthService {
           foto: foto,
           nombre: nombre,
           tipo: "registrado",
-          fecha: fecha
+          fecha: fecha,
+          perfil: 'cliente'
         }).then(()=>{
           resolve();})
         .catch(error =>rejected(error))
@@ -179,6 +181,13 @@ export class AuthService {
         }).catch(error => rejected(error));
       }).catch(error => rejected(error));
     });
+  }
+
+  /**
+   * Permite saber cuando hay un nuevo registro pendiente de aprobacion, retorna el documento encriptado recientemente agregado
+   */
+  hayNuevoRegistro(){
+    return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).stateChanges(["added"]);
   }
 
   /**
@@ -266,7 +275,7 @@ export class AuthService {
   verificarEmailFire(correo: string): boolean{
     let existe = false;
     this.clientesRegistrados.forEach(cliente => {
-      if(cliente.correo == correo){
+      if(cliente.correo == correo && !cliente.aprobado){
         existe = true;
       }
     });
@@ -288,5 +297,38 @@ export class AuthService {
       }
     });
     return existe;
+  }
+  
+  /**
+   * Trae el observable de los datos de usuario en firestore.
+   * @param correo Correo del usuario
+   */
+  async traerInfoFirestore(correo){
+    return new Promise( (resolve, rejected) => {
+      this.db.collection('clientes', (ref) => ref.where('correo', '==', correo))
+      .get().subscribe( data => {
+        resolve(data);
+      });
+    });
+  }
+
+  /**
+   * Trae un documento de la coleccion de mesas a partir del id de la mesa pasado por parametro
+   * @param id Id de la mesa
+   */
+  traerMesa(id: string){
+    return this.db.collection("mesas").doc(id).get();
+  }
+
+  /**
+   * Trae un documento de la coleccion de clientes a partir del id del cliente pasado por parametro
+   * @param id Id del cliente
+   */
+  traerCliente(id: string){
+    return this.db.collection("clientes").doc(id).get();
+  }
+
+  traerPedidoCliente(idcliente: string){
+    return this.db.collection("pedidos", ref => ref.where('idcliente', "==", idcliente)).valueChanges();
   }
 }

@@ -1,0 +1,49 @@
+ion-header{
+    --ion-background-color: #841c3a;
+    text-align: center;
+    --ion-font-family: "IowanOldStyleBlack";
+}
+
+ion-title{
+    color:white;
+    font-size: 4.5vw;
+}
+
+ion-content{
+    --ion-background-color: --ion-color-bordo;
+    --ion-font-family: "IowanOldStyleBlack";
+    --ion-background-color: #841c3a;
+}
+
+ion-icon{
+    color: #841c3a;
+    transform: scale(1.3);
+}
+
+ion-label{
+    color: black;
+}
+
+ion-tab-bar{
+    --color-selected: #841c3a !important;
+}
+
+ion-card{
+    --ion-background-color: white;
+    text-align: center;
+    width: 90%;
+    height: 140vw;
+    overflow: auto;
+    z-index: 9999;
+}
+ion-button{
+    --background: rgb(112, 112, 112);
+}
+
+.producto{
+    background: whitesmoke;
+    border: 1vw solid #841c3a;
+    margin-top: 5vw;
+    width: 90%;
+    border-radius: 3vw;
+}

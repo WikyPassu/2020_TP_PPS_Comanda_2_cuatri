@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{header}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div align="center">
+    <ion-card>
+      <div *ngIf="!deshabilitado">
+        <br>
+        <ion-button (click)="redireccionar(0)">Hacer una consulta</ion-button>
+        <ion-button (click)="redireccionar(1)">Hacer un pedido</ion-button>
+        <div *ngIf="!hayPedido">
+          <br>
+          <img style="width: 70vw;" src="../../../assets/icono.png">
+          <h3>Todavía no realizaste ningún pedido.</h3>
+          <ion-button (click)="redireccionar(1)">Hacer un pedido</ion-button>
+        </div>
+        <div *ngIf="hayPedido">
+          <h3 style="color: black;">Estado de tu pedido</h3>
+          <div align="center" *ngFor="let producto of pedido.productos">
+            <div class="producto">
+              <hr>
+              <ion-label>Nombre: {{producto.nombre}}</ion-label>
+              <hr>
+              <ion-label>Cantidad: {{producto.cantidad}}</ion-label>
+              <hr>
+              <ion-label>Precio unitario: ${{producto.precio}} c/u.</ion-label>
+              <hr>
+              <ion-label>Estado: {{producto.estado}}</ion-label>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button (click)="redireccionar(1)" [disabled]="deshabilitado || hayPedido">
+      <ion-icon name="fast-food"></ion-icon>
+      <ion-label>Pedido</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="redireccionar(2)" [disabled]="deshabilitado">
+      <ion-icon name="game-controller"></ion-icon>
+      <ion-label>Juegos</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="redireccionar(3)" [disabled]="deshabilitado">
+      <ion-icon name="clipboard"></ion-icon>
+      <ion-label>Encuesta</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+
+<app-spinner *ngIf="spinner"></app-spinner>

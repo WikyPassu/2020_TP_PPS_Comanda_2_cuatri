@@ -8,6 +8,8 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { HomePage } from './home.page';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, SpinnerComponent]
 })
 export class HomePageModule {}
