@@ -10,6 +10,34 @@ ion-header{
 ion-content{
     --ion-background-color: var(--ion-color-bordo);
 }
+ion-button, ion-chip{
+    --ion-font-family: "IowanOldStyleBlack";
+}
+.footer-button{
+    width: 46vw;
+    ion-icon{
+        padding-left: 1vw;
+    }
+}
+.encuesta-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    .foto-container{
+        display: flex;
+        background-color: var(--ion-color-light);
+        width: 80%;
+        height: auto;
+        align-content: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-top: 10px;
+        .foto-estado{
+            width: 80%;
+        }
+    }
+}
 .div-superpuesto{
     position: fixed;
     top: 0;

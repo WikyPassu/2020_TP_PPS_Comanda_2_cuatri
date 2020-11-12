@@ -12,9 +12,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class BartenderPage implements OnInit {
 
+  public tab: string;
+
   public sector: string = '';
   public titulo: string = '';
   public tipos: Array<string> = [];
+
+  public puedeEntregar: boolean = false;
+  public puedeModificar: boolean = false;
   
   public pedidos: Array<any> = [];
   private pedidoListo: Array<boolean> = [];
@@ -34,7 +39,8 @@ export class BartenderPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.auth.userObs);
+    //console.log(this.auth.userObs);
+    this.tab = 'pedidos';
     this.sector = this.route.snapshot.paramMap.get('sector');
     this.prepararSector();
     this.fire.collection('pedidos')
@@ -67,9 +73,18 @@ export class BartenderPage implements OnInit {
     if(this.sector == 'bar'){
       this.titulo = 'Barra';
       this.tipos = ['bebida'];
+      this.puedeEntregar = false;
+      this.puedeModificar = true;
     } else if (this.sector == 'cocina'){
       this.titulo = 'Cocina';
       this.tipos = ['comida', 'postre'];
+      this.puedeEntregar = false;
+      this.puedeModificar = true;
+    } else if (this.sector == 'salon'){
+      this.titulo = 'Salon';
+      this.tipos = ['bebida', 'comida', 'postre'];
+      this.puedeEntregar = true;
+      this.puedeModificar = false;
     } else {
       this.presentToast('Hubo un error en el sector elegido.');
       this.router.navigate(['login']);
@@ -163,6 +178,14 @@ export class BartenderPage implements OnInit {
     } else if (docid != null){
       this.fire.collection('pedidos').doc(docid).update({estado: est});      
     }
+  }
+
+  entregarPedido(pedido: any, estado: 'Enrega a confirmar' | 'Listo'){
+    this.fire.collection('pedidos').doc(pedido.docid).update({estado: estado});
+  }
+
+  cambiarTab(tab: string){
+    this.tab = tab;
   }
 
   /**

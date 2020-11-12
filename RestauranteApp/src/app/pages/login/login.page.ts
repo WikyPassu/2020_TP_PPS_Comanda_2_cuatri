@@ -175,7 +175,7 @@ export class LoginPage implements OnInit {
   }
 
   loginCocinero(){
-    this.email="cocinero@cocinero.com";
+    this.email="cocinera@cocinera.com";
     this.pwd="123456789";
     this.onSubmitLogin();
   }
@@ -267,7 +267,7 @@ export class LoginPage implements OnInit {
         //console.log(JSON.stringify(this.usuario));
         this.router.navigate(['listaespera/' + JSON.stringify(this.usuario)]);
       }else if(this.usuario.perfil == 'mozo'){
-        //this.router.navigate(['preparacion']);
+        this.router.navigate(['preparacion/salon']);
       }else if(this.usuario.perfil == 'bartender'){
         this.router.navigate(['preparacion/bar']);
       }else if(this.usuario.perfil == 'cocinero'){
