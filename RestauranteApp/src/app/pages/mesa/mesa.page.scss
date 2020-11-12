@@ -34,8 +34,8 @@ ion-card{
     width: 90%;
     height: 140vw;
     overflow: auto;
+    z-index: 9999;
 }
-
 ion-button{
     --background: rgb(112, 112, 112);
 }

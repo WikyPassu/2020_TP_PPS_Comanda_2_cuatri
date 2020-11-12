@@ -72,7 +72,7 @@ export class MesaPage implements OnInit {
   }
 
   redireccionar(opcion: number){
-    let state = {state: { mesa: this.mesa, cliente: this.cliente }};
+    let state = {state: { mesa: this.mesa.mesa, cliente: this.mesa.idcliente }};
     switch(opcion){
       case 0:
         this.router.navigate(["/hacer-consulta"], state);
