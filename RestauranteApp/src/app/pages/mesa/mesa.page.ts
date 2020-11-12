@@ -21,21 +21,19 @@ export class MesaPage implements OnInit {
 
   ngOnInit() {
     this.spinner = true;
-    let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
+    //let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
+    let idMesa = "1";
     this.db.traerMesa(idMesa).subscribe(doc => {
       this.mesa = doc.data();
       if(this.mesa != null && this.mesa.ocupada){
-        console.log(this.mesa);
         this.db.traerCliente(this.mesa.idcliente).subscribe(doc => {
           this.cliente = doc.data();
           this.header = "Mesa " + this.mesa.mesa + ": " + this.cliente.apellido + ", " + this.cliente.nombre;
-          console.log(this.cliente);
           this.deshabilitado = false;
           this.db.traerPedidoCliente(this.cliente.id).subscribe(doc => {
             if(doc != null){
               this.pedido = doc[0];
               this.pedido.productos = this.transformarProductos(this.pedido.productos);
-              console.log(this.pedido);
               this.hayPedido = true;
               this.spinner = false;
             }
@@ -75,7 +73,7 @@ export class MesaPage implements OnInit {
     let state = {state: { mesa: this.mesa.mesa, cliente: this.mesa.idcliente }};
     switch(opcion){
       case 0:
-        this.router.navigate(["/hacer-consulta"], state);
+        this.router.navigate(["/hacer-consulta"], {state: { mesa: this.mesa, cliente: this.cliente }});
         break;
       case 1:
         this.router.navigate(["/listado-productos"], state);

@@ -52,9 +52,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
   {
+    path: 'hacer-consulta',
+    loadChildren: () => import('./pages/hacer-consulta/hacer-consulta.module').then( m => m.HacerConsultaPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'login'
   }
+
 ];
 
 @NgModule({
