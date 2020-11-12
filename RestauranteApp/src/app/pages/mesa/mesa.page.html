@@ -9,12 +9,12 @@
     <ion-card>
       <div *ngIf="!deshabilitado">
         <br>
-        <ion-button>Hacer una consulta</ion-button>
+        <ion-button (click)="redireccionar(0)">Hacer una consulta</ion-button>
         <div *ngIf="!hayPedido">
           <br>
           <img style="width: 70vw;" src="../../../assets/icono.png">
           <h3>Todavía no realizaste ningún pedido.</h3>
-          <ion-button>Hacer un pedido</ion-button>
+          <ion-button (click)="redireccionar(1)">Hacer un pedido</ion-button>
         </div>
         <div *ngIf="hayPedido">
           <h3 style="color: black;">Estado de tu pedido</h3>
