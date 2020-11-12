@@ -116,6 +116,16 @@ ion-slides{
     }
 }
 
+.vacio{
+    color:white;
+    font-size: large;
+    font-family: IowanOldStyleBlack;
+}
+
+.centrar{
+    text-align:center;
+}
+
 @media screen and (orientation:landscape) {
     ion-toolbar{
         height:13vh; 

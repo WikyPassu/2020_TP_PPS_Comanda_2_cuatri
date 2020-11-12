@@ -15,6 +15,9 @@
 
 <ion-content #content>
   <div class="tab" *ngIf="tab == 'Carrito'">
+    <div class="centrar">
+      <strong class="vacio">El pedido está vacio.</strong>
+    </div>
     <div *ngFor="let producto of carrito">
       <ion-grid>
         <ion-row>
@@ -89,7 +92,7 @@
             </div>
           </ion-col>
           <ion-col colsize="6">
-            <ion-button class="agregar"  (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -131,7 +134,7 @@
             </div>
           </ion-col>
           <ion-col colsize="6">
-            <ion-button class="agregar"  (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -173,7 +176,7 @@
             </div>
           </ion-col>
           <ion-col colsize="6">
-            <ion-button class="agregar"  (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

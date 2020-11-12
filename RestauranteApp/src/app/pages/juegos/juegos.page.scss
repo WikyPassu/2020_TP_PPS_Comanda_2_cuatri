@@ -30,3 +30,51 @@ strong,p, label{
     color:white;
     font-family: IowanOldStyleBlack;
 }
+
+
+div{
+    text-align:center;
+}
+
+.divGanaste{
+    background-color:green;
+    height:10vh;
+    width:70vw;
+    display:flex;
+    justify-content: center;
+    border-radius: 3vh;
+}
+
+.divContainer{
+    display:flex;
+    justify-content: center;
+}
+
+.strongGanador{
+    padding:7%;
+    font-size:x-large;
+}
+
+.result{
+    font-size: large;
+}
+
+@media screen and (orientation:landscape) {
+    ion-toolbar{
+        height:13vh; 
+    }
+
+    ion-button{
+        margin-left:3vw;
+    }
+
+    .strongGanador{
+        padding:2%;
+        font-size:x-large;
+    }
+
+    .divGanaste{
+        border-radius:7vh;
+        height:15vh;
+    }
+}
