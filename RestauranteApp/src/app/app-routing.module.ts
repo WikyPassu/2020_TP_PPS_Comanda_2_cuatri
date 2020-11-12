@@ -30,17 +30,15 @@ const routes: Routes = [
   {
     path: 'listaespera/:user',
     loadChildren: () => import('./pages/lista-espera/lista-espera.module').then( m => m.ListaEsperaPageModule)
-  },  {
-    path: 'bartender',
+  },
+  {
+    path: 'preparacion/:sector',
     loadChildren: () => import('./pages/bartender/bartender.module').then( m => m.BartenderPageModule)
   },
   {
-    path: 'cocinero',
-    loadChildren: () => import('./pages/cocinero/cocinero.module').then( m => m.CocineroPageModule)
+    path: '**',
+    redirectTo: 'login'
   },
-
-
-
 ];
 
 @NgModule({

@@ -1,11 +1,76 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Bar</ion-title>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div *ngFor="let pedido of pedidos" class="div-estilizado-pedido">
+<ion-content>  
 
+  <!--SPINNER--> 
+  <app-spinner *ngIf="spinner"></app-spinner>
+
+  <div class="page-container">
+    <div *ngFor="let pedido of pedidos" class="div-estilizado-pedido">
+      <p class="mesa-p">Mesa {{pedido.mesa}}</p>
+      <ion-item class="estado-item">
+        <p>Estado: </p>
+        <ion-chip [color]="colorearChip(pedido)">{{pedido.estado}}</ion-chip>
+      </ion-item>
+      <div class="producto-container" *ngFor="let item of pedido.productos" (click)="mostrarDetalle(item)">
+        <ion-item color="light">
+          <ion-chip class="producto-p" [color]="colorearChip(item, true)">{{item.nombre}}</ion-chip>
+          <p>x{{item.cantidad}}</p>
+        </ion-item>
+      </div>
+    </div>
   </div>
+
+  <div class="div-superpuesto" (click)="ocultarDetalle()" *ngIf="detalle">
+    <ion-card class="div-detalle">
+      <ion-item expand="block">
+        <ion-note>Detalle de producto</ion-note>
+        <ion-icon name="close" color="danger" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <p class="detalle-p">
+          {{itemSeleccionado.nombre}}
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Cantidad: 
+        </ion-label>
+        <p class="detalle-p">
+          {{itemSeleccionado.cantidad}}
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Precio c/u:
+        </ion-label>
+        <p class="detalle-p">
+          {{itemSeleccionado.precio}}
+        </p>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Estado:
+        </ion-label>
+        <p class="detalle-p">
+          {{itemSeleccionado.estado}}
+        </p>
+      </ion-item>
+      <ion-button 
+        *ngIf="itemSeleccionado.estado != 'Listo'"
+        expand="full" 
+        color="medium" 
+        (click)="productoListo('Listo')">Esta listo</ion-button>
+      <ion-button 
+      *ngIf="itemSeleccionado.estado == 'Listo'"
+        expand="full" 
+        color="medium" 
+        (click)="productoListo('En preparacion')">No esta listo</ion-button>
+    </ion-card>
+  </div>  
+
 </ion-content>
