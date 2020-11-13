@@ -52,10 +52,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
   {
-    path: 'estadisticas-empleados',
-    loadChildren: () => import('./pages/estadisticas-empleados/estadisticas-empleados.module').then( m => m.EstadisticasEmpleadosPageModule)
-  },
-  {
     path: '**',
     redirectTo: 'login'
   },
@@ -63,6 +59,12 @@ const routes: Routes = [
     path: 'estadisticas-empleados',
     loadChildren: () => import('./pages/estadisticas-empleados/estadisticas-empleados.module').then( m => m.EstadisticasEmpleadosPageModule)
   },
+
+  {
+    path: 'responder-consulta',
+    loadChildren: () => import('./pages/responder-consulta/responder-consulta.module').then( m => m.ResponderConsultaPageModule)
+  },
+
 
   
 
