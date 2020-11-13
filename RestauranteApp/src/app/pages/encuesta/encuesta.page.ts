@@ -149,10 +149,9 @@ export class EncuestaPage implements OnInit {
       }
       await this.traerFotos();
 
-
       this.spinner = true;
       setTimeout(() => {
-        this.db.guardarEncuesta(this.mesa, this.idCliente, this.rangoEdad, this.llamativo, this.protocolo, arrRecomendados, this.comentario, this.arrFotos);
+        this.db.guardarEncuestaCliente(this.mesa, this.idCliente, this.rangoEdad, this.llamativo, this.protocolo, arrRecomendados, this.comentario, this.arrFotos);
         this.enviado = true;
         this.spinner = false;
       }, 5000);
@@ -189,7 +188,7 @@ export class EncuestaPage implements OnInit {
   }
 
   volverAtras() {
-    this.router.navigate(["/mesa"], { state: { enviada: true } });
+    this.router.navigate(["/mesa"], { state: { encuesta: true } });
   }
 }
 

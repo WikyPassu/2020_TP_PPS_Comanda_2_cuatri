@@ -10,9 +10,9 @@ import { Router } from "@angular/router";
 })
 export class JuegosPage implements OnInit {
 
-  intentosDiez = 3;
-  intentosQuince = 3;
-  intentosTreinta = 1;
+  intentosDiez;
+  intentosQuince;
+  intentosTreinta;
 
   resultDiez = "";
   resultQuince = "";
@@ -26,6 +26,10 @@ export class JuegosPage implements OnInit {
 
   ngOnInit() {
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
+
+    this.intentosDiez = this.router.getCurrentNavigation().extras.state.intentosDiez;
+    this.intentosQuince = this.router.getCurrentNavigation().extras.state.intentosQuince;
+    this.intentosTreinta = this.router.getCurrentNavigation().extras.state.intentosTreinta;
   }
 
   descuentoDiezTotal() {
