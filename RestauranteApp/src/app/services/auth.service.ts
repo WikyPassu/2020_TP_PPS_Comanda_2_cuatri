@@ -222,10 +222,9 @@ export class AuthService {
  /*
   * hola esta es de clientes me perdonan 
   */
- guardarEncuesta(mesa, idCliente, rangoEdad, llamativo, puntajeProtocolo, arrayRecomendados, sugerencia, arrayFotos){
+ guardarEncuestaCliente(mesa, idCliente, rangoEdad, llamativo, puntajeProtocolo, arrayRecomendados, sugerencia, arrayFotos){
   return new Promise((resolve, rejected) => {
-    this.db.collection("encuestas").add({
-      tipo: "cliente",
+    this.db.collection("encuestasClientes").add({
       mesa: mesa,
       cliente: idCliente,
       fecha: Date.now(),
