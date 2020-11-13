@@ -21,6 +21,12 @@
           <h5>{{pedido.estado}}</h5>
           <div align="center" *ngFor="let producto of pedido.productos">
             <div class="producto">
+              <ion-slides pager #imageSlides>
+                <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+                  <img class="imgSlide" src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
+                  <img class="imgSlide subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
+                </ion-slide>
+              </ion-slides>
               <hr>
               <ion-label>Nombre: {{producto.nombre}}</ion-label>
               <hr>
@@ -53,7 +59,7 @@
       <ion-label>Pedido</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="redireccionar(2)" [disabled]="deshabilitado">
+    <ion-tab-button (click)="redireccionar(2)" [disabled]="deshabilitado || !hayPedido">
       <ion-icon name="game-controller"></ion-icon>
       <ion-label>Juegos</ion-label>
     </ion-tab-button>

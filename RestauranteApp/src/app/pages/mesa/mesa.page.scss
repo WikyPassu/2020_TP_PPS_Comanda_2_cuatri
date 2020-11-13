@@ -31,8 +31,8 @@ ion-tab-bar{
 ion-card{
     --ion-background-color: white;
     text-align: center;
-    width: 90%;
-    height: 140vw;
+    width: 90vw;
+    height: 79vh;
     overflow: auto;
     z-index: 9999;
 }
@@ -58,5 +58,15 @@ h6{
 .cuenta{
     width: 70%;
     background: rgb(112, 112, 112);
+    border-radius: 5vw;
+}
+
+ion-slides{
+    height: 50vw;
+    --bullet-background:white;
+    --bullet-background-active: var(--ion-color-bordo);
+}
+
+.imgSlide{
     border-radius: 5vw;
 }
