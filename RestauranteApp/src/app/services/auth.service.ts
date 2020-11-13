@@ -412,4 +412,18 @@ export class AuthService {
   setearDescuentoPedido(idCliente: string, descuentoNuevo: number){
     return this.db.collection("pedidos").doc(idCliente).update({descuento: descuentoNuevo});
   }
+
+  setearIntentoDescuento10(idCliente, intentos){
+    return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoDiez: intentos});
+  }
+
+  
+  setearIntentoDescuento15(idCliente, intentos){
+    return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoQuince: intentos});
+  }
+
+  
+  setearIntentoDescuento30(idCliente, intentos){
+    return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoTreinta: intentos});
+  }
 }
