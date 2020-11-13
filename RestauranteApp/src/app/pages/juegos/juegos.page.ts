@@ -53,6 +53,10 @@ export class JuegosPage implements OnInit {
           this.intentosTreinta = 0;
           this.intentosQuince = 0;
 
+          this.db.setearIntentoDescuento10(this.idCliente, this.intentosDiez);
+          this.db.setearIntentoDescuento15(this.idCliente, this.intentosQuince);
+          this.db.setearIntentoDescuento30(this.idCliente, this.intentosTreinta);
+          
           this.db.setearDescuentoPedido(this.idCliente, 10);
         }, 2000);
       }
@@ -84,6 +88,10 @@ export class JuegosPage implements OnInit {
           this.intentosDiez = 0;
           this.intentosTreinta = 0;
 
+          this.db.setearIntentoDescuento10(this.idCliente, this.intentosDiez);
+          this.db.setearIntentoDescuento15(this.idCliente, this.intentosQuince);
+          this.db.setearIntentoDescuento30(this.idCliente, this.intentosTreinta);
+
           this.db.setearDescuentoPedido(this.idCliente, 15);
         }, 2000);
       }
@@ -114,6 +122,10 @@ export class JuegosPage implements OnInit {
           this.resultTreint = "ES TU DIA!!";
           this.intentosDiez = 0;
           this.intentosQuince = 0;
+
+          this.db.setearIntentoDescuento10(this.idCliente, this.intentosDiez);
+          this.db.setearIntentoDescuento15(this.idCliente, this.intentosQuince);
+          this.db.setearIntentoDescuento30(this.idCliente, this.intentosTreinta);
 
           this.db.setearDescuentoPedido(this.idCliente, 30);
         }, 2000);
