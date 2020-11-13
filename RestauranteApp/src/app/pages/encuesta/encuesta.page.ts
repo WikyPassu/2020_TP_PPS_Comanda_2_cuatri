@@ -18,9 +18,9 @@ import * as firebase from 'firebase';
 
 export class EncuestaPage implements OnInit {
   spinner = false;
-  fotoUser1 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
-  fotoUser2 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
-  fotoUser3 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
+  fotoUser1 = { base64: "../../../assets/custom-ion-icons/camara-custom.svg", fecha: null, nombre: null };
+  fotoUser2 = { base64: "../../../assets/custom-ion-icons/camara-custom.svg", fecha: null, nombre: null };
+  fotoUser3 = { base64: "../../../assets/custom-ion-icons/camara-custom.svg", fecha: null, nombre: null };
 
   rangoEdad = "";
   llamativo = "";
@@ -46,12 +46,6 @@ export class EncuestaPage implements OnInit {
     this.db.traerPedidoCliente(this.idCliente).subscribe((pedido : any)=>{
       this.enviado = pedido[0].encuesta;
     });
-/*
-    this.spinner = true;
-    setTimeout(() => {
-      this.spinner = false;
-    }, 3000);
-  */
   }
 
   sacarFoto(punteroFoto) {
@@ -133,9 +127,6 @@ export class EncuestaPage implements OnInit {
     }
     else if (this.llamativo == "") {
       this.error = "Seleccione qué le gustó más!!"
-    }
-    else if (this.protocolo == "") {
-      this.error = "Seleccione nivel de satisfaccion de protocolo!!"
     }
   }
 
