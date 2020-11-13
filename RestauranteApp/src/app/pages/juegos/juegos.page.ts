@@ -27,10 +27,18 @@ export class JuegosPage implements OnInit {
   ngOnInit() {
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
 
-    this.intentosDiez = this.router.getCurrentNavigation().extras.state.intentosDiez;
-    this.intentosQuince = this.router.getCurrentNavigation().extras.state.intentosQuince;
-    this.intentosTreinta = this.router.getCurrentNavigation().extras.state.intentosTreinta;
-  }
+   this.db.traerPedidoCliente(this.idCliente).subscribe((p : any)=>{
+    this.intentosDiez = p[0].intentosDescuentoDiez;
+    this.intentosQuince = p[0].intentosDescuentoQuince;
+    this.intentosTreinta = p[0].intentosDescuentoTreinta;
+  });
+/*
+  this.spinner = true;
+  setTimeout(() => {
+    this.spinner = false;
+  }, 3000);
+*/  
+}
 
   descuentoDiezTotal() {
     this.sacarBotones = true;

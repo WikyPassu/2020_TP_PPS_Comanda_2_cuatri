@@ -14,10 +14,10 @@
 </ion-header>
 
 <ion-content #content>
-  <div *ngIf="terminado" class="centrar">
+  <div *ngIf="terminado" class="centrarEnviado">
     <strong class="vacio">Pedido enviado!</strong>
     <br>
-    <strong class="vacio">Total: {{subtotal}}</strong>
+    <strong class="vacio">Total: ${{subtotal}}</strong>
     <br>
     <ion-button class="btnVolver" (click)="volverAMesa()">Volver a mi mesa</ion-button>
   </div>
@@ -26,7 +26,7 @@
       <div *ngIf="this.carrito.length != 0" class="centrar">
         <ion-button class="btnEnviar" (click)="enviarPedido()">ENVIAR PEDIDO</ion-button>
       </div>
-      <div *ngIf="this.carrito.length == 0" class="centrar">
+      <div *ngIf="this.carrito.length == 0" class="centrarEnviado">
         <strong class="vacio">El pedido está vacio.</strong>
       </div>
       <div *ngFor="let producto of carrito">
