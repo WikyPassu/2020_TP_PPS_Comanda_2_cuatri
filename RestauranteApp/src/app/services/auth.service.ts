@@ -215,7 +215,6 @@ export class AuthService {
         idCliente : idCliente,
         mesa : mesa,
         productos : productos,
-        encuesta : false, 
         intentosDescuentoDiez : 0, 
         intentosDescuentoQuince : 0, 
         intentosDescuentoTreinta : 0, 
