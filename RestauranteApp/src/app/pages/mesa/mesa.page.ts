@@ -88,7 +88,7 @@ export class MesaPage implements OnInit {
         this.router.navigate(["/juegos"], {state: { intentosDiez: this.intentosDiez, intentosQuince: this.intentosQuince, intentosTreinta: this.intentosTreinta }});
         break;
       case 3:
-        this.router.navigate(["/encuesta"], {state : {enviada: this.encuestaEnviada }});
+        this.router.navigate(["/encuesta"], {state : { mesa: this.mesa.mesa, cliente: this.cliente.id, enviada: this.encuestaEnviada }});
         break;
     }
   }
