@@ -373,7 +373,8 @@ export class AuthService {
       nombreCliente: nombreCliente,
       consulta: consulta,
       respuesta: "Esperando respuesta...",
-      fecha: fecha
+      fecha: fecha,
+      respondida: false
     });
   }
 
