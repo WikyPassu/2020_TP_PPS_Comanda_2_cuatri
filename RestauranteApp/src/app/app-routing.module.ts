@@ -56,10 +56,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/hacer-consulta/hacer-consulta.module').then( m => m.HacerConsultaPageModule)
   },
   {
+    path: 'estadisticas-empleados',
+    loadChildren: () => import('./pages/estadisticas-empleados/estadisticas-empleados.module').then( m => m.EstadisticasEmpleadosPageModule)
+  },
+  {
+    path: 'responder-consulta',
+    loadChildren: () => import('./pages/responder-consulta/responder-consulta.module').then( m => m.ResponderConsultaPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'login'
   }
-
 ];
 
 @NgModule({

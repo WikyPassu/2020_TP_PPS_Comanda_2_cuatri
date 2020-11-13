@@ -7,61 +7,167 @@
 <ion-content>  
 
   <!--SPINNER--> 
-  <app-spinner *ngIf="spinner"></app-spinner>
+  <app-spinner 
+    *ngIf="spinner">
+  </app-spinner>
 
-  <div class="page-container" *ngIf="tab == 'pedidos'">
-    <div *ngFor="let pedido of pedidos" class="div-estilizado-pedido">
-      <p class="mesa-p">Mesa {{pedido.mesa}}</p>
-      <ion-item class="estado-item">
-        <p>Estado: </p>
-        <ion-chip [color]="colorearChip(pedido)">{{pedido.estado}}</ion-chip>
+  <div 
+    class="page-container" 
+    *ngIf="tab == 'pedidos'">
+
+    <div 
+      *ngFor="let pedido of pedidos" 
+      class="div-estilizado-pedido">
+
+      <p 
+        class="mesa-p">
+        Mesa {{pedido.mesa}}
+      </p>
+
+      <ion-item 
+        class="estado-item">
+
+        <p>
+          Estado: 
+        </p>
+
+        <ion-chip 
+          [color]="colorearChip(pedido)">
+          {{pedido.estado}}
+        </ion-chip>
+
       </ion-item>
-      <div class="producto-container" *ngFor="let item of pedido.productos" (click)="mostrarDetalle(item)">
-        <ion-item color="light">
-          <ion-chip class="producto-p" [color]="colorearChip(item, true)">{{item.nombre}}</ion-chip>
-          <p>x{{item.cantidad}}</p>
+
+      <div 
+        class="producto-container" 
+        *ngFor="let item of pedido.productos" 
+        (click)="mostrarDetalle(item, pedido)">
+
+        <ion-item 
+          color="light">
+
+          <ion-chip 
+            class="producto-p" 
+            [color]="colorearChip(item, true)">
+            {{item.nombre}}
+          </ion-chip>
+
+          <p>
+            x{{item.cantidad}}
+          </p>
+
         </ion-item>
+
       </div>
+
       <ion-button
         *ngIf="puedeEntregar && pedido.estado == 'Listo'"
         expand="block"
         color="medium"
-        (click)="entregarPedido(pedido, 'Entrega a confirmar')">Entregar</ion-button>
+        (click)="entregarPedido(pedido, 'Entrega a confirmar')">
+        Entregar
+      </ion-button>
+
       <ion-button
         *ngIf="puedeEntregar && pedido.estado == 'Entrega a confirmar'"
         expand="block"
         color="medium"
-        (click)="entregarPedido(pedido, 'Listo')">Cancelar entrega</ion-button>
-    </div>
-  </div>
+        (click)="entregarPedido(pedido, 'Listo')">
+        Cancelar entrega
+      </ion-button>
 
-  <div class="encuesta-container" *ngIf="tab == 'encuesta'">
-    <div class="foto-container">
-      <img src="../../../assets/custom-ion-icons/camara-custom.svg" alt="foto-estado" class="foto-estado">
+      <ion-button
+        *ngIf="!pedido.confirmado"
+        expand="block"
+        color="medium"
+        (click)="confirmarPedido(pedido)">
+        Confirmar pedido
+      </ion-button>
+
     </div>
+
+  </div>
+  <!--DIV ENCUESTA-->
+  <div 
+    class="encuesta-container" 
+    *ngIf="tab == 'encuesta'">
+    <!--CONTENEDOR FOTO-->
+    <div 
+      class="foto-container"
+      (click)="sacarFoto()">
+      <!--PREVIEW FOTO-->
+      <img 
+        [src]="encuestaFoto ? encuestaFoto : '../../../assets/custom-ion-icons/camara-custom.svg'" 
+        alt="foto-estado" 
+        class="foto-estado">
+
+    </div>
+
     <div class="input-container">
       <ion-label>¿En que sector trabaja?</ion-label>
-      <ion-radio-group>
+      <ion-radio-group [(ngModel)]="encuestaSector">
         <ion-item color="light" lines="none">
-          <ion-radio slot="start" value="Mañana" color="bordo"></ion-radio>
-          <ion-label>Mañana</ion-label>
+          <ion-radio slot="start" value="Bar" color="bordo"></ion-radio>
+          <ion-label>Bar</ion-label>
         </ion-item>
         <ion-item color="light" lines="none">
-          <ion-radio slot="start" value="Tarde" color="bordo"></ion-radio>
-          <ion-label>Tarde</ion-label>
+          <ion-radio slot="start" value="Cocina" color="bordo"></ion-radio>
+          <ion-label>Cocina</ion-label>
         </ion-item>
         <ion-item color="light" lines="none">
-          <ion-radio slot="start" value="Noche" color="bordo"></ion-radio>
-          <ion-label>Noche</ion-label>
+          <ion-radio slot="start" value="Salon" color="bordo"></ion-radio>
+          <ion-label>Salon</ion-label>
         </ion-item>
       </ion-radio-group>
       <br>
     </div>
     <div class="input-container">
       <ion-label>¿Que tan limpio estaba?</ion-label>
-      <ion-range min="0" max="5" step="1" snaps="true" color="bordo"></ion-range>
+      <ion-range 
+        min="0" 
+        max="4" 
+        step="1" 
+        snaps="true" 
+        color="bordo" 
+        [(ngModel)]="encuestaLimpieza"
+        (ionChange)="actualizarLimpiezaTexto()"></ion-range>
+      <ion-label>{{encuestaLimpiezaTexto}}</ion-label>
     </div>
-    
+    <div 
+      class="input-container checkbox-input">
+      <ion-label>¿Tenia los insumos necesarios?</ion-label>
+      <ion-checkbox 
+        slot="fixed" 
+        class="insumos-checkbox" 
+        color="bordo" 
+        [(ngModel)]="encuestaInsumos"></ion-checkbox>
+    </div>
+    <div 
+      class="input-container">
+      <ion-label>Seleccione turno</ion-label>
+      <ion-select 
+        placeholder="Seleccione" 
+        interface="popover" 
+        color="bordo" 
+        [(ngModel)]="encuestaTurno">
+        <ion-select-option 
+          value="Tarde" 
+          color="bordo">Tarde</ion-select-option>
+        <ion-select-option 
+          value="Noche" 
+          color="bordo">Noche</ion-select-option>
+      </ion-select>
+    </div>
+    <div class="input-container comentario-container">
+      <ion-label>¿Algun comentario?</ion-label>
+      <ion-textarea 
+        [(ngModel)]="encuestaComentario"></ion-textarea>
+    </div>
+    <ion-button 
+      (click)="entregarEncuesta()" 
+      expand="block" 
+      color="medium" 
+      class="boton-entrega">Entregar encuesta</ion-button>
   </div>
 
   <div class="div-superpuesto" (click)="ocultarDetalle()" *ngIf="detalle">
@@ -108,7 +214,7 @@
         *ngIf="puedeModificar && itemSeleccionado.estado == 'Listo'"
         expand="full" 
         color="medium" 
-        (click)="productoListo('En preparacion')">No esta listo</ion-button>
+        (click)="productoListo('En preparación')">No esta listo</ion-button>
     </ion-card>
   </div>  
 

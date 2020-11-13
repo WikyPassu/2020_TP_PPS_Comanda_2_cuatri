@@ -4,11 +4,16 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
+import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType } from '@ionic-native/camera/ngx';
+import { PushNotificationService } from '../../services/push-notification.service';
+
+
 
 @Component({
   selector: 'app-bartender',
   templateUrl: './bartender.page.html',
   styleUrls: ['./bartender.page.scss'],
+  providers: [Camera],
 })
 export class BartenderPage implements OnInit {
 
@@ -23,25 +28,38 @@ export class BartenderPage implements OnInit {
   
   public pedidos: Array<any> = [];
   private pedidoListo: Array<boolean> = [];
+  private cantidadPedidos: number = 0;
 
   public detalle: boolean = false;
   public spinner: boolean;
   public itemSeleccionado: any;
+  public pedidoSeleccionado: any;
+
+  public encuestaFoto: string = null;
+  public encuestaSector: string;
+  public encuestaLimpieza: number = 0;
+  public encuestaLimpiezaTexto: string = "Aceptable";
+  public encuestaInsumos: boolean = false;
+  public encuestaTurno: string;
+  public encuestaComentario: string;
 
   constructor(
     private fire: AngularFirestore,
+    private storage: AngularFireStorage,
     private router: Router,
     private route: ActivatedRoute,
     private toast: ToastController,
     private auth: AuthService,
+    private camara: Camera,
+    private push: PushNotificationService,
   ) { 
     this.spinner = true;
   }
 
   ngOnInit() {
-    //console.log(this.auth.userObs);
-    this.tab = 'encuesta';
+    this.tab = 'pedidos';
     this.sector = this.route.snapshot.paramMap.get('sector');
+    this.encuestaLimpieza = 2;
     this.prepararSector();
     this.fire.collection('pedidos')
     .snapshotChanges().subscribe( collection => {
@@ -49,6 +67,12 @@ export class BartenderPage implements OnInit {
       collection.map( obj => {
         this.agregarAListaDePedidos(obj.payload.doc);
       });
+      if(this.pedidos.length > this.cantidadPedidos){
+        let nuevos: number = this.pedidos.length - this.cantidadPedidos;
+        this.push.pushNotification('Pedidos', 'Hay ' + nuevos + ' pedido/s nuevo/s.', 0.5);
+        // console.log('Push notification');
+      }
+      this.cantidadPedidos = this.pedidos.length;
       this.pedidos.forEach( (ped) => {
         if(ped.listo){
           this.actualizarEstadoPedido(ped, null, 'Listo');
@@ -59,10 +83,22 @@ export class BartenderPage implements OnInit {
   }
 
   agregarAListaDePedidos(doc){
-    if(doc.data().confirmado){
+    //console.log(doc.data());
+    if(this.sector != 'salon'){
+      if(doc.data().confirmado){
+        this.pedidoListo = [];
+        let listaProductos: Array<any> = this.prepararListaProductos(doc, this.tipos);
+        let pedido: any = this.prepararPedido(doc, listaProductos, !this.pedidoListo.includes(false));
+        pedido.listaCompleta = doc.data().productos;
+        if(pedido.productos.length > 0){
+          this.pedidos.push(pedido);
+        }
+      }
+    } else{
       this.pedidoListo = [];
       let listaProductos: Array<any> = this.prepararListaProductos(doc, this.tipos);
       let pedido: any = this.prepararPedido(doc, listaProductos, !this.pedidoListo.includes(false));
+      pedido.listaCompleta = doc.data().productos;
       if(pedido.productos.length > 0){
         this.pedidos.push(pedido);
       }
@@ -95,14 +131,12 @@ export class BartenderPage implements OnInit {
     let productosObj: Array<any> = [];
     let temp: Array<any> = [];
     let i = 0;
-    docRef.data().productos.map((prodString: string) => {
-      temp = prodString.split('/');
-      temp.push(i);
-      temp.push(docRef.id);
-      this.pedidoListo.push(temp[4] == "Listo");
-      let tipo = (temp[0].split('.'))[0];
-      if(tipos.includes(tipo)){
-        productosObj.push(this.prepararProducto(temp, docRef));
+    docRef.data().productos.map((prodObj: any) => {
+      prodObj.index = i;
+      prodObj.parentDoc = docRef.id;
+      this.pedidoListo.push(prodObj.estado == "Listo");      
+      if(tipos.includes(prodObj.tipo)){
+        productosObj.push(prodObj);
       }
       i++;
     });
@@ -125,6 +159,7 @@ export class BartenderPage implements OnInit {
 
   prepararPedido(docRef, listaProductos: Array<any>, estaListo: boolean): any{
     let pedido: any = {
+      confirmado: docRef.data().confirmado,
       docid: docRef.id,
       descuento: docRef.data().descuento,
       estado: docRef.data().estado,
@@ -138,7 +173,7 @@ export class BartenderPage implements OnInit {
 
   colorearChip(pedido, prod: boolean = false){
     switch(pedido.estado){
-      case 'En preparacion':
+      case 'En preparación':
         return 'danger';  
       case 'Listo':
         return prod ? 'success' : 'warning';  
@@ -147,8 +182,14 @@ export class BartenderPage implements OnInit {
     }
   }
 
-  mostrarDetalle(item){
+  confirmarPedido(ped){
+    console.log(ped);
+    this.fire.collection('pedidos').doc(ped.docid).update({confirmado: true});
+  }
+
+  mostrarDetalle(item, pedido){
     this.itemSeleccionado = item;
+    this.pedidoSeleccionado = pedido;
     this.detalle = true;
   }
 
@@ -157,18 +198,15 @@ export class BartenderPage implements OnInit {
   }
 
   // bebida.vinofamiglia/Famiglia Bianchi Malbec/600/1/En preparacion
-  productoListo(estado: string){
+  productoListo(estadoNuevo: string){
     let aModificar = this.itemSeleccionado;
-    let tempList: Array<any> = <Array<any>>aModificar.doc.data().productos
-    tempList[aModificar.index] = '' +
-      aModificar.id + '/' +
-      aModificar.nombre + '/' +
-      aModificar.precio + '/' +
-      aModificar.cantidad + '/' +
-      estado;
+    let tempList: Array<any> = this.pedidoSeleccionado.listaCompleta;
+    // console.log(aModificar);
+    // console.log(tempList);
+    tempList[aModificar.index].estado = estadoNuevo;
     this.fire.collection('pedidos').doc(aModificar.parentDoc).update({productos: tempList});
-    if(estado != 'Listo'){
-      this.actualizarEstadoPedido(null, aModificar.parentDoc, 'En preparacion');
+    if(estadoNuevo != 'Listo'){
+      this.actualizarEstadoPedido(null, aModificar.parentDoc, 'En preparación');
     }
   }
 
@@ -185,7 +223,120 @@ export class BartenderPage implements OnInit {
   }
 
   cambiarTab(tab: string){
-    this.tab = tab;
+    this.tab = '';
+    this.spinner = true;
+    setTimeout(() => {
+      this.tab = tab;
+      this.spinner = false;
+    }, 1000);
+  }
+
+  entregarEncuesta(){
+    if(this.encuestaFoto == null){this.presentToast('Debe sacar una foto'); return;}
+    if(typeof this.encuestaSector == 'undefined'){this.presentToast('Seleccione sector'); return;}
+    if(typeof this.encuestaTurno == 'undefined'){this.presentToast('Seleccione turno'); return;}
+    this.spinner = true;
+    this.subirFotoEncuesta()
+    .then( (link: string) => {
+      let encuesta = this.prepararObjetoEncuesta(link);
+      this.fire.collection('encuestasEmpleados').add(encuesta)
+      .then( () => {
+        this.spinner = false;
+        this.encuestaFoto = null;
+        this.presentToast('Se entrego la encuesta. Gracias!');
+      })
+      .catch( () => {
+        this.spinner = false;
+        this.presentToast('Hubo un error al cargar la encuesta. Vuelva a intentar.');
+      })
+    })
+    .catch( (reason) => {
+      this.spinner = false;
+      this.presentToast('Hubo un error al subir la foto');
+    });
+  }
+
+  prepararObjetoEncuesta(link: string){
+    return {
+      foto: link,
+      sector: this.encuestaSector,
+      limpieza: this.encuestaLimpiezaTexto,
+      insumos: this.encuestaInsumos,
+      turno: this.encuestaTurno,
+      comentario: this.encuestaComentario
+    };
+  }
+
+  async subirFotoEncuesta(){
+    return new Promise( (resolve, reject) => {
+      let fname = 'encuestas/encuestaEmpleado.' + Date.now() + '.jpg';
+      fetch(this.encuestaFoto)
+      .then( (res) => {
+        res.blob()
+        .then( (fotoBlob) => {
+          this.storage.upload(fname, fotoBlob)
+          .then( (uploadResponse) => {
+            uploadResponse.ref.getDownloadURL()
+            .then( (link) => {
+              resolve(link);
+            })
+            .catch( (reason) => {
+              console.log(reason);
+              reject(reason);
+            })            
+          })
+          .catch( (reason) => {
+            console.log(reason);
+            reject(reason);
+          })
+        })
+        .catch( (reason) => {
+          console.log(reason);
+          reject(reason);
+        })
+      })
+      .catch( (reason) => {
+        console.log(reason);
+        reject(reason);
+      })
+    });
+  }
+
+  actualizarLimpiezaTexto(){
+    switch(this.encuestaLimpieza){
+      case 0:
+        this.encuestaLimpiezaTexto = 'Una mugre';
+        break;
+      case 1:
+        this.encuestaLimpiezaTexto = 'Desordenado';
+        break;
+      case 2:
+        this.encuestaLimpiezaTexto = 'Aceptable';
+        break;
+      case 3:
+        this.encuestaLimpiezaTexto = 'Ordenado';
+        break;
+      case 4:
+        this.encuestaLimpiezaTexto = 'Excelente';
+        break;
+    }
+  }
+
+  sacarFoto(){
+    let opcionesCamara: CameraOptions = {
+      allowEdit: false,
+      cameraDirection: 0,
+      correctOrientation: true,
+      destinationType: 0,
+      quality: 50,
+    }
+    this.camara.getPicture(opcionesCamara)
+    .then( (fotoStream) => {
+      this.encuestaFoto = 'data:image/jpeg;base64,' + fotoStream;
+    })
+    .catch( (reason) => {
+      this.presentToast('Hubo un error al tomar la foto, intente nuevamente.');
+    });
   }
 
   /**
@@ -193,7 +344,7 @@ export class BartenderPage implements OnInit {
    * @param message Mensaje a presentar
    * @param pos Posicion del toast
    */
-  async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "top") {
+  async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "middle") {
     const toast = await this.toast.create({
       message: message,
       duration: 2000,

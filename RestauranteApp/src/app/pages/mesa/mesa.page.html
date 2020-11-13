@@ -53,7 +53,7 @@
       <ion-label>Pedido</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="redireccionar(2)" [disabled]="deshabilitado">
+    <ion-tab-button (click)="redireccionar(2)" [disabled]="deshabilitado || !hayPedido">
       <ion-icon name="game-controller"></ion-icon>
       <ion-label>Juegos</ion-label>
     </ion-tab-button>
