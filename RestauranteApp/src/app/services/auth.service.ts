@@ -214,7 +214,11 @@ export class AuthService {
         estado : "En preparación",
         idCliente : idCliente,
         mesa : mesa,
-        productos : productos 
+        productos : productos,
+        encuesta : false, 
+        intentosDescuentoDiez : 0, 
+        intentosDescuentoQuince : 0, 
+        intentosDescuentoTreinta : 0, 
       }).catch(error => rejected(error));
   });
 }

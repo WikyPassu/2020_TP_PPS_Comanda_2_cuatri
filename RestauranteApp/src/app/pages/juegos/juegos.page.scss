@@ -63,6 +63,14 @@ div{
 .footer-toolbar{
     height:10vh;
 }
+
+.btnVolver{
+    color:rgb(112, 112, 112) !important;
+    --background:white;
+    font-family: IowanOldStyleBlack;
+    height:8vh;
+}
+
 @media screen and (orientation:landscape) {
     ion-toolbar{
         height:13vh; 
