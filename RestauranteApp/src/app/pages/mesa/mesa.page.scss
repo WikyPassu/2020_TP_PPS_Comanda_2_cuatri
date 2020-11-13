@@ -60,3 +60,13 @@ h6{
     background: rgb(112, 112, 112);
     border-radius: 5vw;
 }
+
+ion-slides{
+    height: 50vw;
+    --bullet-background:white;
+    --bullet-background-active: var(--ion-color-bordo);
+}
+
+.imgSlide{
+    border-radius: 5vw;
+}

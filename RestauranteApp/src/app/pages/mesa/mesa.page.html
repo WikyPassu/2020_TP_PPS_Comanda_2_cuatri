@@ -21,6 +21,12 @@
           <h5>{{pedido.estado}}</h5>
           <div align="center" *ngFor="let producto of pedido.productos">
             <div class="producto">
+              <ion-slides pager #imageSlides>
+                <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+                  <img class="imgSlide" src="{{foto}}" [width]="screenWidth" *ngIf="i == 0">
+                  <img class="imgSlide subitem-image" [src]="foto" [width]="screenWidth" *ngIf="i > 0" />
+                </ion-slide>
+              </ion-slides>
               <hr>
               <ion-label>Nombre: {{producto.nombre}}</ion-label>
               <hr>

@@ -65,7 +65,7 @@ div{
 }
 
 .btnVolver{
-    color:rgb(112, 112, 112) !important;
+    --color:rgb(112, 112, 112);
     --background:white;
     font-family: IowanOldStyleBlack;
     height:8vh;
