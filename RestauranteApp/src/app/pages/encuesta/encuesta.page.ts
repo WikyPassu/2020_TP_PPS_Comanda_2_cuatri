@@ -44,14 +44,14 @@ export class EncuestaPage implements OnInit {
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
     
     this.db.traerPedidoCliente(this.idCliente).subscribe((pedido : any)=>{
-      this.enviado = pedido.encuesta;
-      console.log(this.enviado);
+      this.enviado = pedido[0].encuesta;
     });
-
+/*
     this.spinner = true;
     setTimeout(() => {
       this.spinner = false;
     }, 3000);
+  */
   }
 
   sacarFoto(punteroFoto) {

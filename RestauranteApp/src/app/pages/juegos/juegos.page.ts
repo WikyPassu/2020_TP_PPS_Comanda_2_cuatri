@@ -28,9 +28,9 @@ export class JuegosPage implements OnInit {
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
 
    this.db.traerPedidoCliente(this.idCliente).subscribe((p : any)=>{
-    this.intentosDiez = p.intentosDescuentoDiez;
-    this.intentosQuince = p.intentosDescuentoQuince;
-    this.intentosTreinta = p.intentosDescuentoTreinta;
+    this.intentosDiez = p[0].intentosDescuentoDiez;
+    this.intentosQuince = p[0].intentosDescuentoQuince;
+    this.intentosTreinta = p[0].intentosDescuentoTreinta;
   });
 /*
   this.spinner = true;
