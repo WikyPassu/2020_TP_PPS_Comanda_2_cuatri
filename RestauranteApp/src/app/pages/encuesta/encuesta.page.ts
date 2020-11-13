@@ -34,7 +34,7 @@ export class EncuestaPage implements OnInit {
   mesa = null;
   arrFotos = new Array();
 
-  enviado = false;
+  enviado;
   error = "";
 
   constructor(private camera: Camera, private router: Router, private db: AuthService) { }
@@ -42,6 +42,7 @@ export class EncuestaPage implements OnInit {
   ngOnInit() {
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
+    this.enviado =  this.router.getCurrentNavigation().extras.state.encuesta;
   }
 
   sacarFoto(punteroFoto) {
