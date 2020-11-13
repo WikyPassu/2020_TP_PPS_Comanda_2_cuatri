@@ -15,14 +15,17 @@ export class MesaPage implements OnInit {
   deshabilitado: boolean = true;
   pedido: any = {};
   hayPedido: boolean = false;
+  subtotal: number = 0;
+  descuento: number = 0;
+  total: number = 0; 
   spinner: boolean = false;
 
   constructor(private router: Router, private db: AuthService) { }
 
   ngOnInit() {
     this.spinner = true;
-    //let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
-    let idMesa = "1";
+    let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
+    //let idMesa = "1";
     this.db.traerMesa(idMesa).subscribe(doc => {
       this.mesa = doc.data();
       if(this.mesa != null && this.mesa.ocupada){
@@ -33,8 +36,14 @@ export class MesaPage implements OnInit {
           this.db.traerPedidoCliente(this.cliente.id).subscribe(doc => {
             if(doc != null){
               this.pedido = doc[0];
-              this.pedido.productos = this.transformarProductos(this.pedido.productos);
+              console.log(this.pedido);
+              //this.pedido.productos = this.transformarProductos(this.pedido.productos);
               this.hayPedido = true;
+              this.pedido.productos.forEach(producto => {
+                this.subtotal += producto.cantidad * producto.precio;
+              });
+              this.descuento = this.subtotal * this.pedido.descuento / 100;
+              this.total = this.subtotal - this.descuento;
               this.spinner = false;
             }
           });
@@ -46,6 +55,7 @@ export class MesaPage implements OnInit {
     });
   }
 
+  // En desuso actualmente
   transformarProductos(productos: any){
     let arrayProductos = new Array();
     let arrayObjProductos = new Array();

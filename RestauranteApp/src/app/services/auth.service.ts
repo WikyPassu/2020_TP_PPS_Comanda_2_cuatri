@@ -310,7 +310,7 @@ export class AuthService {
    * @param idcliente Id del cliente asociado al pedido
    */
   traerPedidoCliente(idcliente: string){
-    return this.db.collection("pedidos", ref => ref.where('idcliente', "==", idcliente)).valueChanges();
+    return this.db.collection("pedidos", ref => ref.where('idCliente', "==", idcliente)).valueChanges();
   }
 
   /**

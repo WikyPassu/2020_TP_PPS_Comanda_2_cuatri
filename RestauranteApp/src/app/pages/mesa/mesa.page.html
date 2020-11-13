@@ -27,9 +27,16 @@
               <hr>
               <ion-label>Precio unitario: ${{producto.precio}} c/u.</ion-label>
               <hr>
+              <ion-label>Tiempo: {{producto.tiempo}}</ion-label>
+              <hr>
               <ion-label>Estado: {{producto.estado}}</ion-label>
               <hr>
             </div>
+          </div>
+          <div align="center">
+            <div class="cuenta"><h6>Subtotal: ${{subtotal}}</h6></div>
+            <div class="cuenta"><h6>Descuento: ${{descuento}} ({{pedido.descuento}}%)</h6></div>
+            <div class="cuenta"><h6>Total: ${{total}}</h6></div>
           </div>
         </div>
       </div>
