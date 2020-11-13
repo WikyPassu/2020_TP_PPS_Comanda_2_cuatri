@@ -17,7 +17,8 @@
           <ion-button (click)="redireccionar(1)">Hacer un pedido</ion-button>
         </div>
         <div *ngIf="hayPedido">
-          <h3 style="color: black;">Estado de tu pedido</h3>
+          <h3 style="color: black;">Estado de tu pedido:</h3>
+          <h5>{{pedido.estado}}</h5>
           <div align="center" *ngFor="let producto of pedido.productos">
             <div class="producto">
               <hr>
