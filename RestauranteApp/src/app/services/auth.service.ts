@@ -215,9 +215,9 @@ export class AuthService {
         idCliente : idCliente,
         mesa : mesa,
         productos : productos,
-        intentosDescuentoDiez : 0, 
-        intentosDescuentoQuince : 0, 
-        intentosDescuentoTreinta : 0, 
+        intentosDescuentoDiez : 3, 
+        intentosDescuentoQuince : 3, 
+        intentosDescuentoTreinta : 1, 
       }).catch(error => rejected(error));
   });
 }
