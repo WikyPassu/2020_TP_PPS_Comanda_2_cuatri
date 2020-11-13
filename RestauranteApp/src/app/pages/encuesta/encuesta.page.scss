@@ -121,6 +121,10 @@ ion-button{
     text-align: center;
 }
 
+.centrarSelect{
+    display:flex;
+    justify-content: center;
+}
 
 @media screen and (orientation:landscape) {
     ion-toolbar{

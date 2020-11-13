@@ -39,13 +39,14 @@
   <strong>Qué le hizo sentir más a gusto?</strong>
   <ion-item>
     <form class="formSelect" action="#" method="get" style="text-align:center;">
-      <div class="centrar">
-      <ion-label color="light">Elija una opción</ion-label>
-      <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
-        <ion-select-option value="cuadros">Cuadros</ion-select-option>
-        <ion-select-option value="television">Televisión</ion-select-option>
-        <ion-select-option value="musica">Música</ion-select-option>
-      </ion-select>
+      <div class="centrarSelect">
+        <ion-label color="light">Elija una opción</ion-label>
+        <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
+          <ion-select-option value="cuadros">Cuadros</ion-select-option>
+          <ion-select-option value="television">Televisión</ion-select-option>
+          <ion-select-option value="musica">Música</ion-select-option>
+        </ion-select>
+      </div>
     </form>
   </ion-item>
 
