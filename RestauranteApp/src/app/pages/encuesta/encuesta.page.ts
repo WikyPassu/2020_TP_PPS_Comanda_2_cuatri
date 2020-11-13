@@ -162,7 +162,7 @@ export class EncuestaPage implements OnInit {
       this.spinner = true;
       setTimeout(() => {
         this.db.guardarEncuestaCliente(this.mesa, this.idCliente, this.rangoEdad, this.llamativo, this.protocolo, arrRecomendados, this.comentario, this.arrFotos);
-        this.enviado = true;
+        this.db.actualizarEstadoEncuesta(this.idCliente);
         this.spinner = false;
       }, 5000);
     }

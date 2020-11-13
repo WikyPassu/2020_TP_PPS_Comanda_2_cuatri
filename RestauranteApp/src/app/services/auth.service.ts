@@ -274,6 +274,10 @@ export class AuthService {
     return this.db.collection("clientes").doc(uid).update({aprobado: true});
   }
 
+  actualizarEstadoEncuesta(uid){
+    return this.db.collection("pedidos").doc(uid).update({encuesta: true});
+  }
+
   /**
    * Elimina un cliente de la coleccion.
    * @param uid uid del cliente a eliminar.
