@@ -42,7 +42,16 @@ export class EncuestaPage implements OnInit {
   ngOnInit() {
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
-    this.enviado =  this.router.getCurrentNavigation().extras.state.encuesta;
+    
+    this.db.traerPedidoCliente(this.idCliente).subscribe((pedido : any)=>{
+      this.enviado = pedido.encuesta;
+      console.log(this.enviado);
+    });
+
+    this.spinner = true;
+    setTimeout(() => {
+      this.spinner = false;
+    }, 3000);
   }
 
   sacarFoto(punteroFoto) {
