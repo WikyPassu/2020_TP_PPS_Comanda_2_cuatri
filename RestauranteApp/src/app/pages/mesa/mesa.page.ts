@@ -17,32 +17,13 @@ export class MesaPage implements OnInit {
   hayPedido: boolean = false;
   subtotal: number = 0;
   descuento: number = 0;
-  total: number = 0; 
-  intentosDiez: number = 3;
-  intentosQuince: number = 3;
-  intentosTreinta: number = 1;
-  encuestaEnviada: boolean = false;
+  total: number = 0;
   spinner: boolean = false;
 
   constructor(private router: Router, private db: AuthService) { }
 
   ngOnInit() {
     this.spinner = true;
-    
-    this.intentosDiez = this.router.getCurrentNavigation().extras.state.intentosDiez;
-    this.intentosQuince = this.router.getCurrentNavigation().extras.state.intentosQuince;
-    this.intentosTreinta = this.router.getCurrentNavigation().extras.state.intentosTreinta;
-    if(this.intentosDiez == undefined && this.intentosQuince == undefined && this.intentosTreinta == undefined){
-      this.intentosDiez = 3;
-      this.intentosQuince = 3;
-      this.intentosTreinta = 1;
-    }
-    
-    this.encuestaEnviada = this.router.getCurrentNavigation().extras.state.encuesta;
-    if(this.encuestaEnviada == undefined){
-      this.encuestaEnviada = false;
-    }
-
     let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
     //let idMesa = "1";
     
@@ -56,8 +37,9 @@ export class MesaPage implements OnInit {
           this.deshabilitado = false;
           
           this.db.traerPedidoCliente(this.cliente.id).subscribe(doc => {
-            if(doc != null){
+            if(doc.length != 0){
               this.pedido = doc[0];
+              console.log(doc);
               console.log(this.pedido);
               this.hayPedido = true;
               this.pedido.productos.forEach(producto => {
@@ -85,10 +67,10 @@ export class MesaPage implements OnInit {
         this.router.navigate(["/listado-productos"], {state: { mesa: this.mesa.mesa, cliente: this.mesa.idcliente }});
         break;
       case 2:
-        this.router.navigate(["/juegos"], {state: { intentosDiez: this.intentosDiez, intentosQuince: this.intentosQuince, intentosTreinta: this.intentosTreinta }});
+        this.router.navigate(["/juegos"], {state: { mesa: this.mesa.mesa, cliente: this.mesa.idcliente }});
         break;
       case 3:
-        this.router.navigate(["/encuesta"], {state : {enviada: this.encuestaEnviada }});
+        this.router.navigate(["/encuesta"], {state: { mesa: this.mesa.mesa, cliente: this.mesa.idcliente }});
         break;
     }
   }

@@ -58,7 +58,7 @@
       <ion-label>Juegos</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button (click)="redireccionar(3)" [disabled]="deshabilitado">
+    <ion-tab-button (click)="redireccionar(3)" [disabled]="deshabilitado || !hayPedido">
       <ion-icon name="clipboard"></ion-icon>
       <ion-label>Encuesta</ion-label>
     </ion-tab-button>
