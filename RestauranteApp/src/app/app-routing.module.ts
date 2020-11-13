@@ -52,9 +52,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
   {
+    path: 'estadisticas-empleados',
+    loadChildren: () => import('./pages/estadisticas-empleados/estadisticas-empleados.module').then( m => m.EstadisticasEmpleadosPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'login'
-  }
+  },
+  {
+    path: 'estadisticas-empleados',
+    loadChildren: () => import('./pages/estadisticas-empleados/estadisticas-empleados.module').then( m => m.EstadisticasEmpleadosPageModule)
+  },
+
+  
+
 ];
 
 @NgModule({
