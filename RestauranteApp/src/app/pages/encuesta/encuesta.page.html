@@ -38,12 +38,14 @@
 
   <strong>Qué le hizo sentir más a gusto?</strong>
   <ion-item>
-    <ion-label color="light">Elija una opción</ion-label>
-    <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
-      <ion-select-option value="cuadros">Cuadros</ion-select-option>
-      <ion-select-option value="television">Television</ion-select-option>
-      <ion-select-option value="musica">Música</ion-select-option>
-    </ion-select>
+    <form class="formSelect" action="#" method="get">
+      <ion-label color="light">Elija una opción</ion-label>
+      <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
+        <ion-select-option value="cuadros">Cuadros</ion-select-option>
+        <ion-select-option value="television">Television</ion-select-option>
+        <ion-select-option value="musica">Música</ion-select-option>
+      </ion-select>
+    </form>
   </ion-item>
 
 
@@ -91,7 +93,6 @@
   </div>
 
   <ion-button (click)="enviarRespuestas()">ENVIAR</ion-button>
-  <ion-button class="btnVolverPrinc" (click)="volverAMesa()">Volver</ion-button>
 </ion-content>
 
 <ion-content class="containerEnviado" *ngIf="enviado">
@@ -99,13 +100,13 @@
     <strong class="strongEnviado">Muchas gracias!!</strong>
     <br>
     <ion-button class="btnEstadisticas">Ver estadísticas</ion-button>
-    <ion-button class="btnVolver"  (click)="volverAtras()">Volver</ion-button>
+    <ion-button class="btnVolver" (click)="volverAtras()">Volver</ion-button>
   </div>
 </ion-content>
-
-<ion-footer >
+<app-spinner *ngIf="spinner"></app-spinner>
+<ion-footer>
   <ion-toolbar class="footer-toolbar">
-    <ion-button class="btnVolverFooter" (click)="volverAtras()" >
+    <ion-button class="btnVolverFooter" (click)="volverAtras()">
       Volver al inicio
     </ion-button>
   </ion-toolbar>

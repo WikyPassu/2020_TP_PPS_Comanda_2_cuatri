@@ -97,7 +97,8 @@ export class ListadoProductosPage implements OnInit {
         tipo: producto.tipo,
         precio: producto.precio,
         cantidad: producto.cantidad,
-        tiempo: producto.tiempo
+        tiempo: producto.tiempo,
+        estado: "En preparación"
       }
   
       let encontrado = false;

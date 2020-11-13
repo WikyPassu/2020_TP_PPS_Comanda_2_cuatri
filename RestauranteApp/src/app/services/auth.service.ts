@@ -220,12 +220,12 @@ export class AuthService {
 }
 
  /*
-  * hola
+  * hola esta es de clientes me perdonan 
   */
  guardarEncuesta(mesa, idCliente, rangoEdad, llamativo, puntajeProtocolo, arrayRecomendados, sugerencia, arrayFotos){
-  alert(arrayFotos);
   return new Promise((resolve, rejected) => {
     this.db.collection("encuestas").add({
+      tipo: "cliente",
       mesa: mesa,
       cliente: idCliente,
       fecha: Date.now(),
@@ -355,7 +355,6 @@ export class AuthService {
   }
 
   setearDescuentoPedido(idCliente: string, descuentoNuevo: number){
-    alert(idCliente);
     return this.db.collection("pedidos").doc(idCliente).update({descuento: descuentoNuevo});
   }
 }

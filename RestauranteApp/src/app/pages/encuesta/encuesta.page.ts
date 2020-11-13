@@ -15,7 +15,9 @@ import * as firebase from 'firebase';
     Camera
   ]
 })
+
 export class EncuestaPage implements OnInit {
+  spinner = false;
   fotoUser1 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
   fotoUser2 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
   fotoUser3 = { base64: "https://png.pngtree.com/png-clipart/20190415/ourlarge/pngtree-cute-retro-photo-camera-cartoon-style-illustration-png-image_939633.jpg", fecha: null, nombre: null };
@@ -115,14 +117,14 @@ export class EncuestaPage implements OnInit {
     }
   }
 
-  validarRespuestas(){
-    if (this.rangoEdad == ""){
+  validarRespuestas() {
+    if (this.rangoEdad == "") {
       this.error = "Seleccione su edad!!"
     }
-    else if(this.llamativo == ""){
-      this.error = "Seleccione que le llamo la atención!!"
+    else if (this.llamativo == "") {
+      this.error = "Seleccione qué le gustó más!!"
     }
-    else if(this.protocolo == ""){
+    else if (this.protocolo == "") {
       this.error = "Seleccione nivel de satisfaccion de protocolo!!"
     }
   }
@@ -131,27 +133,29 @@ export class EncuestaPage implements OnInit {
     this.error = "";
     this.validarRespuestas();
 
-    if (this.error == "" ){
+    if (this.error == "") {
 
       let arrRecomendados = new Array();
       if (this.recomendadosTrabajo) {
         arrRecomendados.push("trabajo");
       }
-  
+
       if (this.recomendadosAmigos) {
         arrRecomendados.push("amigos");
       }
-  
+
       if (this.recomendadosFamilia) {
         arrRecomendados.push("familia");
       }
       await this.traerFotos();
-  
+
+
+      this.spinner = true;
       setTimeout(() => {
-        alert("poner spinner");  
-         this.db.guardarEncuesta(this.mesa, this.idCliente, this.rangoEdad, this.llamativo, this.protocolo, arrRecomendados, this.comentario, this.arrFotos);
-          this.enviado = true;
-        }, 5000);
+        this.db.guardarEncuesta(this.mesa, this.idCliente, this.rangoEdad, this.llamativo, this.protocolo, arrRecomendados, this.comentario, this.arrFotos);
+        this.enviado = true;
+        this.spinner = false;
+      }, 5000);
     }
   }
 
@@ -174,10 +178,9 @@ export class EncuestaPage implements OnInit {
     let childRef = storageRef.child(fotoUser.nombre);
 
     await childRef.putString(fotoUser.base64, 'data_url');
-    
+
     await this.db.buscarFotoPorNombre(fotoUser.nombre).then(link => {
       this.arrFotos.push(link);
-      alert("trajo link");
     });
   }
 
@@ -185,8 +188,8 @@ export class EncuestaPage implements OnInit {
     alert("NO SE HACER GRAFICOS XDDDDDDDD");
   }
 
-  volverAtras(){
-    this.router.navigate(["/mesa"], {state : {enviada : true}});
+  volverAtras() {
+    this.router.navigate(["/mesa"], { state: { enviada: true } });
   }
 }
 
