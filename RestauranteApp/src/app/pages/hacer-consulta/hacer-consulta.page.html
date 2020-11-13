@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="mesa"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Hacer una consulta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div align="center">
+    <ion-card class="consulta">
+      <br>
+      <ion-label>Escribí tu consulta y un mozo te estará respondiendo a la brevedad.</ion-label>
+      <br><br>
+      <div align="center">
+        <ion-item>
+          <ion-textarea [(ngModel)]="mensaje" name="mensaje" maxlength="200" placeholder="Tu consulta..."></ion-textarea>
+        </ion-item>
+      </div>
+      <ion-button (click)="enviar()">Enviar</ion-button>
+    </ion-card>
+    <ion-card>
+      <div align="center">
+        <div *ngFor="let consulta of consultas">
+          <div class="divConsulta">
+            <div align="start">
+              <ion-label>Mesa: {{consulta.mesa}} | {{consulta.nombreCliente}}</ion-label>
+            </div>
+            <br>
+            <div align="start" class="cliente">
+              <p style="margin-left: 1vw;">{{consulta.consulta}}</p>
+            </div>
+            <br>
+            <div align="end" class="mozo">
+              <p style="margin-right: 1vw;">{{consulta.respuesta}}</p>            
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

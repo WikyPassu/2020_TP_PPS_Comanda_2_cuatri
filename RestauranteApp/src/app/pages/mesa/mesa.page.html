@@ -10,7 +10,6 @@
       <div *ngIf="!deshabilitado">
         <br>
         <ion-button (click)="redireccionar(0)">Hacer una consulta</ion-button>
-        <ion-button (click)="redireccionar(1)">Hacer un pedido</ion-button>
         <div *ngIf="!hayPedido">
           <br>
           <img style="width: 70vw;" src="../../../assets/icono.png">
@@ -18,7 +17,8 @@
           <ion-button (click)="redireccionar(1)">Hacer un pedido</ion-button>
         </div>
         <div *ngIf="hayPedido">
-          <h3 style="color: black;">Estado de tu pedido</h3>
+          <h3 style="color: black;">Estado de tu pedido:</h3>
+          <h5>{{pedido.estado}}</h5>
           <div align="center" *ngFor="let producto of pedido.productos">
             <div class="producto">
               <hr>
@@ -28,9 +28,16 @@
               <hr>
               <ion-label>Precio unitario: ${{producto.precio}} c/u.</ion-label>
               <hr>
+              <ion-label>Tiempo: {{producto.tiempo}}</ion-label>
+              <hr>
               <ion-label>Estado: {{producto.estado}}</ion-label>
               <hr>
             </div>
+          </div>
+          <div align="center">
+            <div class="cuenta"><h6>Subtotal: ${{subtotal}}</h6></div>
+            <div class="cuenta"><h6>Descuento: ${{descuento}} ({{pedido.descuento}}%)</h6></div>
+            <div class="cuenta"><h6>Total: ${{total}}</h6></div>
           </div>
         </div>
       </div>
