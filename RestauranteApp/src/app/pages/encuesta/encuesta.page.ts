@@ -39,7 +39,7 @@ export class EncuestaPage implements OnInit {
 
   ngOnInit() {
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
-    this.idCliente = this.router.getCurrentNavigation().extras.state.mesa;
+    this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
   }
 
   sacarFoto(punteroFoto) {
@@ -185,8 +185,8 @@ export class EncuestaPage implements OnInit {
     alert("NO SE HACER GRAFICOS XDDDDDDDD");
   }
 
-  volverAMesa(){
-    this.router.navigate(["/mesa"]);
+  volverAtras(){
+    this.router.navigate(["/mesa"], {state : {enviada : true}});
   }
 }
 

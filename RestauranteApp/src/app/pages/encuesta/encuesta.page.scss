@@ -90,6 +90,32 @@ ion-button{
     font-size: x-large;
 }
 
+.strongEnviado{
+    font-size : x-large;
+}
+
+.divGracias{
+    margin-top:15vh;
+}
+
+.btnEstadisticas{
+    margin-top:10vh;
+    height:10vh;
+    width:40vh;
+    font-size:large;
+}
+
+.btnVolver{
+    margin-top:5vh;
+    height:10vh;
+    width:30vh;
+    font-size:large;
+}
+
+.footer-toolbar{
+    height:10vh;
+}
+
 @media screen and (orientation:landscape) {
     ion-toolbar{
         height:13vh; 
@@ -97,5 +123,26 @@ ion-button{
 
     ion-button{
         margin-left:3vw;
+    }
+
+    .footer-toolbar{
+        height:15vh;
+    }
+
+    .divGracias{
+        margin-top:10vh;
+    }
+
+    .btnEstadisticas{
+        margin-top:10vh;
+        height:20vh;
+        width:70vh;
+        font-size:large;
+    }
+    
+    .btnVolver{
+        margin-top:10vh;
+        height:20vh;
+        width:50vh;
     }
 }

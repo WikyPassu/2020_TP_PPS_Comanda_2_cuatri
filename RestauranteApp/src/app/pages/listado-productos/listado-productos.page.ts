@@ -10,6 +10,9 @@ import { Router } from "@angular/router";
 })
 export class ListadoProductosPage implements OnInit {
 
+  mesa = null;
+  idCliente = null;
+
   listaProd = new Array();
   listaComidas = new Array();
   listaBebidas = new Array();
@@ -24,6 +27,9 @@ export class ListadoProductosPage implements OnInit {
   constructor(private router: Router, private db: AuthService) { }
 
   ngOnInit() {
+    this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
+    this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
+    
     this.db.traerProductos().subscribe(lista => {
 
       lista.forEach(prod => {
@@ -83,7 +89,6 @@ export class ListadoProductosPage implements OnInit {
   }
 
   agregarAlCarrito(producto) {
-    if (producto.cantidad != 0){
       let prod = {
         id: producto.id,
         descripcion: producto.descripcion,
@@ -95,7 +100,6 @@ export class ListadoProductosPage implements OnInit {
         tiempo: producto.tiempo
       }
   
-      producto.cantidad = 0;
       let encontrado = false;
   
       this.carrito.forEach(p => {
@@ -109,14 +113,12 @@ export class ListadoProductosPage implements OnInit {
         this.carrito.push(prod);
       }
   
-      this.calcularPrecioCarrito();
-    }
-    else{
       producto.cantidad = -1;
       setTimeout(() => {
-        producto.cantidad = 0;
-      }, 2000);
-    }
+        producto.cantidad = 1;
+      }, 3000);
+
+      this.calcularPrecioCarrito();
   }
 
   sumarCantidad(producto) {
@@ -124,7 +126,7 @@ export class ListadoProductosPage implements OnInit {
   }
 
   restarCantidad(producto) {
-    if (producto.cantidad > 0) {
+    if (producto.cantidad > 1) {
       producto.cantidad--;
     }
   }
@@ -142,7 +144,7 @@ export class ListadoProductosPage implements OnInit {
   }
 
   restarCantidadCarrito(producto) {
-    if (producto.cantidad > 0) {
+    if (producto.cantidad > 1) {
 
       if (producto.cantidad == 1) {
         this.carrito.forEach((p, i) => {
@@ -167,9 +169,7 @@ export class ListadoProductosPage implements OnInit {
   }
 
   enviarPedido(){
-    let mesa = this.router.getCurrentNavigation().extras.state.mesa;
-    let idCliente = this.router.getCurrentNavigation().extras.state.mesa;
-    this.db.cargarPedido(idCliente, mesa, this.carrito);
+    this.db.cargarPedido(this.idCliente, this.mesa, this.carrito);
     this.terminado = true;
   }
 

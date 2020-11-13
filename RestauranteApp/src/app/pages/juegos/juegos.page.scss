@@ -24,6 +24,7 @@ ion-title{
 ion-button{
     --background:rgb(112, 112, 112);
     font-family: IowanOldStyleBlack;
+    height:8vh;
 }
 
 strong,p, label{
@@ -59,6 +60,9 @@ div{
     font-size: large;
 }
 
+.footer-toolbar{
+    height:10vh;
+}
 @media screen and (orientation:landscape) {
     ion-toolbar{
         height:13vh; 
@@ -75,6 +79,10 @@ div{
 
     .divGanaste{
         border-radius:7vh;
+        height:15vh;
+    }
+
+    .footer-toolbar{
         height:15vh;
     }
 }

@@ -125,17 +125,38 @@ ion-slides{
 
 .vacio{
     color:white;
-    font-size: large;
+    font-size: x-large;
     font-family: IowanOldStyleBlack;
 }
 
 .centrar{
     text-align:center;
+    margin-top:30vh;
+}
+
+.btnVolver{
+    margin-top:5vh;
+    margin-left:2vw;
+    height:10vh;
+    font-size:large;
+    width:80vw;
+    --background: rgb(21, 75, 21);
+    font-family: IowanOldStyleBlack;
 }
 
 @media screen and (orientation:landscape) {
     ion-toolbar{
         height:13vh; 
+    }
+
+    .btnVolver{
+        height:20vh;
+        width:60vw;
+    }
+
+    .centrar{
+        text-align:center;
+        margin-top:10vh;
     }
 
     .agregar{

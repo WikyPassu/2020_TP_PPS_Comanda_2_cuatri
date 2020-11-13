@@ -63,18 +63,18 @@
   <strong>Nos recomendaría para...</strong>
   <br>
 
-    <ion-item (ionChange)="cambiarValorRecomendadosAmigos($event)">
-      <ion-label color="light">Salidas con amigos</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
-    <ion-item (ionChange)="cambiarValorRecomendadosFamilia($event)">
-      <ion-label color="light">Reuniones familiares</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
-    <ion-item (ionChange)="cambiarValorRecomendadosTrabajo($event)">
-      <ion-label color="light">Comida entre horas de trabajo</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
+  <ion-item (ionChange)="cambiarValorRecomendadosAmigos($event)">
+    <ion-label color="light">Salidas con amigos</ion-label>
+    <ion-checkbox slot="end"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="cambiarValorRecomendadosFamilia($event)">
+    <ion-label color="light">Reuniones familiares</ion-label>
+    <ion-checkbox slot="end"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="cambiarValorRecomendadosTrabajo($event)">
+    <ion-label color="light">Comida entre horas de trabajo</ion-label>
+    <ion-checkbox slot="end"></ion-checkbox>
+  </ion-item>
 
   <ion-item-divider></ion-item-divider>
 
@@ -83,7 +83,7 @@
   <ion-textarea class="comentario" rows="3" cols="30" placeholder="Escriba un comentario..." name="message"
     [(ngModel)]="comentario" #message='ngModel'></ion-textarea>
   <ion-item-divider></ion-item-divider>
-  
+
   <div class="container" *ngIf="error != ''">
     <div class="centrar">
       <strong class="error">{{error}}</strong>
@@ -94,13 +94,19 @@
   <ion-button class="btnVolverPrinc" (click)="volverAMesa()">Volver</ion-button>
 </ion-content>
 
-<ion-content *ngIf="enviado">
+<ion-content class="containerEnviado" *ngIf="enviado">
   <div class="divGracias">
-    <strong>Muchas gracias!!</strong>
+    <strong class="strongEnviado">Muchas gracias!!</strong>
     <br>
-    <div class="flex">
-      <ion-button>Ver estadísticas</ion-button>
-      <ion-button (click)="volverAMesa()">Volver</ion-button>
-    </div>
+    <ion-button class="btnEstadisticas">Ver estadísticas</ion-button>
+    <ion-button class="btnVolver"  (click)="volverAtras()">Volver</ion-button>
   </div>
 </ion-content>
+
+<ion-footer >
+  <ion-toolbar class="footer-toolbar">
+    <ion-button class="btnVolverFooter" (click)="volverAtras()" >
+      Volver al inicio
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

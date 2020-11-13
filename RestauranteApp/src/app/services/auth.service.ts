@@ -355,6 +355,7 @@ export class AuthService {
   }
 
   setearDescuentoPedido(idCliente: string, descuentoNuevo: number){
+    alert(idCliente);
     return this.db.collection("pedidos").doc(idCliente).update({descuento: descuentoNuevo});
   }
 }

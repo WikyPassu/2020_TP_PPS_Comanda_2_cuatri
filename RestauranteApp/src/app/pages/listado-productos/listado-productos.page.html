@@ -17,7 +17,9 @@
   <div *ngIf="terminado" class="centrar">
     <strong class="vacio">Pedido enviado!</strong>
     <br>
-    <ion-button class="btnEnviar" (click)="volverAMesa()">Volver a mi mesa</ion-button>
+    <strong class="vacio">Total: {{subtotal}}</strong>
+    <br>
+    <ion-button class="btnVolver" (click)="volverAMesa()">Volver a mi mesa</ion-button>
   </div>
   <div *ngIf="!terminado">
     <div class="tab" *ngIf="tab == 'Carrito'">
@@ -111,12 +113,12 @@
               </div>
             </ion-col>
             <ion-col colsize="6">
-              <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+              <ion-button class="agregar" [disabled]="producto.cantidad == -1" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col *ngIf="producto.cantidad == -1">
-              <strong class="nombreProducto">Por favor, seleccione la cantidad!</strong>
+              <strong class="nombreProducto">Agregado!</strong>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -156,14 +158,19 @@
                 <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
                   <ion-icon name="remove-outline"></ion-icon>
                 </ion-fab-button>
-                <strong class="cantidad">{{producto.cantidad}}</strong>
+                <strong *ngIf="producto.cantidad != -1" class="cantidad">{{producto.cantidad}}</strong>
                 <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
                   <ion-icon name="add-outline"></ion-icon>
                 </ion-fab-button>
               </div>
             </ion-col>
             <ion-col colsize="6">
-              <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+              <ion-button class="agregar" [disabled]="producto.cantidad == -1"  (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col *ngIf="producto.cantidad == -1">
+              <strong class="nombreProducto">Agregado!</strong>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -203,14 +210,19 @@
                 <ion-fab-button class="plusminus" (click)="restarCantidad(producto)">
                   <ion-icon name="remove-outline"></ion-icon>
                 </ion-fab-button>
-                <strong class="cantidad">{{producto.cantidad}}</strong>
+                <strong class="cantidad"  *ngIf="producto.cantidad != -1">{{producto.cantidad}}</strong>
                 <ion-fab-button class="plusminus" (click)="sumarCantidad(producto)">
                   <ion-icon name="add-outline"></ion-icon>
                 </ion-fab-button>
               </div>
             </ion-col>
             <ion-col colsize="6">
-              <ion-button class="agregar" (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+              <ion-button class="agregar" [disabled]="producto.cantidad == -1"  (click)="agregarAlCarrito(producto)">AGREGAR</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col *ngIf="producto.cantidad == -1">
+              <strong class="nombreProducto">Agregado!</strong>
             </ion-col>
           </ion-row>
         </ion-grid>
