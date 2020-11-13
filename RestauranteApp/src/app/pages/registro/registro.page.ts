@@ -205,22 +205,6 @@ export class RegistroPage implements OnInit {
 
     if (this.modoRegistro == true) {
       this.camera.getPicture(opciones).then((ImageData) => {
-        /*
-                let storageRef = firebase.storage().ref();
-                let childRef = storageRef.child(nombreFoto);
-                
-                childRef.putString(base64Str, 'data_url').then((res)=>{
-                  storageRef.listAll().then((lista)=>{
-                    lista.items.forEach(foto => {
-                      if (foto.name == nombreFoto){
-                        foto.getDownloadURL().then((link)=>{
-                          this.preview = link;
-                        });
-                      }
-                    });
-                  })
-                });
-                */
         this.fecha = Date.now();
         this.preview = 'data:image/jpeg;base64,' + ImageData;
         this.foto = this.dni + "." + this.fecha + ".jpg";
@@ -237,21 +221,6 @@ export class RegistroPage implements OnInit {
     }
     else {
       this.camera.getPicture(opciones).then((ImageData) => {
-        /*
-                let storageRef = firebase.storage().ref();
-                let childRef = storageRef.child(nombreFoto);
-                childRef.putString(base64Str, 'data_url').then((res)=>{
-                  storageRef.listAll().then((lista)=>{
-                    lista.items.forEach(foto => {
-                      if (foto.name == nombreFoto){
-                        foto.getDownloadURL().then((link)=>{
-                          this.preview = link;
-                        });
-                      }
-                    });
-                  })
-                });
-                */
         this.fecha = Date.now();
         this.preview = 'data:image/jpeg;base64,' + ImageData;
         this.foto = this.nombre + "." + this.fecha + ".jpg";

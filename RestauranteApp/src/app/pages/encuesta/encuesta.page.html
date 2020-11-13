@@ -38,12 +38,14 @@
 
   <strong>Qué le hizo sentir más a gusto?</strong>
   <ion-item>
-    <ion-label color="light">Elija una opción</ion-label>
-    <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
-      <ion-select-option value="cuadros">Cuadros</ion-select-option>
-      <ion-select-option value="television">Television</ion-select-option>
-      <ion-select-option value="musica">Música</ion-select-option>
-    </ion-select>
+    <form class="formSelect" action="#" method="get">
+      <ion-label color="light">Elija una opción</ion-label>
+      <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
+        <ion-select-option value="cuadros">Cuadros</ion-select-option>
+        <ion-select-option value="television">Television</ion-select-option>
+        <ion-select-option value="musica">Música</ion-select-option>
+      </ion-select>
+    </form>
   </ion-item>
 
 
@@ -63,18 +65,18 @@
   <strong>Nos recomendaría para...</strong>
   <br>
 
-    <ion-item (ionChange)="cambiarValorRecomendadosAmigos($event)">
-      <ion-label color="light">Salidas con amigos</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
-    <ion-item (ionChange)="cambiarValorRecomendadosFamilia($event)">
-      <ion-label color="light">Reuniones familiares</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
-    <ion-item (ionChange)="cambiarValorRecomendadosTrabajo($event)">
-      <ion-label color="light">Comida entre horas de trabajo</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
+  <ion-item (ionChange)="cambiarValorRecomendadosAmigos($event)">
+    <ion-label color="light">Salidas con amigos</ion-label>
+    <ion-checkbox slot="end"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="cambiarValorRecomendadosFamilia($event)">
+    <ion-label color="light">Reuniones familiares</ion-label>
+    <ion-checkbox slot="end"></ion-checkbox>
+  </ion-item>
+  <ion-item (ionChange)="cambiarValorRecomendadosTrabajo($event)">
+    <ion-label color="light">Comida entre horas de trabajo</ion-label>
+    <ion-checkbox slot="end"></ion-checkbox>
+  </ion-item>
 
   <ion-item-divider></ion-item-divider>
 
@@ -83,17 +85,29 @@
   <ion-textarea class="comentario" rows="3" cols="30" placeholder="Escriba un comentario..." name="message"
     [(ngModel)]="comentario" #message='ngModel'></ion-textarea>
   <ion-item-divider></ion-item-divider>
-  <ion-button (click)="enviarRespuestas()">ENVIAR</ion-button>
-  <ion-button>VER RESULTADOS</ion-button>
-</ion-content>
 
-<ion-content *ngIf="enviado">
-  <div class="divGracias">
-    <strong>Muchas gracias!!</strong>
-    <br>
-    <div class="flex">
-      <ion-button>Ver estadísticas</ion-button>
-      <ion-button>Volver</ion-button>
+  <div class="container" *ngIf="error != ''">
+    <div class="centrar">
+      <strong class="error">{{error}}</strong>
     </div>
   </div>
+
+  <ion-button (click)="enviarRespuestas()">ENVIAR</ion-button>
 </ion-content>
+
+<ion-content class="containerEnviado" *ngIf="enviado">
+  <div class="divGracias">
+    <strong class="strongEnviado">Muchas gracias!!</strong>
+    <br>
+    <ion-button class="btnEstadisticas">Ver estadísticas</ion-button>
+    <ion-button class="btnVolver" (click)="volverAtras()">Volver</ion-button>
+  </div>
+</ion-content>
+<app-spinner *ngIf="spinner"></app-spinner>
+<ion-footer>
+  <ion-toolbar class="footer-toolbar">
+    <ion-button class="btnVolverFooter" (click)="volverAtras()">
+      Volver al inicio
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
