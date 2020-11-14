@@ -38,13 +38,15 @@
 
   <strong>Qué le hizo sentir más a gusto?</strong>
   <ion-item>
-    <form class="formSelect" action="#" method="get">
-      <ion-label color="light">Elija una opción</ion-label>
-      <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
-        <ion-select-option value="cuadros">Cuadros</ion-select-option>
-        <ion-select-option value="television">Television</ion-select-option>
-        <ion-select-option value="musica">Música</ion-select-option>
-      </ion-select>
+    <form class="formSelect" action="#" method="get" style="text-align:center;">
+      <div class="centrarSelect">
+        <ion-label color="light">Elija una opción</ion-label>
+        <ion-select value="" okText="Seleccionar" cancelText="Cancelar" (ionChange)="cambiarLlamativo($event)">
+          <ion-select-option value="cuadros">Cuadros</ion-select-option>
+          <ion-select-option value="television">Televisión</ion-select-option>
+          <ion-select-option value="musica">Música</ion-select-option>
+        </ion-select>
+      </div>
     </form>
   </ion-item>
 
@@ -58,6 +60,7 @@
       <ion-icon size="small" color="light" slot="start" name="sad"></ion-icon>
       <ion-icon slot="end" color="light" name="happy"></ion-icon>
     </ion-range>
+    <ion-label class="text-align:center;">Seleccionado: {{protocolo}}</ion-label>
   </ion-item>
 
   <ion-item-divider></ion-item-divider>
