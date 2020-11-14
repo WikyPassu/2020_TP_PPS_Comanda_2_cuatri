@@ -35,6 +35,8 @@ export class BartenderPage implements OnInit {
   public itemSeleccionado: any;
   public pedidoSeleccionado: any;
 
+  public cantidadConsultas: number;
+
   public encuestaFoto: string = null;
   public encuestaSector: string;
   public encuestaLimpieza: number = 0;
@@ -82,6 +84,17 @@ export class BartenderPage implements OnInit {
     });
   }
 
+  traerCantidadConsultas(){
+    this.fire.collection('consultas', (ref) => ref.where('respondida', '==', false))
+    .snapshotChanges().subscribe( docs => {
+      this.cantidadConsultas = docs.length;
+    });
+  }
+
+  irAConsultas(){
+    this.router.navigate(['responder-consulta']);
+  }
+
   agregarAListaDePedidos(doc){
     //console.log(doc.data());
     if(this.sector != 'salon'){
@@ -117,6 +130,7 @@ export class BartenderPage implements OnInit {
       this.puedeEntregar = false;
       this.puedeModificar = true;
     } else if (this.sector == 'salon'){
+      this.traerCantidadConsultas();
       this.titulo = 'Salon';
       this.tipos = ['bebida', 'comida', 'postre'];
       this.puedeEntregar = true;
@@ -179,6 +193,8 @@ export class BartenderPage implements OnInit {
         return prod ? 'success' : 'warning';  
       case 'Entregado':
         return 'success';  
+      case 'Entrega a confirmar':
+        return 'success';
     }
   }
 
@@ -210,16 +226,20 @@ export class BartenderPage implements OnInit {
     }
   }
 
-  actualizarEstadoPedido(ped, docid, est: string){
+  actualizarEstadoPedido(ped, docid, est: string, cancela: boolean = false){    
     if(ped != null){
-      this.fire.collection('pedidos').doc(ped.docid).update({estado: est});
-    } else if (docid != null){
+      if(ped.estado == 'Listo' || cancela){
+        this.fire.collection('pedidos').doc(ped.docid).update({estado: est});
+      }
+    }/* else if (docid != null){
       this.fire.collection('pedidos').doc(docid).update({estado: est});      
-    }
+    }*/
   }
 
-  entregarPedido(pedido: any, estado: 'Enrega a confirmar' | 'Listo'){
-    this.fire.collection('pedidos').doc(pedido.docid).update({estado: estado});
+  entregarPedido(pedido: any, estado: 'Enrega a confirmar' | 'Listo', cancela: boolean = false){
+    if(pedido.estado == 'Listo' || cancela){
+      this.fire.collection('pedidos').doc(pedido.docid).update({estado: estado});
+    }
   }
 
   cambiarTab(tab: string){

@@ -5,6 +5,10 @@ ion-header{
         text-align: center;
         justify-content: center;
         align-content: center;
+        display: flex;
+        ion-chip{
+            float: right;
+        }
     }
 }
 ion-content{
