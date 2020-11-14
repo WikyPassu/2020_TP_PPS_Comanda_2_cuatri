@@ -80,12 +80,14 @@ export class ListaEsperaPage implements OnInit {
     }
   }
 
-  abandonarLista(){
+  abandonarLista(irHome: boolean = true){
     let uid = this.user.id;
     this.fire.collection('listaespera', (ref) => ref.where('id', '==', uid))
     .get().subscribe( (data) => {
       this.fire.doc('listaespera/' + data.docs[0].id ).delete();
-      this.router.navigate(['home/' + this.route.snapshot.paramMap.get('user')]);
+      if(irHome){
+        this.router.navigate(['home/' + this.route.snapshot.paramMap.get('user')]);
+      }
     });
     
   }
@@ -133,7 +135,7 @@ export class ListaEsperaPage implements OnInit {
         mesaData.ocupada = true;
         mesaData.idcliente = this.userData.id;
         mesaRef.ref.set(mesaData);
-        this.abandonarLista();
+        this.abandonarLista(false);
         this.router.navigate(["mesa"], {state : {mesa: mesaData.mesa}});
       }else{
         this.presentToast('La mesa esta ocupada o reservada.');
