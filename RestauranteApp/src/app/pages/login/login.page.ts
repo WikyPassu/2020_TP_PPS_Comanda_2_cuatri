@@ -55,67 +55,6 @@ export class LoginPage implements OnInit {
     else{
       this.presentToast('Su solicitud de registro aún está pendiente de aprobación.');
     }
-
-    /*
-    this.verificarSiEstaAprobado();
-    this.traerTipoEmpleado();
-
-    this.err = "";
-
-
-    if(this.email == "" && this.pwd == ""){
-      this.err = "Por favor, ingrese correo y contraseña!"
-    }
-    else if(this.email == "")
-    {
-      this.err = "Por favor, ingrese su correo!";
-    }
-    else if(this.pwd == "")
-    {
-      this.err = "Por favor, ingrese su contraseña!";
-    }
-
-      
-    if(this.err != ""){
-      this.hide = false;
-    }
-    else{
-      this.hide = true;
-      this.spinner = true;
-      setTimeout(() => {
-        this.authService.login(this.email, this.pwd).then(res =>{
-          this.spinner = false;
-          //ACA SE PASA LA VARIABLE APROBADO Y PERFIL HACIA EL HOME!
-          //console.log(this.perfil);
-          let user = JSON.stringify({email: this.email, perfil : this.perfil, aprobado: this.aprobado});
-          if(this.perfil == "cliente"){
-            this.router.navigate(["home/"+user]);
-          } else if (this.perfil === "dueño" || this.perfil === "supervisor"){
-            this.router.navigate(["supervisor"]);
-          }
-          this.clean();
-        }).catch(error =>{
-          this.spinner = false;
-          console.log(error.code);
-          if(error.code == "auth/invalid-email")
-          {
-            this.err = "Ingrese un correo válido!";
-          }
-          else if(error.code == "auth/user-not-found")
-          {
-            this.err = "No existe un usuario con dicho correo electrónico.";
-          }
-          else if(error.code == "auth/wrong-password")
-          {
-            this.err = "Contraseña incorrecta.";
-          }
-          else{
-            this.err = error;
-          }
-          this.hide = false;
-        });  
-      }, 2000);
-    }*/
   }
 
   /**
@@ -256,6 +195,8 @@ export class LoginPage implements OnInit {
   manejarLoginExitoso(response){
     this.traerUserInfo()
     .then( (usr) => {
+      this.email = "";
+      this.pwd = "";
       this.spinner = false
       this.usuario = usr;
       if(this.usuario.perfil == 'cliente'){

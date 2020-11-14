@@ -5,7 +5,7 @@ ion-header{
 }
 
 ion-title{
-    color:rgb(255, 255, 255);
+    color:white;
     font-size: 4.5vw;
 }
 
@@ -34,8 +34,29 @@ ion-card{
     width: 90%;
     height: 140vw;
     overflow: auto;
+    z-index: 9999;
 }
 
 ion-button{
     --background: rgb(112, 112, 112);
+}
+
+.producto{
+    background: whitesmoke;
+    border: 1vw solid #841c3a;
+    margin-top: 5vw;
+    width: 90%;
+    border-radius: 3vw;
+}
+
+h6{
+    color: white;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+}
+
+.cuenta{
+    width: 70%;
+    background: rgb(112, 112, 112);
+    border-radius: 5vw;
 }

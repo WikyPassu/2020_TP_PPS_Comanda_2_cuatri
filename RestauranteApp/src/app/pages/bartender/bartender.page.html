@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{titulo}}</ion-title>
+    <ion-chip 
+      color="bordo"
+      *ngIf="cantidadConsultas"
+      (click)="irAConsultas()">
+      {{cantidadConsultas}} Consultas 
+      <ion-icon name="caret-forward-outline"></ion-icon>
+    </ion-chip>
   </ion-toolbar>
 </ion-header>
 
@@ -72,7 +79,7 @@
         *ngIf="puedeEntregar && pedido.estado == 'Entrega a confirmar'"
         expand="block"
         color="medium"
-        (click)="entregarPedido(pedido, 'Listo')">
+        (click)="entregarPedido(pedido, 'Listo', true)">
         Cancelar entrega
       </ion-button>
 

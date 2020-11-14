@@ -1,9 +1,41 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>responder-consulta</ion-title>
+    <ion-title>Consultas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div 
+    class="page-container"
+    *ngIf="listo">
 
+    <div 
+      class="div-estilizado-consulta"
+      *ngFor="let consulta of consultas">
+      <p class="consulta-mesa">Mesa {{consulta.mesa}}</p>
+      <p class="consulta-cliente">{{consulta.nombreCliente}}</p>
+      <p class="consulta-pregunta">{{consulta.consulta}}</p>
+      <ion-textarea
+        [(ngModel)]="consulta.respuesta"
+        class="respuesta-container">
+      </ion-textarea>
+      <ion-button 
+        expand="block"
+        color="medium"
+        (click)="responderConsulta(consulta)">
+        Responder
+      </ion-button>
+    </div>
+
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar
+    (click)="volver()">
+    <ion-title>
+      <ion-icon name="caret-back-outline"></ion-icon>
+      VOLVER
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

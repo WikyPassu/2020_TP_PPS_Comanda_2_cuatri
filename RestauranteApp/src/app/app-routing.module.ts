@@ -52,8 +52,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/juegos/juegos.module').then( m => m.JuegosPageModule)
   },
   {
-    path: '**',
-    redirectTo: 'login'
+    path: 'hacer-consulta',
+    loadChildren: () => import('./pages/hacer-consulta/hacer-consulta.module').then( m => m.HacerConsultaPageModule)
   },
   {
     path: 'estadisticas-empleados',
@@ -64,7 +64,10 @@ const routes: Routes = [
     path: 'responder-consulta',
     loadChildren: () => import('./pages/responder-consulta/responder-consulta.module').then( m => m.ResponderConsultaPageModule)
   },
-
+  {
+    path: '**',
+    redirectTo: 'login'
+  },
 
   
 

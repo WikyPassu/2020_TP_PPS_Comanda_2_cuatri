@@ -1,0 +1,76 @@
+ion-header{
+    --ion-background-color: #841c3a;
+    text-align: center;
+    --ion-font-family: "IowanOldStyleBlack";
+}
+
+ion-title{
+    color:white;
+    font-size: 4.5vw;
+}
+
+ion-back-button{
+    color:white;
+}
+
+ion-content{
+    --ion-background-color: --ion-color-bordo;
+    --ion-font-family: "IowanOldStyleBlack";
+    --ion-background-color: #841c3a;
+}
+
+ion-card{
+    --ion-background-color: white;
+    text-align: center;
+    width: 90%;
+    height: 90vw;
+    overflow: auto;
+    z-index: 9999;
+}
+
+.consulta{
+    height: 60vw;
+}
+
+ion-label{
+    color: black;
+}
+
+ion-item{
+    width: 80%;
+    --ion-background-color: whitesmoke;
+}
+
+ion-button{
+    margin-top: 3.5vw;
+    --background: rgb(112, 112, 112);
+}
+
+.divConsulta{
+    width: 90%;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    background-color: whitesmoke;
+    border: 1vw solid #841c3a;
+    border-radius: 2vw;
+}
+
+.cliente{
+    margin-right: 5vw;
+    margin-left: 1vw;
+    background-color: white;
+    border: 0.5vw solid #841c3a;
+    border-top-right-radius: 4vw;
+    border-bottom-left-radius: 4vw;
+    border-bottom-right-radius: 4vw;
+}
+
+.mozo{
+    margin-left: 5vw;
+    margin-right: 1vw;
+    background-color: white;
+    border: 0.5vw solid #841c3a;
+    border-top-left-radius: 4vw;
+    border-bottom-left-radius: 4vw;
+    border-bottom-right-radius: 4vw;
+}

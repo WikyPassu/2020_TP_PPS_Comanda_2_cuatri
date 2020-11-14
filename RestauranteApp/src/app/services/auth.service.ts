@@ -196,6 +196,50 @@ export class AuthService {
   traerClientesPendientesAprobacion(){
     return this.db.collection("clientes", ref => ref.where("aprobado", "==", false)).valueChanges();
   }
+  /*
+  * hola
+  */
+  traerProductos(){
+    return this.db.collection("productos").valueChanges();
+  }
+
+  /*
+  * hola
+  */
+ cargarPedido(idCliente, mesa, productos){
+  return new Promise((resolve, rejected) => {
+      this.db.collection("pedidos").doc(idCliente).set({
+        confirmado : false,
+        descuento : 0,
+        estado : "En preparación",
+        idCliente : idCliente,
+        mesa : mesa,
+        productos : productos 
+      }).catch(error => rejected(error));
+  });
+}
+
+ /*
+  * hola esta es de clientes me perdonan 
+  */
+ guardarEncuestaCliente(mesa, idCliente, rangoEdad, llamativo, puntajeProtocolo, arrayRecomendados, sugerencia, arrayFotos){
+  return new Promise((resolve, rejected) => {
+    this.db.collection("encuestasClientes").add({
+      mesa: mesa,
+      cliente: idCliente,
+      fecha: Date.now(),
+      rangoEdad: rangoEdad,
+      llamativo: llamativo,
+      puntajeProtocolo: puntajeProtocolo,
+      recomendados: arrayRecomendados,
+      sugerencia: sugerencia,
+      fotos: arrayFotos
+    }).catch(error => {
+      alert(error);
+      rejected(error)
+    });
+});
+ }
 
   traerClientesSinAprobar(){
     return this.db.collection("clientes", ref=>ref.where("aprobado", "==", false)).snapshotChanges();
@@ -305,7 +349,59 @@ export class AuthService {
     return this.db.collection("clientes").doc(id).get();
   }
 
+  /**
+   * Trae el pedido de un cliente
+   * @param idcliente Id del cliente asociado al pedido
+   */
   traerPedidoCliente(idcliente: string){
-    return this.db.collection("pedidos", ref => ref.where('idcliente', "==", idcliente)).get();
+    return this.db.collection("pedidos", ref => ref.where('idCliente', "==", idcliente)).valueChanges();
+  }
+
+  /**
+   * Crea una nueva consulta
+   * @param mesa Id de la mesa de donde viene la consulta
+   * @param idcliente Id del cliente que hizo la consulta
+   * @param consulta El mensaje enviado por el cliente
+   */
+  crearConsulta(mesa: string, idcliente: string, nombreCliente:string, consulta: string){
+    let fecha = Date.now();
+    let idconsulta: string = fecha + "." + idcliente;
+    return this.db.collection("consultas").doc(idconsulta).set({
+      idconsulta: idconsulta,
+      mesa: mesa,
+      idcliente: idcliente,
+      nombreCliente: nombreCliente,
+      consulta: consulta,
+      respuesta: "Esperando respuesta...",
+      fecha: fecha
+    });
+  }
+
+  /**
+   * Actualiza la respuesta a una consulta
+   * @param idconsulta Id de la consulta a responder
+   * @param respuesta Respuesta enviada por el mozo
+   */
+  responderConsulta(idconsulta: string, respuesta: string){
+    return this.db.collection("consultas").doc(idconsulta).update({respuesta: respuesta});
+  }
+
+  /**
+   * Trae todas las consultas existentes
+   */
+  traerConsultas(){
+    return this.db.collection("consultas").valueChanges();
+  }
+
+  /**
+   * Trae todas las conultas existentes de un cliente
+   * @param idcliente Id del cliente del que se quieren traer todas las consultas
+   */
+  traerConsultasCliente(idcliente: string){
+    return this.db.collection("consultas", ref => ref.where("idcliente", "==", idcliente)).valueChanges();
+  }
+  
+  setearDescuentoPedido(idCliente: string, descuentoNuevo: number){
+    return this.db.collection("pedidos").doc(idCliente).update({descuento: descuentoNuevo});
   }
 }

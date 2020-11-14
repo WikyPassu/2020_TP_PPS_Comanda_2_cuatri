@@ -70,6 +70,56 @@ ion-button{
     font-family: IowanOldStyleBlack;
 }
 
+.btnVolverPrinc{
+    margin-left:5vw;
+}
+
+.container{
+    display:flex;
+    justify-content: center;
+}
+
+.centrar{
+    text-align:center;
+    background-color: rgb(184, 1, 1);
+    border-radius: 5vh;
+    width: 80vw;
+}
+
+.error{
+    font-size: x-large;
+}
+
+.strongEnviado{
+    font-size : x-large;
+}
+
+.divGracias{
+    margin-top:15vh;
+}
+
+.btnEstadisticas{
+    margin-top:10vh;
+    height:10vh;
+    width:40vh;
+    font-size:large;
+}
+
+.btnVolver{
+    margin-top:5vh;
+    height:10vh;
+    width:30vh;
+    font-size:large;
+}
+
+.footer-toolbar{
+    height:10vh;
+}
+
+.formSelect{
+    width : 100%;
+    text-align: center;
+}
 
 @media screen and (orientation:landscape) {
     ion-toolbar{
@@ -78,5 +128,26 @@ ion-button{
 
     ion-button{
         margin-left:3vw;
+    }
+
+    .footer-toolbar{
+        height:15vh;
+    }
+
+    .divGracias{
+        margin-top:10vh;
+    }
+
+    .btnEstadisticas{
+        margin-top:10vh;
+        height:20vh;
+        width:70vh;
+        font-size:large;
+    }
+    
+    .btnVolver{
+        margin-top:10vh;
+        height:20vh;
+        width:50vh;
     }
 }
