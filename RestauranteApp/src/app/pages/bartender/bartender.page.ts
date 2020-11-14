@@ -85,9 +85,14 @@ export class BartenderPage implements OnInit {
   }
 
   traerCantidadConsultas(){
+    var prev;
     this.fire.collection('consultas', (ref) => ref.where('respondida', '==', false))
     .snapshotChanges().subscribe( docs => {
+      prev = this.cantidadConsultas;
       this.cantidadConsultas = docs.length;
+      if(this.cantidadConsultas > prev){
+        this.push.pushNotification('Nueva consulta', 'Hay una nueva consulta de un cliente', 0.5);
+      }
     });
   }
 
