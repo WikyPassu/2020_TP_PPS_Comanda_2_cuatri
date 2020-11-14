@@ -39,15 +39,24 @@ export class MesaPage implements OnInit {
           this.db.traerPedidoCliente(this.cliente.id).subscribe(doc => {
             if(doc.length != 0){
               this.pedido = doc[0];
-              console.log(doc);
               console.log(this.pedido);
               this.hayPedido = true;
+              this.subtotal = 0;
+              this.descuento = 0;
+              this.total = 0;
               this.pedido.productos.forEach(producto => {
                 this.subtotal += producto.cantidad * producto.precio;
               });
               this.descuento = this.subtotal * this.pedido.descuento / 100;
               this.total = this.subtotal - this.descuento;
               this.spinner = false;
+            }
+            else{
+              this.hayPedido = false;
+              this.pedido = {};
+              this.subtotal = 0;
+              this.descuento = 0;
+              this.total = 0;
             }
           });
         });
