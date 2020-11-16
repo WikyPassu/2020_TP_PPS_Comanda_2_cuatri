@@ -53,7 +53,7 @@
             <ion-button *ngIf="entregado" (click)="cambiarEstado()">Confirmar entrega</ion-button>
             <br>
             <ion-label *ngIf="quierePagar">Elegí una propina para el mozo:</ion-label>
-            <ion-button *ngIf="quierePagar" (click)="escanear()" class="boton-escanear" color="medium">
+            <ion-button *ngIf="quierePagar" (click)="escanearPropina()" class="boton-escanear" color="medium">
               <ion-icon name="barcode-outline" class="icono-escanear"></ion-icon>
             </ion-button>
           </div>
