@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+import { AudioService } from "../../services/audio.service";
 
 @Component({
   selector: 'app-juegos',
@@ -21,24 +22,25 @@ export class JuegosPage implements OnInit {
   sacarBotones = false;
   idCliente = null;
 
-  constructor(private router: Router, private db: AuthService) { }
+  constructor(private router: Router, private db: AuthService,
+    private audio: AudioService) { }
 
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
-
-   this.db.traerPedidoCliente(this.idCliente).subscribe((p : any)=>{
-    this.intentosDiez = p[0].intentosDescuentoDiez;
-    this.intentosQuince = p[0].intentosDescuentoQuince;
-    this.intentosTreinta = p[0].intentosDescuentoTreinta;
-  });
-/*
-  this.spinner = true;
-  setTimeout(() => {
-    this.spinner = false;
-  }, 3000);
-*/  
-}
+    this.db.traerPedidoCliente(this.idCliente).subscribe((p: any) => {
+      this.intentosDiez = p[0].intentosDescuentoDiez;
+      this.intentosQuince = p[0].intentosDescuentoQuince;
+      this.intentosTreinta = p[0].intentosDescuentoTreinta;
+    });
+    /*
+      this.spinner = true;
+      setTimeout(() => {
+        this.spinner = false;
+      }, 3000);
+    */
+  }
 
   descuentoDiezTotal() {
     this.sacarBotones = true;
@@ -56,7 +58,7 @@ export class JuegosPage implements OnInit {
           this.db.setearIntentoDescuento10(this.idCliente, this.intentosDiez);
           this.db.setearIntentoDescuento15(this.idCliente, this.intentosQuince);
           this.db.setearIntentoDescuento30(this.idCliente, this.intentosTreinta);
-          
+
           this.db.setearDescuentoPedido(this.idCliente, 10);
         }, 2000);
       }

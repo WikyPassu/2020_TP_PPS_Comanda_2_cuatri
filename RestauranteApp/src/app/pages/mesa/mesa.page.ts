@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 
+import { AudioService } from "../../services/audio.service";
+
 @Component({
   selector: 'app-mesa',
   templateUrl: './mesa.page.html',
@@ -20,9 +22,11 @@ export class MesaPage implements OnInit {
   total: number = 0;
   spinner: boolean = false;
 
-  constructor(private router: Router, private db: AuthService) { }
+  constructor(private router: Router, private db: AuthService,
+    private audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.spinner = true;
     let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
     //let idMesa = "1";

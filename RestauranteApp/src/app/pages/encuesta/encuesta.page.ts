@@ -6,13 +6,16 @@ import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import * as firebase from 'firebase';
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 @Component({
   selector: 'app-encuesta',
   templateUrl: './encuesta.page.html',
   styleUrls: ['./encuesta.page.scss'],
   providers: [
-    Camera
+    Camera,
+    Vibration,
   ]
 })
 
@@ -37,9 +40,12 @@ export class EncuestaPage implements OnInit {
   enviado;
   error = "";
 
-  constructor(private camera: Camera, private router: Router, private db: AuthService) { }
+  constructor(private camera: Camera, private router: Router, private db: AuthService,
+    private audio: AudioService,
+    private vibration: Vibration,) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
     
@@ -123,11 +129,21 @@ export class EncuestaPage implements OnInit {
 
   validarRespuestas() {
     if (this.rangoEdad == "") {
-      this.error = "Seleccione su edad!!"
+      this.error = "Seleccione su edad!!";
+      this.vibrar();
     }
     else if (this.llamativo == "") {
       this.error = "Seleccione qué le gustó más!!"
+      this.vibrar();
     }
+  }
+
+  vibrar(){
+    this.audio.reproducirAudioErr();
+    this.vibration.vibrate(5000);
+    setTimeout (() => {
+      this.vibration.vibrate(0);
+   }, 2000);
   }
 
   async enviarRespuestas() {

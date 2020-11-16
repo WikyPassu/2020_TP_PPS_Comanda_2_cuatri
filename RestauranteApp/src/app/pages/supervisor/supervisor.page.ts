@@ -5,6 +5,8 @@ import { PushNotificationService } from "../../services/push-notification.servic
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 import { init } from "emailjs-com";
 init("user_HmGWxdqAC7p1mfhW8tjX3");
+import { AudioService } from "../../services/audio.service";
+
 
 @Component({
   selector: 'app-supervisor',
@@ -18,9 +20,11 @@ export class SupervisorPage implements OnInit {
   spinner: boolean = false;
   primerPasada: boolean = false;
 
-  constructor(private db: AuthService, private router: Router, private pn: PushNotificationService) { }
+  constructor(private db: AuthService, private router: Router, private pn: PushNotificationService,
+    private audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.db.traerClientesPendientesAprobacion().subscribe(doc => {
       // let fechaActual = Date.now() + 60000;
       // let fechaHaceUnMinuto = fechaActual - 90000;

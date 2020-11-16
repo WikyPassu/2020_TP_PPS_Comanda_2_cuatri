@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from "@ionic/angular";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+import { AudioService } from "../../services/audio.service";
+
 
 @Component({
   selector: 'app-listado-productos',
@@ -24,9 +26,10 @@ export class ListadoProductosPage implements OnInit {
 
   @ViewChild(IonContent, { read: IonContent, static: false }) myContent: IonContent;
 
-  constructor(private router: Router, private db: AuthService) { }
+  constructor(private router: Router, private db: AuthService, private audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
     

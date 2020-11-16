@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AudioService } from "../../services/audio.service";
 
 @Component({
   selector: 'app-estadisticas-empleados',
@@ -12,9 +13,11 @@ export class EstadisticasEmpleadosPage implements OnInit {
 
   constructor(
     private fire: AngularFirestore,
+    private audio: AudioService
   ) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
   }
 
 }

@@ -5,11 +5,14 @@ import { CorreosService } from "../../services/correos.service";
 import { InputVerifierService } from '../../services/input-verifier.service';
 import { ToastController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  styleUrls: ['./login.page.scss'],
+  providers: [Vibration],
 })
 export class LoginPage implements OnInit {
 
@@ -21,7 +24,6 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
-  h;
 
   constructor(
     private authService: AuthService,
@@ -29,32 +31,41 @@ export class LoginPage implements OnInit {
     private servicioCorreo: CorreosService,
     private toast: ToastController,
     private fire: AngularFirestore,
+    private audio: AudioService,
+    private vibration: Vibration,
     ) {}
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     //this.h = (document.body.clientHeight * 0.8) + 'px';
   }
 
   onSubmitLogin(){
-    if(!InputVerifierService.verifyEmailFormat(this.email))
+    if(this.email == ""){
+      this.presentToast("Por favor, ingrese su correo");
+    }
+    else if(this.pwd == ""){
+      this.presentToast("Por favor, ingrese su clave");
+    }
+    else if(!InputVerifierService.verifyEmailFormat(this.email))
       {this.presentToast('Formato de correo inválido.'); return;}
-    if(InputVerifierService.verifyPasswordStrength(this.pwd) == 0)
-      {this.presentToast('Clave inválida.'); return;}
-    
-    if(!this.authService.verificarEmailFire(this.email)){
-      this.spinner = true;
-      this.authService.login(this.email, this.pwd)
-      .then( (response) => {
-        this.manejarLoginExitoso(response);
-      })
-      .catch( (reason) => {
-        this.presentToast(this.traducirErrorCode(reason.code));
-        this.spinner = false;
-      });
-    }
     else{
-      this.presentToast('Su solicitud de registro aún está pendiente de aprobación.');
+      if(!this.authService.verificarEmailFire(this.email)){
+        this.spinner = true;
+        this.authService.login(this.email, this.pwd)
+        .then( (response) => {
+          this.manejarLoginExitoso(response);
+        })
+        .catch( (reason) => {
+          this.presentToast(this.traducirErrorCode(reason.code));
+          this.spinner = false;
+        });
+      }
+      else{
+        this.presentToast('Su solicitud de registro aún está pendiente de aprobación.');
+      }
     }
+   
   }
 
   /**
@@ -176,7 +187,12 @@ export class LoginPage implements OnInit {
    * El toast se ubica en el medio de la pantalla.
    * @param message Mensaje a presentar
    */
-  async presentToast(message) {
+  async presentToast(message) {    
+    this.audio.reproducirAudioErr();
+    this.vibration.vibrate(5000);
+    setTimeout (() => {
+      this.vibration.vibrate(0);
+   }, 2000);
     const toast = await this.toast.create({
       message: message,
       duration: 2000,
