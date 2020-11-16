@@ -9,6 +9,10 @@ ion-title{
     font-size: 4.5vw;
 }
 
+ion-back-button{
+    color:white;
+}
+
 ion-content{
     --ion-background-color: --ion-color-bordo;
     --ion-font-family: "IowanOldStyleBlack";
@@ -69,4 +73,33 @@ ion-slides{
 
 .imgSlide{
     border-radius: 5vw;
+}
+
+.cerrarSesion{
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    z-index: 9999;
+    background: white;
+    border-radius: 50%;
+    width: 15vw;
+    height: 8vh;
+}
+
+.atras{
+    transform: scale(1.5);;
+}
+
+.icono-escanear{
+    color: var(--ion-color-bordo);
+    transform: scale(8);
+    align-self: center;
+    justify-self: center;
+    grid-row: span 1;
+}
+
+.boton-escanear{
+    width: 50vw;
+    height: 20vh;
+    display: grid;
 }

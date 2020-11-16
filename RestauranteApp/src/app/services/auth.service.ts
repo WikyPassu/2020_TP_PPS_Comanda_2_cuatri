@@ -426,4 +426,8 @@ export class AuthService {
   setearIntentoDescuento30(idCliente, intentos){
     return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoTreinta: intentos});
   }
+
+  cambiarEstadoPedido(idCliente: string, estado: string){
+    return this.db.collection("pedidos").doc(idCliente).update({estado: estado});
+  }
 }
