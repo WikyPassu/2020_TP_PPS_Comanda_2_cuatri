@@ -236,7 +236,8 @@ export class BartenderPage implements OnInit {
   }
 
   verificarEstadoPedido(ped){
-    if(ped.estado == 'En preparacion'){
+    //console.log(ped);
+    if(ped.estado == 'En preparación'){
       let estanListos: Array<boolean> = [];
       ped.listaCompleta.forEach(element => {
         estanListos.push(element.estado == 'Listo');
