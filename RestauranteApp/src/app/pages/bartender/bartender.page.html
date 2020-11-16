@@ -5,7 +5,7 @@
       color="bordo"
       *ngIf="cantidadConsultas"
       (click)="irAConsultas()">
-      {{cantidadConsultas}} Consultas 
+      {{cantidadConsultas}} {{cantidadConsultas == 1 ? 'Consulta' : 'Consultas'}} 
       <ion-icon name="caret-forward-outline"></ion-icon>
     </ion-chip>
   </ion-toolbar>
@@ -25,6 +25,17 @@
     <div 
       *ngFor="let pedido of pedidos" 
       class="div-estilizado-pedido">
+
+      <ion-item
+        *ngIf="pedido.estado == 'Pago confirmado'"
+        lines="none">
+        <ion-chip
+          color="danger"
+          slot="end"
+          (click)="eliminarPedido(pedido)">
+          X
+        </ion-chip>
+      </ion-item>
 
       <p 
         class="mesa-p">
@@ -89,6 +100,14 @@
         color="medium"
         (click)="confirmarPedido(pedido)">
         Confirmar pedido
+      </ion-button>
+
+      <ion-button
+        *ngIf="pedido.estado == 'Pago a confirmar'"
+        expand="block"
+        color="medium"
+        (click)="confirmarPago(pedido)">
+        Confirmar pago
       </ion-button>
 
     </div>
@@ -231,14 +250,36 @@
 <ion-footer class="ion-no-border">
   <ion-toolbar class="footer-toolbar">
 
-    <ion-button (click)="cambiarTab('pedidos')" fill="clear" color="bordo" class="footer-button">
-      <ion-icon name="list-outline"></ion-icon>
-      <ion-label>Pedidos</ion-label>
+    <ion-button 
+      (click)="cambiarTab('pedidos')" 
+      fill="clear" 
+      color="bordo" 
+      class="footer-button">
+
+      <ion-icon 
+        name="list-outline">
+      </ion-icon>
+
+      <ion-label>
+        Pedidos
+      </ion-label>
+
     </ion-button>
 
-    <ion-button  (click)="cambiarTab('encuesta')" fill="clear" color="bordo" class="footer-button">
-      <ion-icon name="document-text-outline"></ion-icon>
-      <ion-label>Encuestas</ion-label>
+    <ion-button  
+      (click)="cambiarTab('encuesta')" 
+      fill="clear" 
+      color="bordo" 
+      class="footer-button">
+
+      <ion-icon 
+        name="document-text-outline">
+      </ion-icon>
+
+      <ion-label>
+        Encuestas
+      </ion-label>
+
     </ion-button>
 
   </ion-toolbar>
