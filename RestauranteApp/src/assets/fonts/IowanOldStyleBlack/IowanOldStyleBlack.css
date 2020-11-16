@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'IowanOldStyleBlack';
+    src: url('./IowanOldStyleBlack.eot');
+    src: url('./IowanOldStyleBlack.eot') format('embedded-opentype'),
+         url('./IowanOldStyleBlack.woff2') format('woff2'),
+         url('./IowanOldStyleBlack.woff') format('woff'),
+         url('./IowanOldStyleBlack.ttf') format('truetype'),
+         url('./IowanOldStyleBlack.svg#IowanOldStyleBlack') format('svg');
+}
