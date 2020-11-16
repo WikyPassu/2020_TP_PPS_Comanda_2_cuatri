@@ -18,10 +18,10 @@ ion-content{
 ion-button, ion-chip, ion-label{
     --ion-font-family: "IowanOldStyleBlack";
 }
-.footer-button{
-    width: 46vw;
-    ion-icon{
-        padding-left: 1vw;
+.footer-toolbar{
+    display: flex;
+    .footer-button{
+        width: 48vw;
     }
 }
 .encuesta-container{
@@ -145,4 +145,7 @@ p{
     height: fit-content;
     padding: 10px;
     border-radius: 10px;
+}
+ion-item{
+    --ion-background-color: var(--ion-color-light);
 }

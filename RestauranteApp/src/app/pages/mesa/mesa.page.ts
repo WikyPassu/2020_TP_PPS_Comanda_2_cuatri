@@ -19,7 +19,10 @@ export class MesaPage implements OnInit {
   hayPedido: boolean = false;
   subtotal: number = 0;
   descuento: number = 0;
+  propina: number = 0;
   total: number = 0;
+  entregado: boolean = false;
+  quierePagar: boolean = false;
   spinner: boolean = false;
 
   constructor(private router: Router, private db: AuthService,
@@ -37,7 +40,7 @@ export class MesaPage implements OnInit {
       if(this.mesa != null && this.mesa.ocupada){
         this.db.traerCliente(this.mesa.idcliente).subscribe(doc => {
           this.cliente = doc.data();
-          this.header = "Mesa " + this.mesa.mesa + ": " + this.cliente.apellido + ", " + this.cliente.nombre;
+          this.header = "Mesa " + this.mesa.mesa + ": " + this.cliente.apellido + " " + this.cliente.nombre;
           this.deshabilitado = false;
           
           this.db.traerPedidoCliente(this.cliente.id).subscribe(doc => {
@@ -53,6 +56,12 @@ export class MesaPage implements OnInit {
               });
               this.descuento = this.subtotal * this.pedido.descuento / 100;
               this.total = this.subtotal - this.descuento;
+              if(this.pedido.estado == "Entrega a confirmar"){
+                this.entregado = true;
+              }
+              else if(this.pedido.estado == "Entregado"){
+                this.quierePagar = true;
+              }
               this.spinner = false;
             }
             else{
@@ -86,5 +95,13 @@ export class MesaPage implements OnInit {
         this.router.navigate(["/encuesta"], {state: { mesa: this.mesa.mesa, cliente: this.mesa.idcliente }});
         break;
     }
+  }
+
+  cerrarSesion(){
+    this.router.navigate(["/login"]);
+  }
+
+  cambiarEstado(){
+    this.db.cambiarEstadoPedido(this.pedido.idCliente, "Entregado");
   }
 }

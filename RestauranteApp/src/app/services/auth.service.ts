@@ -218,6 +218,7 @@ export class AuthService {
         intentosDescuentoDiez : 3, 
         intentosDescuentoQuince : 3, 
         intentosDescuentoTreinta : 1, 
+        propina: 0
       }).catch(error => rejected(error));
   });
 }
@@ -427,4 +428,7 @@ export class AuthService {
     return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoTreinta: intentos});
   }
 
+  cambiarEstadoPedido(idCliente: string, estado: string){
+    return this.db.collection("pedidos").doc(idCliente).update({estado: estado});
+  }
 }

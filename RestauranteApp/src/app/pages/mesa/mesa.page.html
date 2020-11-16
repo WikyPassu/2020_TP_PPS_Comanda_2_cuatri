@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-tab-button class="cerrarSesion" (click)="cerrarSesion()">
+      <ion-icon class="atras" name="arrow-back-circle-outline"></ion-icon>
+    </ion-tab-button>
     <ion-title>{{header}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -41,9 +44,18 @@
             </div>
           </div>
           <div align="center">
-            <div class="cuenta"><h6>Subtotal: ${{subtotal}}</h6></div>
-            <div class="cuenta"><h6>Descuento: ${{descuento}} ({{pedido.descuento}}%)</h6></div>
-            <div class="cuenta"><h6>Total: ${{total}}</h6></div>
+            <div class="producto">
+              <div class="cuenta"><h6>Subtotal: ${{subtotal}}</h6></div>
+              <div class="cuenta"><h6>Descuento: ${{descuento}} ({{pedido.descuento}}%)</h6></div>
+              <div class="cuenta"><h6>Propina: ${{propina}}</h6></div>
+              <div class="cuenta"><h6>Total: ${{total}}</h6></div>
+            </div>
+            <ion-button *ngIf="entregado" (click)="cambiarEstado()">Confirmar entrega</ion-button>
+            <br>
+            <ion-label *ngIf="quierePagar">Elegí una propina para el mozo:</ion-label>
+            <ion-button *ngIf="quierePagar" (click)="escanear()" class="boton-escanear" color="medium">
+              <ion-icon name="barcode-outline" class="icono-escanear"></ion-icon>
+            </ion-button>
           </div>
         </div>
       </div>

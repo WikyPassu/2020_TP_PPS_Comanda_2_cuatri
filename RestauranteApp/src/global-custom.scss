@@ -15,7 +15,11 @@
   --ion-color-shade: var(--ion-color-bordo-shade);
   --ion-color-tint: var(--ion-color-bordo-tint);
 }
-@font-face {
+
+//@import "./assets/fonts/IowanOldStyleBlack/IowanOldStyleBlack.css";
+@import "./assets/fonts/IowanOldStyleBlackItalic/IowanOldStyleBlackItalic.css";
+
+/*@font-face {
     font-family: 'IowanOldStyleBlack';
     src: url('./assets/fonts/IowanOldStyleBlack.eot');
     src: url('./assets/fonts/IowanOldStyleBlack.eot') format('embedded-opentype'),
@@ -23,4 +27,5 @@
          url('./assets/fonts/IowanOldStyleBlack.woff') format('woff'),
          url('./assets/fonts/IowanOldStyleBlack.ttf') format('truetype'),
          url('./assets/fonts/IowanOldStyleBlack.svg#IowanOldStyleBlack') format('svg');
-}
+}*/
+

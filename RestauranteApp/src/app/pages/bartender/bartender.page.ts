@@ -77,13 +77,10 @@ export class BartenderPage implements OnInit {
       if(this.pedidos.length > this.cantidadPedidos){
         let nuevos: number = this.pedidos.length - this.cantidadPedidos;
         this.push.pushNotification('Pedidos', 'Hay ' + nuevos + ' pedido/s nuevo/s.', 0.5);
-        // console.log('Push notification');
       }
       this.cantidadPedidos = this.pedidos.length;
       this.pedidos.forEach( (ped) => {
-        if(ped.listo){
-          this.actualizarEstadoPedido(ped, null, 'Listo');
-        }
+        this.verificarEstadoPedido(ped);
       });
       this.spinner = false;
     });
@@ -106,7 +103,6 @@ export class BartenderPage implements OnInit {
   }
 
   agregarAListaDePedidos(doc){
-    //console.log(doc.data());
     if(this.sector != 'salon'){
       if(doc.data().confirmado){
         this.pedidoListo = [];
@@ -188,7 +184,7 @@ export class BartenderPage implements OnInit {
       descuento: docRef.data().descuento,
       estado: docRef.data().estado,
       mesa: docRef.data().mesa, 
-      cliente: docRef.data().idcliente,
+      idCliente: docRef.data().idCliente,
       productos: listaProductos,
       listo: estaListo,
     };
@@ -205,12 +201,26 @@ export class BartenderPage implements OnInit {
         return 'success';  
       case 'Entrega a confirmar':
         return 'success';
+      case 'Pago a confirmar':
+        return 'tertiary';
     }
   }
 
   confirmarPedido(ped){
-    console.log(ped);
+    //console.log(ped);
     this.fire.collection('pedidos').doc(ped.docid).update({confirmado: true});
+  }
+
+  confirmarPago(ped){
+    console.log(ped);
+    this.fire.collection('pedidosFinalizados').add(ped);
+    this.actualizarEstadoPedido(ped, 'Pago confirmado');
+    this.presentToast('Se confirmo el pago');
+  }
+
+  eliminarPedido(ped){
+    this.fire.collection('mesas').doc(ped.mesa).update({idcliente: "", ocupada: false});
+    this.fire.collection('pedidos').doc(ped.docid).delete();
   }
 
   mostrarDetalle(item, pedido){
@@ -223,27 +233,28 @@ export class BartenderPage implements OnInit {
     this.detalle = false;
   }
 
-  // bebida.vinofamiglia/Famiglia Bianchi Malbec/600/1/En preparacion
   productoListo(estadoNuevo: string){
     let aModificar = this.itemSeleccionado;
     let tempList: Array<any> = this.pedidoSeleccionado.listaCompleta;
-    // console.log(aModificar);
-    // console.log(tempList);
     tempList[aModificar.index].estado = estadoNuevo;
     this.fire.collection('pedidos').doc(aModificar.parentDoc).update({productos: tempList});
-    if(estadoNuevo != 'Listo'){
-      this.actualizarEstadoPedido(null, aModificar.parentDoc, 'En preparación');
+  }
+
+  verificarEstadoPedido(ped){
+    //console.log(ped);
+    if(ped.estado == 'En preparación'){
+      let estanListos: Array<boolean> = [];
+      ped.listaCompleta.forEach(element => {
+        estanListos.push(element.estado == 'Listo');
+      });
+      if(!estanListos.includes(false)){
+        this.actualizarEstadoPedido(ped, 'Listo');
+      }
     }
   }
 
-  actualizarEstadoPedido(ped, docid, est: string, cancela: boolean = false){    
-    if(ped != null){
-      if(ped.estado == 'Listo' || cancela){
-        this.fire.collection('pedidos').doc(ped.docid).update({estado: est});
-      }
-    }/* else if (docid != null){
-      this.fire.collection('pedidos').doc(docid).update({estado: est});      
-    }*/
+  actualizarEstadoPedido(ped, est: string){  
+    this.fire.collection('pedidos').doc(ped.docid).update({estado: est});
   }
 
   entregarPedido(pedido: any, estado: 'Enrega a confirmar' | 'Listo', cancela: boolean = false){
