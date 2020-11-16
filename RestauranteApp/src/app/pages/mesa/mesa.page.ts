@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
-
 import { AudioService } from "../../services/audio.service";
+import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-mesa',
   templateUrl: './mesa.page.html',
   styleUrls: ['./mesa.page.scss'],
+  providers: [BarcodeScanner]
 })
 export class MesaPage implements OnInit {
 
@@ -26,7 +28,7 @@ export class MesaPage implements OnInit {
   spinner: boolean = false;
 
   constructor(private router: Router, private db: AuthService,
-    private audio: AudioService) { }
+    private audio: AudioService, private bs: BarcodeScanner) { }
 
   ngOnInit() {
     this.audio.reproducirAudioCambioPant();
@@ -55,7 +57,8 @@ export class MesaPage implements OnInit {
                 this.subtotal += producto.cantidad * producto.precio;
               });
               this.descuento = this.subtotal * this.pedido.descuento / 100;
-              this.total = this.subtotal - this.descuento;
+              this.propina = this.subtotal * this.pedido.propina / 100;
+              this.total = this.subtotal - this.descuento + this.propina;
               if(this.pedido.estado == "Entrega a confirmar"){
                 this.entregado = true;
               }
@@ -103,5 +106,15 @@ export class MesaPage implements OnInit {
 
   cambiarEstado(){
     this.db.cambiarEstadoPedido(this.pedido.idCliente, "Entregado");
+  }
+
+  escanearPropina(){
+    this.bs.scan()
+    .then(data => {
+      if(data.text == "0" || data.text == "5" || data.text == "10" || data.text == "15" || data.text == "20"){
+        this.db.cambiarPropinaPedido(this.pedido.idCliente, parseInt(data.text));
+      }
+    })
+    .catch(error => console.log(error));
   }
 }

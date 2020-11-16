@@ -431,4 +431,8 @@ export class AuthService {
   cambiarEstadoPedido(idCliente: string, estado: string){
     return this.db.collection("pedidos").doc(idCliente).update({estado: estado});
   }
+
+  cambiarPropinaPedido(idCliente: string, propina: number){
+    return this.db.collection("pedidos").doc(idCliente).update({propina: propina});
+  }
 }

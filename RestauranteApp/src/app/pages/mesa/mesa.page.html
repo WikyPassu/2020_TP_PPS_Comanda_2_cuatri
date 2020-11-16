@@ -47,7 +47,7 @@
             <div class="producto">
               <div class="cuenta"><h6>Subtotal: ${{subtotal}}</h6></div>
               <div class="cuenta"><h6>Descuento: ${{descuento}} ({{pedido.descuento}}%)</h6></div>
-              <div class="cuenta"><h6>Propina: ${{propina}}</h6></div>
+              <div class="cuenta"><h6>Propina: ${{propina}} ({{pedido.propina}}%)</h6></div>
               <div class="cuenta"><h6>Total: ${{total}}</h6></div>
             </div>
             <ion-button *ngIf="entregado" (click)="cambiarEstado()">Confirmar entrega</ion-button>
