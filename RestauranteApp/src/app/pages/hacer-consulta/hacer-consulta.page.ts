@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+import { AudioService } from "../../services/audio.service";
 
 @Component({
   selector: 'app-hacer-consulta',
@@ -14,9 +15,11 @@ export class HacerConsultaPage implements OnInit {
   mensaje: string = "";
   consultas = new Array();
 
-  constructor(private db: AuthService, private router: Router) { }
+  constructor(private db: AuthService, private router: Router,
+    private audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
     this.cliente = this.router.getCurrentNavigation().extras.state.cliente;
     this.db.traerConsultasCliente(this.cliente.id).subscribe(lista => {

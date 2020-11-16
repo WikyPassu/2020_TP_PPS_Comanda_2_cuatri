@@ -10,12 +10,16 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import * as firebase from 'firebase';
 import { observable } from 'rxjs';
 
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
   providers: [
-    Camera
+    Camera,
+    Vibration
   ]
 })
 export class RegistroPage implements OnInit {
@@ -43,9 +47,12 @@ export class RegistroPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private verifier: InputVerifierService,
     private camera: Camera,
-    private dbStorage: StorageService) { }
+    private dbStorage: StorageService,
+    private audio: AudioService,
+    private vibration: Vibration,) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.modoRegistro = this.router.getCurrentNavigation().extras.state.modo;
 
     if (this.modoRegistro) {
@@ -112,6 +119,11 @@ export class RegistroPage implements OnInit {
 
   validarFoto(){
     if (this.foto == ""){
+      this.audio.reproducirAudioErr();
+      this.vibration.vibrate(5000);
+      setTimeout (() => {
+        this.vibration.vibrate(0);
+      }, 2000);
       this.error = "¡Por favor, cargue una foto!"; 
     }
   }
@@ -120,6 +132,11 @@ export class RegistroPage implements OnInit {
     this.mostrarAgregado = false;
     this.validarFoto();
     if (this.error != "") {
+      this.audio.reproducirAudioErr();
+      this.vibration.vibrate(5000);
+      setTimeout (() => {
+        this.vibration.vibrate(0);
+      }, 2000);
       this.mostrarError = true;
     }
     else {
@@ -239,9 +256,15 @@ export class RegistroPage implements OnInit {
   continuar() {
     this.validarCampos();
     if (this.error == "") {
+      this.audio.reproducirAudioCambioPant();
       this.sinContinuar = false;
     }
-    else {
+    else {    
+      this.audio.reproducirAudioErr();
+      this.vibration.vibrate(5000);
+      setTimeout (() => {
+        this.vibration.vibrate(0);
+      }, 2000);
       this.mostrarError = true;
     }
   }

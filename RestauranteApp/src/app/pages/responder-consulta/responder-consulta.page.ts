@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { AudioService } from "../../services/audio.service";
+
 
 @Component({
   selector: 'app-responder-consulta',
@@ -15,9 +17,11 @@ export class ResponderConsultaPage implements OnInit {
   constructor(
     private fire: AngularFirestore,
     private router: Router,
+    private audio: AudioService
   ) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.fire.collection('consultas', (ref) => ref.where('respondida', '==', false))
     .snapshotChanges().subscribe( (consultas) => {
       this.consultas = [];

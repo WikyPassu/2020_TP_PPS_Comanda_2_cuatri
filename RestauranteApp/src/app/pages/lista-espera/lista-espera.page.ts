@@ -4,11 +4,14 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { ToastController } from '@ionic/angular';
 import { firestore } from 'firebase';
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 @Component({
   selector: 'app-lista-espera',
   templateUrl: './lista-espera.page.html',
   styleUrls: ['./lista-espera.page.scss'],
+  providers: [Vibration],
 })
 export class ListaEsperaPage implements OnInit {
 
@@ -29,9 +32,12 @@ export class ListaEsperaPage implements OnInit {
     private route: ActivatedRoute,
     private toast: ToastController,
     private scanner: BarcodeScanner,
+    private audio: AudioService,
+    private vibration: Vibration,
   ) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.user = JSON.parse(this.route.snapshot.paramMap.get('user'));
     this.cliente = this.user.perfil == 'cliente';
     if(this.cliente){
@@ -150,6 +156,12 @@ export class ListaEsperaPage implements OnInit {
    * @param pos Posicion del toast
    */
   async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "top") {
+    this.audio.reproducirAudioErr();
+    this.vibration.vibrate(5000);
+    setTimeout (() => {
+      this.vibration.vibrate(0);
+    }, 2000);
+
     const toast = await this.toast.create({
       message: message,
       duration: 2000,

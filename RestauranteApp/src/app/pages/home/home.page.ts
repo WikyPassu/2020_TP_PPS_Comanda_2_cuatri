@@ -10,11 +10,14 @@ import { BarcodeScanner, BarcodeScannerOptions, BarcodeScanResult } from '@ionic
 import { ToastController } from '@ionic/angular';
 import { BackButtonEvent } from '@ionic/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  providers: [Vibration],
 })
 export class HomePage implements OnInit {
 
@@ -34,9 +37,12 @@ export class HomePage implements OnInit {
     private route: ActivatedRoute,
     private toast: ToastController,
     private fire: AngularFirestore,
+    private audio: AudioService,
+    private vibration: Vibration,
   ) { }
 
   async ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     document.addEventListener('ionBackButton', this.verificarListaEspera);
     try{
       let userStr = this.route.snapshot.paramMap.get('user')
@@ -107,6 +113,12 @@ export class HomePage implements OnInit {
    * @param pos Posicion del toast
    */
   async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "top") {
+    this.audio.reproducirAudioErr();
+    this.vibration.vibrate(5000);
+    setTimeout (() => {
+      this.vibration.vibrate(0);
+    }, 2000);
+
     const toast = await this.toast.create({
       message: message,
       duration: 2000,

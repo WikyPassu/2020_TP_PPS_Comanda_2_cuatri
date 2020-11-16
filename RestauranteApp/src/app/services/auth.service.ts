@@ -218,6 +218,7 @@ export class AuthService {
         intentosDescuentoDiez : 3, 
         intentosDescuentoQuince : 3, 
         intentosDescuentoTreinta : 1, 
+        propina: 0
       }).catch(error => rejected(error));
   });
 }

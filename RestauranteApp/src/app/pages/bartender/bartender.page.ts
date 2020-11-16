@@ -6,14 +6,16 @@ import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType } from '@ionic-native/camera/ngx';
 import { PushNotificationService } from '../../services/push-notification.service';
-
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 
 @Component({
   selector: 'app-bartender',
   templateUrl: './bartender.page.html',
   styleUrls: ['./bartender.page.scss'],
-  providers: [Camera],
+  providers: [Camera,
+  Vibration],
 })
 export class BartenderPage implements OnInit {
 
@@ -54,11 +56,14 @@ export class BartenderPage implements OnInit {
     private auth: AuthService,
     private camara: Camera,
     private push: PushNotificationService,
+    private audio: AudioService,
+    private vibration: Vibration,
   ) { 
     this.spinner = true;
   }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.tab = 'pedidos';
     this.sector = this.route.snapshot.paramMap.get('sector');
     this.encuestaLimpieza = 2;
@@ -381,6 +386,12 @@ export class BartenderPage implements OnInit {
    * @param pos Posicion del toast
    */
   async presentToast(message: string, pos: 'top' | "middle" | "bottom" = "middle") {
+    this.audio.reproducirAudioErr();
+    this.vibration.vibrate(5000);
+    setTimeout (() => {
+      this.vibration.vibrate(0);
+   }, 2000);
+
     const toast = await this.toast.create({
       message: message,
       duration: 2000,

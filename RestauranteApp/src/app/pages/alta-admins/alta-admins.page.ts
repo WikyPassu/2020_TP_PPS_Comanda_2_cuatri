@@ -4,12 +4,16 @@ import { AuthService } from "../../services/auth.service";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType } from '@ionic-native/camera/ngx';
 import * as firebase from 'firebase';
+import { AudioService } from "../../services/audio.service";
+import { Vibration } from '@ionic-native/vibration/ngx';
+
 
 @Component({
   selector: 'app-alta-admins',
   templateUrl: './alta-admins.page.html',
   styleUrls: ['./alta-admins.page.scss'],
-  providers: [Camera]
+  providers: [Camera,
+  Vibration]
 })
 export class AltaAdminsPage implements OnInit {
 
@@ -29,9 +33,13 @@ export class AltaAdminsPage implements OnInit {
   hayError: boolean = false;
   spinner: boolean = false;
 
-  constructor(private db: AuthService, private barcodeScanner: BarcodeScanner, private camera: Camera) { }
+  constructor(private db: AuthService, private barcodeScanner: BarcodeScanner, private camera: Camera,
+    private audio: AudioService,
+    private vibration: Vibration,
+) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
   }
 
   validarCampos(){
@@ -79,12 +87,21 @@ export class AltaAdminsPage implements OnInit {
     }
   }
 
+  vibrar(){
+    this.audio.reproducirAudioErr();
+    this.vibration.vibrate(5000);
+    setTimeout (() => {
+      this.vibration.vibrate(0);
+   }, 2000);
+  }
+
   registrar(){
     this.agregado = false;
     this.validarCampos();
     this.validarFoto();
     if(this.error != ""){
       this.hayError = true;
+      this.vibrar();
     }
     else{
       this.db.registroAdmins(this.apellido, this.nombre, this.dni, this.cuil, this.perfil, this.correo, this.clave, this.foto)
@@ -95,6 +112,7 @@ export class AltaAdminsPage implements OnInit {
       })
       .catch(error => {
         this.hayError = true;
+        this.vibrar();
         if (error.code == "auth/weak-password") {
           this.error = "La clave es muy corta.";
         }
@@ -130,6 +148,7 @@ export class AltaAdminsPage implements OnInit {
       this.dni = parseInt(auxDni);
     }).catch(error => {
       this.hayError = true;
+      this.vibrar();
       this.error = error;
     });
   }
@@ -174,6 +193,7 @@ export class AltaAdminsPage implements OnInit {
           this.error = error;
         }
         this.hayError = true;
+        this.vibrar();
     });
   }
 

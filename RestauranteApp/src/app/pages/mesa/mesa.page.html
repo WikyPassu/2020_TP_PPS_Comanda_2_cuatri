@@ -51,11 +51,11 @@
               <div class="cuenta"><h6>Total: ${{total}}</h6></div>
             </div>
             <ion-button *ngIf="entregado" (click)="cambiarEstado()">Confirmar entrega</ion-button>
-            <ion-label>Propina</ion-label>
-            <ion-button (click)="escanear()" class="boton-escanear" color="medium">
+            <br>
+            <ion-label *ngIf="quierePagar">Elegí una propina para el mozo:</ion-label>
+            <ion-button *ngIf="quierePagar" (click)="escanear()" class="boton-escanear" color="medium">
               <ion-icon name="barcode-outline" class="icono-escanear"></ion-icon>
             </ion-button>
-            <ion-button *ngIf="entregado" (click)="cambiarEstado()">Confirmar entrega</ion-button>
           </div>
         </div>
       </div>

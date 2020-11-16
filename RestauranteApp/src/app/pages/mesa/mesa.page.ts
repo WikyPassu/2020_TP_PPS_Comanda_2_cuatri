@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 
+import { AudioService } from "../../services/audio.service";
+
 @Component({
   selector: 'app-mesa',
   templateUrl: './mesa.page.html',
@@ -17,13 +19,17 @@ export class MesaPage implements OnInit {
   hayPedido: boolean = false;
   subtotal: number = 0;
   descuento: number = 0;
+  propina: number = 0;
   total: number = 0;
   entregado: boolean = false;
+  quierePagar: boolean = false;
   spinner: boolean = false;
 
-  constructor(private router: Router, private db: AuthService) { }
+  constructor(private router: Router, private db: AuthService,
+    private audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.reproducirAudioCambioPant();
     this.spinner = true;
     let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
     //let idMesa = "1";
@@ -52,6 +58,9 @@ export class MesaPage implements OnInit {
               this.total = this.subtotal - this.descuento;
               if(this.pedido.estado == "Entrega a confirmar"){
                 this.entregado = true;
+              }
+              else if(this.pedido.estado == "Entregado"){
+                this.quierePagar = true;
               }
               this.spinner = false;
             }
