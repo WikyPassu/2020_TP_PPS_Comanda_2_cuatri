@@ -42,7 +42,6 @@ export class HomePage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.audio.reproducirAudioCambioPant();
     document.addEventListener('ionBackButton', this.verificarListaEspera);
     try{
       let userStr = this.route.snapshot.paramMap.get('user')
@@ -59,6 +58,7 @@ export class HomePage implements OnInit {
       });
       if(this.user.perfil == 'cliente'){
         this.cambiarTab('local');
+        this.audio.reproducirAudioCambioPant();
       } else if (this.user.perfil == 'dueño' || this.user.perfil == 'supervisor'){
         this.router.navigate(['supervisor']);
       } else {
