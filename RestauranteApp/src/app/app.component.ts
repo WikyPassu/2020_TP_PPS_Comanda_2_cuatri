@@ -12,7 +12,7 @@ import { AudioService } from "./services/audio.service";
 })
 export class AppComponent {
   
-  splash: boolean = false;
+  splash: boolean = true;
   
   constructor(
     private platform: Platform,

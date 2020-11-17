@@ -148,7 +148,7 @@ export class ListadoProductosPage implements OnInit {
   }
 
   restarCantidadCarrito(producto) {
-    if (producto.cantidad > 1) {
+    if (producto.cantidad > 0) {
 
       if (producto.cantidad == 1) {
         this.carrito.forEach((p, i) => {
