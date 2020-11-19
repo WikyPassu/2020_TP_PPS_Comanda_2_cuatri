@@ -418,12 +418,10 @@ export class AuthService {
     return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoDiez: intentos});
   }
 
-  
   setearIntentoDescuento15(idCliente, intentos){
     return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoQuince: intentos});
   }
 
-  
   setearIntentoDescuento30(idCliente, intentos){
     return this.db.collection("pedidos").doc(idCliente).update({intentosDescuentoTreinta: intentos});
   }
@@ -434,5 +432,9 @@ export class AuthService {
 
   cambiarPropinaPedido(idCliente: string, propina: number){
     return this.db.collection("pedidos").doc(idCliente).update({propina: propina});
+  }
+
+  consultarEstadoMesa(id: string){
+    return this.db.collection("mesas").doc(id).valueChanges();
   }
 }

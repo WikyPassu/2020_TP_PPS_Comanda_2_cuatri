@@ -25,6 +25,7 @@ export class MesaPage implements OnInit {
   total: number = 0;
   entregado: boolean = false;
   quierePagar: boolean = false;
+  puedePagar: boolean = true;
   spinner: boolean = false;
 
   constructor(private router: Router, private db: AuthService,
@@ -34,8 +35,13 @@ export class MesaPage implements OnInit {
     this.audio.reproducirAudioCambioPant();
     this.spinner = true;
     let idMesa: string = this.router.getCurrentNavigation().extras.state.mesa;
-    //let idMesa = "1";
     
+    this.db.consultarEstadoMesa(idMesa).subscribe((doc: any) => {
+      if(!doc.ocupada){
+        this.router.navigate(["home/" + JSON.stringify(this.cliente)]);
+      }
+    });
+
     this.db.traerMesa(idMesa).subscribe(doc => {
       this.mesa = doc.data();
       
@@ -64,6 +70,9 @@ export class MesaPage implements OnInit {
               }
               else if(this.pedido.estado == "Entregado"){
                 this.quierePagar = true;
+              }
+              else{
+                this.entregado = false;
               }
               this.spinner = false;
             }
@@ -106,15 +115,27 @@ export class MesaPage implements OnInit {
 
   cambiarEstado(){
     this.db.cambiarEstadoPedido(this.pedido.idCliente, "Entregado");
+    this.entregado = false;
   }
 
   escanearPropina(){
     this.bs.scan()
     .then(data => {
       if(data.text == "0" || data.text == "5" || data.text == "10" || data.text == "15" || data.text == "20"){
-        this.db.cambiarPropinaPedido(this.pedido.idCliente, parseInt(data.text));
+        this.db.cambiarPropinaPedido(this.pedido.idCliente, parseInt(data.text))
+        .then(() => {
+          this.puedePagar = false;
+        });
       }
     })
     .catch(error => console.log(error));
+  }
+
+  pagar(){
+    this.db.cambiarEstadoPedido(this.pedido.idCliente, "Pago a confirmar")
+    .then(() => {
+      this.quierePagar = false;
+      this.puedePagar = true;
+    });
   }
 }
