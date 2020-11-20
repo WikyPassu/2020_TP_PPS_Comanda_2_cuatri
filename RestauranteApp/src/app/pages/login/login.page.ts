@@ -21,7 +21,8 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
-  h;
+  public vh: string;
+  public vw: string;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +33,10 @@ export class LoginPage implements OnInit {
     ) {}
 
   ngOnInit() {
-    //this.h = (document.body.clientHeight * 0.8) + 'px';
+    this.vh = document.body.clientHeight + 'px';
+    this.vw = document.body.clientWidth + 'px';
+    console.log(this.vh);
+    console.log(this.vw);
   }
 
   onSubmitLogin(){

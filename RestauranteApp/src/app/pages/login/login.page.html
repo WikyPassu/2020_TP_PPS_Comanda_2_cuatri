@@ -1,5 +1,5 @@
 
-
+<ion-content>
   <!--DIV CONTENEDOR-->
   <div class="login-page">
 
@@ -13,13 +13,13 @@
         </div>
 
         <!--INPUT DE CORREO-->
-        <ion-item>
+        <ion-item id="input-correo">
           <ion-label position="floating">Ingrese su correo</ion-label>
           <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
         </ion-item>
 
         <!--INPUT DE CLAVE-->
-        <ion-item>
+        <ion-item id="input-clave">
           <ion-label position="floating">Ingrese su contraseña</ion-label>
           <ion-input type="password" [(ngModel)]="pwd" name="password"></ion-input>
         </ion-item>
@@ -31,21 +31,23 @@
 
         <!--DIV BOTONES DE LOGIN-->
         <div class="botones">
-          <ion-fab-button class="fabLimpiar" (click)="clean()"><img class="imgBasura"
-              src="../../../assets/icon/basura.png"></ion-fab-button>
-          <ion-button class="btnEntrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>
+          <ion-button class="fab-limpiar" (click)="clean()">
+            <!--img class="imgBasura" src="../../../assets/icon/basura.png"-->
+            <ion-icon name="icono-basura"></ion-icon>
+          </ion-button>
+          <ion-button class="botonRegistro" id="boton-entrar" (click)="onSubmitLogin()" size="large">ENTRAR</ion-button>
         </div>
         <!--DIV BOTONES DE REGISTRO-->
         <div class="btnsRegistro">
-          <ion-button class="botonRegistro" (click)="irRegistro(true)">REGISTRARSE</ion-button>
-          <ion-button class="botonRegistro" (click)="irRegistro(false)">MODO ANONIMO</ion-button>
+          <ion-button class="botonRegistro" id="boton-registro" (click)="irRegistro(true)">REGISTRARSE</ion-button>
+          <ion-button class="botonRegistro" id="boton-anonimo" (click)="irRegistro(false)">MODO ANONIMO</ion-button>
         </div>
       </ion-card-content>
 
     </ion-card>
 
   </div>
-
+</ion-content>
 
 
 <ion-fab class="users" vertical="bottom" horizontal="end" slot="fixed">
