@@ -99,6 +99,9 @@
       <ion-button class="btnAceptar" (click)="registrar()" *ngIf="!sinContinuar">Aceptar</ion-button>
     </ion-col>
   </ion-row>
+  <ion-row *ngIf="mostrarBotonera && !modoRegistro && sinContinuar">
+    <img class="imgLogoAnon" src="../../../assets/icono.png" style="margin-top:5vh;">
+  </ion-row>
   <ion-row *ngIf="!mostrarBotonera">
     <ion-col>
       <ion-button class="btnAceptar" href="/login">Volver</ion-button>

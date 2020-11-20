@@ -9,8 +9,8 @@
         overflow: scroll;
         display: grid;
 
-        width:80vw !important;
-        height:85vh !important;
+        width:80vw;
+        height:85vh;
 
         align-self: center;
         justify-self: center;
@@ -138,8 +138,8 @@ ion-label{
     }
 
     ion-card{
-        margin-top:5vh !important ;
-        height:95vh !important ;
+        margin-top:5vh !important;
+        height:98vh !important;
         border-radius: 4vw !important ;
     }
 
@@ -197,29 +197,3 @@ ion-label{
         display:flex !important ;
     }
 }
-
-
-// .spin{
-//     position: fixed;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     z-index: 9999;
-// }
-
-// ion-spinner{
-//     transform: scale(3);
-//     --color: white;
-// }
-
-// .divSpinner{
-//     position: fixed;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     height: 25vw;
-//     width: 25vw;
-//     z-index: 9998;
-//     background-color: whitesmoke;
-//     border-radius: 10%;
-// }
