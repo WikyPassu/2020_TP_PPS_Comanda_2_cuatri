@@ -34,6 +34,9 @@
 <img src="http://drive.google.com/uc?export=view&id=1Dpuem7TEEVpfGF_7l9tOG-pBkkJPHFPs">
 <hr>
 <h2>Tareas semanales:</h2>
+<img src="http://drive.google.com/uc?export=view&id=1gxiM4lDZJGVZyfnnePsU9E_A2bzEPGRE">
+<a href="#">Link al video de funcionalidades Semana 5</a>
+<hr>
 <img src="http://drive.google.com/uc?export=view&id=1zvusVIfBa9eH90I9JFPjryEphT6JypSt">
 <a href="https://drive.google.com/file/d/1nv6oHKzMhX7KhHubOCHoXBUVCCfG2Wmg/view?usp=sharing">Link al video de funcionalidades Semana 4</a>
 <hr>
