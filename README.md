@@ -10,7 +10,7 @@
 <p>➤ <a href="https://github.com/Lulil4">Morel Melany Lucia (Beta)</a></p>
 <p>➤ <a href="https://github.com/murraydemian">Suarez Murray Demian José (Gamma)</a></p>
 <hr>
-<h2>Splash y Spinner</h2>
+<h2>Splash y Spinner:</h2>
 <table>
   <thead>
     <th>Splash</th>
@@ -24,7 +24,7 @@
   </tbody>
 </table>
 <hr>
-<h2>Galería de imágenes de la app</h2>
+<h2>Galería de imágenes de la app:</h2>
 <table>
   <tr>
     <td><img src="http://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5"></td>
