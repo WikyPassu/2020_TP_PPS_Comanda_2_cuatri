@@ -1,16 +1,21 @@
 
+ion-content{
+    min-height: 500px!important;
+}
 .login-page{
     display: grid;
     height : 100%!important;
+    min-height: 500px;
     width : 100%!important;
     background-color: var(--ion-color-bordo);
-    //overflow: scroll;
+    overflow: visible;
     ion-card{
         overflow: scroll;
         display: grid;
 
-        width:80vw !important;
-        height:85vh !important;
+        width:80% !important;
+        height:85% !important;
+        min-height: 425px;
 
         align-self: center;
         justify-self: center;
@@ -53,7 +58,7 @@ ion-button{
     --ion-font-family: "IowanOldStyleBlack";
     font-weight: bold;
     font-size: large;
-    height:7vh;
+    height: 14vw;
     width:40vw;
 }
 
@@ -95,6 +100,7 @@ ion-card{
     left: 50%;
     transform: translate(-62%, -58%);
     height:152vw;
+    min-height: 455px !important;
 }
 
 ion-icon{
@@ -136,8 +142,11 @@ ion-label{
     height:10vw;
 }
 
-@media screen and (orientation:landscape){
+@media (min-aspect-ratio: 16/13){
 
+    ion-content{
+        min-height: 300px;
+    }
     .login-page{
         position: fixed;
         top: 0;
@@ -145,6 +154,11 @@ ion-label{
 
         height : 100%!important;
         width : 100%!important;
+        //min-height: 300px;
+
+        ion-card{
+            min-height: 230px;
+        }
 
         ion-card-content{
             height: 80vh;

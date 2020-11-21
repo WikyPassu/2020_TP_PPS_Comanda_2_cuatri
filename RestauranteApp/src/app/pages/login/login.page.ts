@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CorreosService } from "../../services/correos.service";
 import { InputVerifierService } from '../../services/input-verifier.service';
 import { ToastController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Keyboard, KeyboardResizeMode } from '@ionic-native/keyboard/ngx';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +22,9 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
-  public vh: string;
-  public vw: string;
+  public vh;
+  public vw;
+  private cambiaView: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
     private authService: AuthService,
@@ -35,8 +37,22 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.vh = document.body.clientHeight + 'px';
     this.vw = document.body.clientWidth + 'px';
-    console.log(this.vh);
-    console.log(this.vw);
+    //this.cambiaView.subscribe( (e) => this.arreglarView(e));
+    //this.verificarView();
+  }
+
+  async verificarView(){
+    setInterval(() => {
+      console.log(document.body.clientWidth, this.vh, document.body.clientWidth % this.vh);
+      if(document.body.clientWidth == this.vh){
+        this.cambiaView.emit(this.vw);
+        console.log(this.vw);
+      }
+    }, 1000)
+  }
+
+  arreglarView(e){
+    console.log(e);
   }
 
   onSubmitLogin(){
