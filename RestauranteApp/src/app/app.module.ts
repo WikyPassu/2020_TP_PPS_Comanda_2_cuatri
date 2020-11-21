@@ -19,6 +19,7 @@ import { EmailComposer } from "@ionic-native/email-composer/ngx";
 import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,10 +35,10 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
   providers: [
     StatusBar,
     BarcodeScanner,
+    Keyboard,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     EmailComposer,
-    BarcodeScanner,
     LocalNotifications
   ],
   bootstrap: [AppComponent]

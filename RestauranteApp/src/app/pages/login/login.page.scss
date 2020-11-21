@@ -1,16 +1,21 @@
 
+ion-content{
+    min-height: 500px!important;
+}
 .login-page{
     display: grid;
     height : 100%!important;
+    min-height: 500px;
     width : 100%!important;
     background-color: var(--ion-color-bordo);
-    overflow: scroll;
+    overflow: visible;
     ion-card{
         overflow: scroll;
         display: grid;
 
-        width:80vw;
-        height:85vh;
+        width:80% !important;
+        height:85% !important;
+        min-height: 425px;
 
         align-self: center;
         justify-self: center;
@@ -53,7 +58,7 @@ ion-button{
     --ion-font-family: "IowanOldStyleBlack";
     font-weight: bold;
     font-size: large;
-    height:7vh;
+    height: 14vw;
     width:40vw;
 }
 
@@ -95,21 +100,16 @@ ion-card{
     left: 50%;
     transform: translate(-62%, -58%);
     height:152vw;
+    min-height: 455px !important;
 }
 
 ion-icon{
     color:rgb(223, 223, 223);
 }
 
-.fabLimpiar{
-    height:16vw;
-    width:16vw;
-}
 
-.imgBasura{
-    height:10vw;
-    width:10vw;
-}
+
+
 
 .itemError{
     margin-top:6vw;
@@ -117,8 +117,20 @@ ion-icon{
 }
 
 .botones{ 
-    display:flex;
-    justify-content: center;
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+
+    .fab-limpiar{
+        height: 100%;
+        width: auto;
+        --border-radius: 50%;
+        justify-self: center;
+        align-self: center;
+        .imgBasura{
+            height: 100%;
+            width: auto;
+        }
+    }
 }
 
 ion-label{
@@ -130,8 +142,72 @@ ion-label{
     height:10vw;
 }
 
-@media screen and (orientation:landscape){
-    .img-logo{
+@media (min-aspect-ratio: 16/13){
+
+    ion-content{
+        min-height: 300px;
+    }
+    .login-page{
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        height : 100%!important;
+        width : 100%!important;
+        //min-height: 300px;
+
+        ion-card{
+            min-height: 230px;
+        }
+
+        ion-card-content{
+            height: 80vh;
+            display: grid;
+            grid-template-areas: 
+                'logo correo correo' 
+                'logo clave clave'
+                'btn-login btn-login btn-login'
+                'btn-registro btn-registro btn-registro';
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1.5fr 1.5fr 1fr 1fr;
+            
+            .botonRegistro{
+                height: 15vh;
+            }
+            .div-logo-empresa{
+                height: auto;
+                grid-area: logo;
+            }
+            #input-correo{
+                grid-area: correo;
+            }
+            #input-clave{
+                grid-area: clave;
+            }
+            .botones{
+                grid-area: btn-login;
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                align-items: center;
+                height: 100%;
+            }
+            .fab-limpiar{
+                justify-self: center;
+                align-self: center;
+                height: 100%;
+                width: 50%;
+            }
+            #btn-entrar{
+                grid-area: btn-login;
+            }
+            .btnsRegistro{
+                grid-area: btn-registro;
+                display: flex;
+            }
+        }
+    }
+
+    /*.img-logo{
         height:20vh !important ;
         width:auto !important ;
         margin-bottom: 4vh;
@@ -195,5 +271,5 @@ ion-label{
 
     .btnsRegistro{
         display:flex !important ;
-    }
+    }*/
 }

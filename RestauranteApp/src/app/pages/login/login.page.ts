@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CorreosService } from "../../services/correos.service";
@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AudioService } from "../../services/audio.service";
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { Keyboard, KeyboardResizeMode } from '@ionic-native/keyboard/ngx';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,9 @@ export class LoginPage implements OnInit {
   aprobado: boolean = true;
   perfil: string = "cliente";
   private usuario: any = null;
+  public vh;
+  public vw;
+  private cambiaView: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
     private authService: AuthService,
@@ -38,6 +42,24 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.audio.reproducirAudioCambioPant();
     //this.h = (document.body.clientHeight * 0.8) + 'px';
+    this.vh = document.body.clientHeight + 'px';
+    this.vw = document.body.clientWidth + 'px';
+    //this.cambiaView.subscribe( (e) => this.arreglarView(e));
+    //this.verificarView();
+  }
+
+  async verificarView(){
+    setInterval(() => {
+      console.log(document.body.clientWidth, this.vh, document.body.clientWidth % this.vh);
+      if(document.body.clientWidth == this.vh){
+        this.cambiaView.emit(this.vw);
+        console.log(this.vw);
+      }
+    }, 1000)
+  }
+
+  arreglarView(e){
+    console.log(e);
   }
 
   onSubmitLogin(){
