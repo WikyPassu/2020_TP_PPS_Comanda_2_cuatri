@@ -21,7 +21,7 @@
       <ion-button (click)="enviar()">Enviar</ion-button>
     </ion-card>
     <ion-card>
-      <div align="center">
+      <div *ngIf="hayConsultas" align="center">
         <div *ngFor="let consulta of consultas">
           <div class="divConsulta">
             <div align="start">
@@ -38,6 +38,10 @@
             <br>
           </div>
         </div>
+      </div>
+      <div *ngIf="!hayConsultas" align="center">
+        <br><br>
+        <img style="width: 80%;" src="../../../assets/icono.png">
       </div>
     </ion-card>
   </div>

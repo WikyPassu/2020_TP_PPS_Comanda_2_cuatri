@@ -14,6 +14,7 @@ export class HacerConsultaPage implements OnInit {
   cliente: any = {};
   mensaje: string = "";
   consultas = new Array();
+  hayConsultas: boolean = false;
 
   constructor(private db: AuthService, private router: Router,
     private audio: AudioService) { }
@@ -24,12 +25,18 @@ export class HacerConsultaPage implements OnInit {
     this.cliente = this.router.getCurrentNavigation().extras.state.cliente;
     this.db.traerConsultasCliente(this.cliente.id).subscribe(lista => {
       this.consultas = lista;
+      if(this.consultas.length > 0){
+        this.hayConsultas = true;
+      }
+      else{
+        this.hayConsultas = false;
+      }
     });
   }
 
   enviar(){
     if(this.mensaje != ""){
-      this.db.crearConsulta(this.mesa.mesa, this.cliente.id, this.cliente.apellido+", "+this.cliente.nombre, this.mensaje)
+      this.db.crearConsulta(this.mesa.mesa, this.cliente.id, this.cliente.apellido+" "+this.cliente.nombre, this.mensaje)
       .then(() => {
         this.mensaje = "";
       })

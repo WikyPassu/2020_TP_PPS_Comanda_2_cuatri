@@ -129,11 +129,11 @@ export class EncuestaPage implements OnInit {
 
   validarRespuestas() {
     if (this.rangoEdad == "") {
-      this.error = "Seleccione su edad!!";
+      this.error = "¡Seleccione su edad!";
       this.vibrar();
     }
     else if (this.llamativo == "") {
-      this.error = "Seleccione qué le gustó más!!"
+      this.error = "¡Seleccione qué le gustó más!"
       this.vibrar();
     }
   }

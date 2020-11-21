@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { CorreosService } from "../../services/correos.service";
 import { InputVerifierService } from '../../services/input-verifier.service';
 import { ToastController } from '@ionic/angular';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
@@ -32,7 +31,6 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     public router: Router,
-    private servicioCorreo: CorreosService,
     private toast: ToastController,
     private fire: AngularFirestore,
     private audio: AudioService,
@@ -64,10 +62,10 @@ export class LoginPage implements OnInit {
 
   onSubmitLogin(){
     if(this.email == ""){
-      this.presentToast("Por favor, ingrese su correo");
+      this.presentToast("Por favor, ingrese su correo.");
     }
     else if(this.pwd == ""){
-      this.presentToast("Por favor, ingrese su clave");
+      this.presentToast("Por favor, ingrese su clave.");
     }
     else if(!InputVerifierService.verifyEmailFormat(this.email))
       {this.presentToast('Formato de correo inválido.'); return;}

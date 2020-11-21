@@ -74,7 +74,7 @@ export class AltaAdminsPage implements OnInit {
       this.error = "¡Debe elegir un perfil!"
     }
     else if(!InputVerifierService.verifyEmailFormat(this.correo)){
-      this.error = "¡El correo tiene caracteres invalidos!";
+      this.error = "¡El correo tiene caracteres inválidos!";
     }
     else if(this.clave.length < 6){
       this.error = "¡La clave debe tener al menos 6 caracteres!";

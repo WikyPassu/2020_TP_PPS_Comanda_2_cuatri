@@ -30,15 +30,9 @@ export class AppComponent {
       if (this.splash == true){
         this.audio.reproducirAudioInicio();
       }
-      setTimeout( () => {
-        this.splash = false;
-      }, 4000);
+      // setTimeout( () => {
+      //   this.splash = false;
+      // }, 5000);
     });
-
-    // if(this.splash){
-    //   setTimeout(() => {
-    //     this.splash = false;
-    //   }, 5000);
-    // }
   }
 }

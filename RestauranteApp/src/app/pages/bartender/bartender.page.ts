@@ -215,7 +215,7 @@ export class BartenderPage implements OnInit {
     console.log(ped);
     this.fire.collection('pedidosFinalizados').add(ped);
     this.actualizarEstadoPedido(ped, 'Pago confirmado');
-    this.presentToast('Se confirmo el pago');
+    this.presentToast('Se confirmó el pago');
   }
 
   eliminarPedido(ped){
@@ -257,7 +257,7 @@ export class BartenderPage implements OnInit {
     this.fire.collection('pedidos').doc(ped.docid).update({estado: est});
   }
 
-  entregarPedido(pedido: any, estado: 'Enrega a confirmar' | 'Listo', cancela: boolean = false){
+  entregarPedido(pedido: any, estado: 'Entrega a confirmar' | 'Listo', cancela: boolean = false){
     if(pedido.estado == 'Listo' || cancela){
       this.fire.collection('pedidos').doc(pedido.docid).update({estado: estado});
     }
@@ -284,7 +284,7 @@ export class BartenderPage implements OnInit {
       .then( () => {
         this.spinner = false;
         this.encuestaFoto = null;
-        this.presentToast('Se entrego la encuesta. Gracias!');
+        this.presentToast('Se entregó la encuesta. ¡Gracias!');
       })
       .catch( () => {
         this.spinner = false;

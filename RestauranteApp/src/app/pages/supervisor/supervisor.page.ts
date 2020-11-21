@@ -26,8 +26,6 @@ export class SupervisorPage implements OnInit {
   ngOnInit() {
     this.audio.reproducirAudioCambioPant();
     this.db.traerClientesPendientesAprobacion().subscribe(doc => {
-      // let fechaActual = Date.now() + 60000;
-      // let fechaHaceUnMinuto = fechaActual - 90000;
       this.lista = doc;
       setTimeout(() => {
         this.lista.forEach(cliente => {
@@ -41,14 +39,6 @@ export class SupervisorPage implements OnInit {
       else{
         this.hayPendientes = false;
       }
-      // setTimeout(() => {
-      //   for(let i=0; i<this.lista.length; i++){
-      //     if(this.lista[i].fecha >= fechaHaceUnMinuto && this.lista[i].fecha <= fechaActual){
-      //       this.pn.pushNotification("¡Nueva solicitud pendiente de aprobación!", "Un nuevo cliente se ha registrado.", 1);
-      //       break;
-      //     }
-      //   }
-      // }, 1000);
     });
     this.db.hayNuevoRegistro().subscribe(() => {
       if(this.primerPasada){
@@ -100,9 +90,5 @@ export class SupervisorPage implements OnInit {
 
   irAltaAdmins(){
     this.router.navigate(["/alta-admins"]);
-  }
-
-  test(){
-    //this.pn.pushNotification("Testeando", "Hola Mundo", 2);
   }
 }

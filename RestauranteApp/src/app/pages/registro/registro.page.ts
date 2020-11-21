@@ -5,7 +5,6 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { InputVerifierService } from "../../services/input-verifier.service";
 import { Camera, CameraOptions, DestinationType, EncodingType, PictureSourceType } from '@ionic-native/camera/ngx';
 
-import { StorageService } from "../../services/storage.service";
 import { AngularFireStorage } from "@angular/fire/storage";
 import * as firebase from 'firebase';
 import { observable } from 'rxjs';
@@ -47,7 +46,6 @@ export class RegistroPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private verifier: InputVerifierService,
     private camera: Camera,
-    private dbStorage: StorageService,
     private audio: AudioService,
     private vibration: Vibration,) { }
 
@@ -228,7 +226,7 @@ export class RegistroPage implements OnInit {
 
       }).catch(e => {
         if (e == "No Image Selected") {
-          this.error = "Por favor, saque una foto";
+          this.error = "Por favor, saque una foto.";
         }
         else {
           this.error = e;
@@ -243,7 +241,7 @@ export class RegistroPage implements OnInit {
         this.foto = this.nombre + "." + this.fecha + ".jpg";
       }).catch(e => {
         if (e == "No Image Selected") {
-          this.error = "Por favor, saque una foto";
+          this.error = "Por favor, saque una foto.";
         }
         else {
           this.error = e;

@@ -127,7 +127,7 @@ export class ListaEsperaPage implements OnInit {
     if(codeData.tipo == 'mesa'){
       this.manejarMesaEscaneada(codeData);
     }else {
-      this.presentToast('El codigo escaneado no es de una mesa.');
+      this.presentToast('El código escaneado no es de una mesa.');
       this.spinner = false;
     }
   }
@@ -144,7 +144,7 @@ export class ListaEsperaPage implements OnInit {
         this.abandonarLista(false);
         this.router.navigate(["mesa"], {state : {mesa: mesaData.mesa}});
       }else{
-        this.presentToast('La mesa esta ocupada o reservada.');
+        this.presentToast('La mesa está ocupada o reservada.');
         this.spinner = false;
       }
     });
