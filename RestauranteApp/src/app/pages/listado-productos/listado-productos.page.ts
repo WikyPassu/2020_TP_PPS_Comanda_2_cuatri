@@ -12,6 +12,7 @@ import { AudioService } from "../../services/audio.service";
 })
 export class ListadoProductosPage implements OnInit {
 
+  spinner : boolean = false;
   mesa = null;
   idCliente = null;
 
@@ -29,6 +30,10 @@ export class ListadoProductosPage implements OnInit {
   constructor(private router: Router, private db: AuthService, private audio: AudioService) { }
 
   ngOnInit() {
+    this.spinner=true;
+    setTimeout(() => {
+      this.spinner=false;
+    }, 3000);
     this.audio.reproducirAudioCambioPant();
     this.mesa = this.router.getCurrentNavigation().extras.state.mesa;
     this.idCliente = this.router.getCurrentNavigation().extras.state.cliente;
@@ -77,6 +82,11 @@ export class ListadoProductosPage implements OnInit {
   }
 
   cambiarTab(tabName: string) {
+    this.spinner=true;
+    setTimeout(() => {
+      this.spinner=false;
+    }, 3000);
+
     this.tab = tabName;
     this.listaBebidas.forEach(p => {
       p.cantidad = 1;
