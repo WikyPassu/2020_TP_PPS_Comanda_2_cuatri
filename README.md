@@ -21,6 +21,9 @@
     <td><imr src="ttp://drive.google.com/uc?export=view&id=1Q4MgenDzbV8zpTxKpvTe21ma0TIRlt4g"></td>
   <tr>
 </table>
+<imr src="ttp://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5" width="200px">
+<imr src="ttp://drive.google.com/uc?export=view&id=11FU3o5cPON3anNADA8wKGqxYiqIFYzxM">
+<imr src="ttp://drive.google.com/uc?export=view&id=1Q4MgenDzbV8zpTxKpvTe21ma0TIRlt4g">
 <hr>
 <h2>Diagramas:</h2>
 <p>Diagrama 1</p>
