@@ -9,11 +9,20 @@
 <p>➤ <a href="https://github.com/murraydemian">Suarez Murray Demian José (Gamma)</a></p>
 <hr>
 <h2>Splash y Spinner</h2>
-<p>Splash</p>
-<img src="http://drive.google.com/uc?export=view&id=1EPIPIhYzF4dODLTaJky8Spfs19apGUSD">
-<p>Spinner</p>
-<img src="http://drive.google.com/uc?export=view&id=1annN_8fdygJim6xYbdeRuXs5LoObmLC-">
+<table>
+  <thead>
+    <th>Splash</th>
+    <th>Spinner</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="http://drive.google.com/uc?export=view&id=1EPIPIhYzF4dODLTaJky8Spfs19apGUSD"></td>
+      <td><img src="http://drive.google.com/uc?export=view&id=1annN_8fdygJim6xYbdeRuXs5LoObmLC-"></td>
+    </tr>
+  </tbody>
+</table>
 <hr>
+<h2>Galería de imágenes de la app</h2>
 <table>
   <tr>
     <td><img src="http://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5"></td>
