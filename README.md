@@ -1,5 +1,5 @@
 <hr>
-<div text-align="center">
+<div align="center">
   <h1>Trabajo Práctico PPS - Restaurante</h1>
   <h1>Grupo ❤❤Compuchicas❤❤</h1>
   <img src="http://drive.google.com/uc?export=view&id=1VX8nSyjnrxI3yDS95pgI-Usa-ZZrhBvp" width="500">
