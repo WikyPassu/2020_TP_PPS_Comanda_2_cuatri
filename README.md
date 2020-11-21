@@ -1,7 +1,7 @@
 <hr>
 <h1>Trabajo Práctico PPS - Restaurante</h1>
 <h1>Grupo ❤❤Compuchicas❤❤</h1>
-<img src="http://drive.google.com/uc?export=view&id=1VX8nSyjnrxI3yDS95pgI-Usa-ZZrhBvp">
+<img src="http://drive.google.com/uc?export=view&id=1VX8nSyjnrxI3yDS95pgI-Usa-ZZrhBvp" width"75%">
 <hr>
 <h2>Integrantes:</h2>
 <p>➤ <a href="https://github.com/WikyPassu">Passucci Alan (Alfa)</a></p>
@@ -31,16 +31,16 @@
     <td><img src="http://drive.google.com/uc?export=view&id=1HLyBWY-Yeertrf0Ou-OCv993lsBX-omV"></td>
   </tr>
   <tr>
-    <td><img src="http://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5"></td>
-    <td><img src="http://drive.google.com/uc?export=view&id=11FU3o5cPON3anNADA8wKGqxYiqIFYzxM"></td>
-    <td><img src="http://drive.google.com/uc?export=view&id=1Q4MgenDzbV8zpTxKpvTe21ma0TIRlt4g"></td>
-    <td><img src="http://drive.google.com/uc?export=view&id=1HLyBWY-Yeertrf0Ou-OCv993lsBX-omV"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1TGggzj0-EbPFinGCIsjQzz_4f-VdnhJO"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1SxEMHV-4c9VbYluT6joQHvii8I266Y2h"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1CMaoUeSGjxG-lFAEIvSWI1krpFj-fUtg"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1UPwzsqkPdx33nBq5wYMeKck1BJ6zqqDz"></td>
   <tr>
   <tr>
-    <td><img src="http://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5"></td>
-    <td><img src="http://drive.google.com/uc?export=view&id=11FU3o5cPON3anNADA8wKGqxYiqIFYzxM"></td>
-    <td><img src="http://drive.google.com/uc?export=view&id=1Q4MgenDzbV8zpTxKpvTe21ma0TIRlt4g"></td>
-    <td><img src="http://drive.google.com/uc?export=view&id=1HLyBWY-Yeertrf0Ou-OCv993lsBX-omV"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=12nvv8u23_rOeGYuc0kTKZjKOY1BI7BKO"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1i01kfIE_GICoolqoWum-TEO69MJGPMOI"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1gryCSdEu4L0xWY0zQuOMbsflL-2VdH3e"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=102b2muixULBqqwVtYJT0udibMrfAnWGF"></td>
   <tr>
 </table>
 <hr>
