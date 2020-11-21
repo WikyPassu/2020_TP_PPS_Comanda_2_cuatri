@@ -1,7 +1,9 @@
 <hr>
-<h1>Trabajo Práctico PPS - Restaurante</h1>
-<h1>Grupo ❤❤Compuchicas❤❤</h1>
-<img src="http://drive.google.com/uc?export=view&id=1VX8nSyjnrxI3yDS95pgI-Usa-ZZrhBvp" width="500">
+<div text-align="center">
+  <h1>Trabajo Práctico PPS - Restaurante</h1>
+  <h1>Grupo ❤❤Compuchicas❤❤</h1>
+  <img src="http://drive.google.com/uc?export=view&id=1VX8nSyjnrxI3yDS95pgI-Usa-ZZrhBvp" width="500">
+</div>
 <hr>
 <h2>Integrantes:</h2>
 <p>➤ <a href="https://github.com/WikyPassu">Passucci Alan (Alfa)</a></p>
