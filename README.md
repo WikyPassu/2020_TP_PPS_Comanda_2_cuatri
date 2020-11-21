@@ -14,6 +14,14 @@
 <p>Spinner</p>
 <img src="http://drive.google.com/uc?export=view&id=1annN_8fdygJim6xYbdeRuXs5LoObmLC-">
 <hr>
+<table>
+  <tr>
+    <td><imr src="ttp://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5"></td>
+    <td><imr src="ttp://drive.google.com/uc?export=view&id=11FU3o5cPON3anNADA8wKGqxYiqIFYzxM"></td>
+    <td><imr src="ttp://drive.google.com/uc?export=view&id=1Q4MgenDzbV8zpTxKpvTe21ma0TIRlt4g"></td>
+  <tr>
+</table>
+<hr>
 <h2>Diagramas:</h2>
 <p>Diagrama 1</p>
 <img src="http://drive.google.com/uc?export=view&id=13VsMJO7v0DaC8T6AzY0DQOt59h2gjIfu">
