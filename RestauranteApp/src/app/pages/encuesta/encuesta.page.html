@@ -6,7 +6,7 @@
 
 <ion-content *ngIf="!enviado">
 
-  <strong>Desea cargar alguna foto?</strong>
+  <strong>¿Desea cargar alguna foto?</strong>
   <br>
   <img (click)="sacarFoto(fotoUser1)" [src]="fotoUser1.base64">
   <img (click)="sacarFoto(fotoUser2)" [src]="fotoUser2.base64">
@@ -14,7 +14,7 @@
 
   <ion-item-divider></ion-item-divider>
 
-  <strong>Cuál es su edad?</strong>
+  <strong>¿Cuál es su edad?</strong>
   <ion-radio-group (ionChange)="cambiarEdad($event)">
     <ion-item>
       <ion-label color="light">13 a 20</ion-label>
@@ -36,7 +36,7 @@
 
   <ion-item-divider></ion-item-divider>
 
-  <strong>Qué le hizo sentir más a gusto?</strong>
+  <strong>¿Qué le hizo sentir más a gusto?</strong>
   <ion-item>
     <form class="formSelect" action="#" method="get" style="text-align:center;">
       <div class="centrarSelect">
@@ -53,7 +53,7 @@
 
   <ion-item-divider></ion-item-divider>
 
-  <strong>Qué le pareció nuestro protocolo de limpieza?</strong>
+  <strong>¿Qué le pareció nuestro protocolo de limpieza?</strong>
   <br>
   <ion-item>
     <ion-range min="0" max="10" step="1" (ionChange)="cambiarValorProtocolo($event)">
@@ -83,7 +83,7 @@
 
   <ion-item-divider></ion-item-divider>
 
-  <strong>Tiene alguna sugerencia?</strong>
+  <strong>¿Tiene alguna sugerencia?</strong>
   <br>
   <ion-textarea class="comentario" rows="3" cols="30" placeholder="Escriba un comentario..." name="message"
     [(ngModel)]="comentario" #message='ngModel'></ion-textarea>
@@ -100,7 +100,7 @@
 
 <ion-content class="containerEnviado" *ngIf="enviado">
   <div class="divGracias">
-    <strong class="strongEnviado">Muchas gracias!!</strong>
+    <strong class="strongEnviado">¡Muchas gracias!</strong>
     <br>
     <ion-button class="btnEstadisticas">Ver estadísticas</ion-button>
   </div>

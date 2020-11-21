@@ -51,7 +51,7 @@ export class JuegosPage implements OnInit {
       if (descuento == 10) {
         setTimeout(() => {
           this.intentosDiez = 0;
-          this.resultDiez = "LO HICISTE!!";
+          this.resultDiez = "¡LO HICISTE!";
           this.intentosTreinta = 0;
           this.intentosQuince = 0;
 
@@ -86,7 +86,7 @@ export class JuegosPage implements OnInit {
       if (descuento == 10) {
         setTimeout(() => {
           this.intentosQuince = 0;
-          this.resultQuince = "SI!!";
+          this.resultQuince = "¡SI!";
           this.intentosDiez = 0;
           this.intentosTreinta = 0;
 
@@ -121,7 +121,7 @@ export class JuegosPage implements OnInit {
       if (descuento == 10) {
         setTimeout(() => {
           this.intentosTreinta = 0;
-          this.resultTreint = "ES TU DIA!!";
+          this.resultTreint = "¡ES TU DÍA!";
           this.intentosDiez = 0;
           this.intentosQuince = 0;
 

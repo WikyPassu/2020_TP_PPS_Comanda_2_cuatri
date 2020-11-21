@@ -29,7 +29,7 @@ export class HacerConsultaPage implements OnInit {
 
   enviar(){
     if(this.mensaje != ""){
-      this.db.crearConsulta(this.mesa.mesa, this.cliente.id, this.cliente.apellido+", "+this.cliente.nombre, this.mensaje)
+      this.db.crearConsulta(this.mesa.mesa, this.cliente.id, this.cliente.apellido+" "+this.cliente.nombre, this.mensaje)
       .then(() => {
         this.mensaje = "";
       })

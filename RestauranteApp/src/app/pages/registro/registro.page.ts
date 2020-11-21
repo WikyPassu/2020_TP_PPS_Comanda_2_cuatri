@@ -228,7 +228,7 @@ export class RegistroPage implements OnInit {
 
       }).catch(e => {
         if (e == "No Image Selected") {
-          this.error = "Por favor, saque una foto";
+          this.error = "Por favor, saque una foto.";
         }
         else {
           this.error = e;
@@ -243,7 +243,7 @@ export class RegistroPage implements OnInit {
         this.foto = this.nombre + "." + this.fecha + ".jpg";
       }).catch(e => {
         if (e == "No Image Selected") {
-          this.error = "Por favor, saque una foto";
+          this.error = "Por favor, saque una foto.";
         }
         else {
           this.error = e;

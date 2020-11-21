@@ -42,10 +42,10 @@ export class LoginPage implements OnInit {
 
   onSubmitLogin(){
     if(this.email == ""){
-      this.presentToast("Por favor, ingrese su correo");
+      this.presentToast("Por favor, ingrese su correo.");
     }
     else if(this.pwd == ""){
-      this.presentToast("Por favor, ingrese su clave");
+      this.presentToast("Por favor, ingrese su clave.");
     }
     else if(!InputVerifierService.verifyEmailFormat(this.email))
       {this.presentToast('Formato de correo inválido.'); return;}

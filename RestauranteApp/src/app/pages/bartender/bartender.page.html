@@ -130,7 +130,7 @@
     </div>
 
     <div class="input-container">
-      <ion-label>¿En que sector trabaja?</ion-label>
+      <ion-label>¿En qué sector trabaja?</ion-label>
       <ion-radio-group [(ngModel)]="encuestaSector">
         <ion-item color="light" lines="none">
           <ion-radio slot="start" value="Bar" color="bordo"></ion-radio>
@@ -142,13 +142,13 @@
         </ion-item>
         <ion-item color="light" lines="none">
           <ion-radio slot="start" value="Salon" color="bordo"></ion-radio>
-          <ion-label>Salon</ion-label>
+          <ion-label>Salón</ion-label>
         </ion-item>
       </ion-radio-group>
       <br>
     </div>
     <div class="input-container">
-      <ion-label>¿Que tan limpio estaba?</ion-label>
+      <ion-label>¿Qué tan limpio estaba?</ion-label>
       <ion-range 
         min="0" 
         max="4" 
@@ -161,7 +161,7 @@
     </div>
     <div 
       class="input-container checkbox-input">
-      <ion-label>¿Tenia los insumos necesarios?</ion-label>
+      <ion-label>¿Tenía los insumos necesarios?</ion-label>
       <ion-checkbox 
         slot="fixed" 
         class="insumos-checkbox" 
@@ -185,7 +185,7 @@
       </ion-select>
     </div>
     <div class="input-container comentario-container">
-      <ion-label>¿Algun comentario?</ion-label>
+      <ion-label>¿Algún comentario?</ion-label>
       <ion-textarea 
         [(ngModel)]="encuestaComentario"></ion-textarea>
     </div>
@@ -235,12 +235,12 @@
         *ngIf="puedeModificar && itemSeleccionado.estado != 'Listo'"
         expand="full" 
         color="medium" 
-        (click)="productoListo('Listo')">Esta listo</ion-button>
+        (click)="productoListo('Listo')">Está listo</ion-button>
       <ion-button 
         *ngIf="puedeModificar && itemSeleccionado.estado == 'Listo'"
         expand="full" 
         color="medium" 
-        (click)="productoListo('En preparación')">No esta listo</ion-button>
+        (click)="productoListo('En preparación')">No está listo</ion-button>
     </ion-card>
   </div>  
 

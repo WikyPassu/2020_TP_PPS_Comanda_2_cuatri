@@ -90,11 +90,11 @@ export class HomePage implements OnInit {
         if(codigoQR.tipo == 'lista-espera'){
           this.agregarAListaDeEspera();
         }else{
-          this.presentToast('El codigo escaneado no es de entrada.', 'middle');
+          this.presentToast('El código escaneado no es de entrada.', 'middle');
         }
       }));
     }).catch( reason => {
-      this.presentToast('Error en escaneo', 'middle');
+      this.presentToast('Error en escaneo.', 'middle');
     });
   }
 
@@ -138,7 +138,7 @@ export class HomePage implements OnInit {
     this.verificarListaEspera().then( alreadyExists => {
       let userStr: string = JSON.stringify(this.user);
       if(alreadyExists){
-        this.presentToast('Ya estas en la lista de espera.', 'middle');
+        this.presentToast('Ya estás en la lista de espera.', 'middle');
         setTimeout( () => {
           this.router.navigate(['listaespera/' + userStr]);
         }, 1500);
