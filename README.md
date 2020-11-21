@@ -42,6 +42,23 @@
     <td><img src="http://drive.google.com/uc?export=view&id=1gryCSdEu4L0xWY0zQuOMbsflL-2VdH3e"></td>
     <td><img src="http://drive.google.com/uc?export=view&id=102b2muixULBqqwVtYJT0udibMrfAnWGF"></td>
   <tr>
+  <tr>
+    <td><img src="http://drive.google.com/uc?export=view&id=1TZ6cY_N1sWzuFKGAJQVeilFoyhYElnh-"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1f7yc_xtyjojuAWdH9D8C7yXG3Fc_eP4V"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1Wj79yg0JFNTADKqt6zhE4mdGAJWUw1ES"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=15y04CZZ61iANI-OCbCOgd1PUy0XXR97R"></td>
+  </tr>
+  <tr>
+    <td><img src="http://drive.google.com/uc?export=view&id=1aVCwYPLVKHa5HaLCCnEb1pt7k2knbI7X"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1ZBcjjZ-03gj-pQM6-4OiAPYH1PbiB-y5"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1XPTfwZtygTCIu5y8BAn6hbWLoxSO5fwu"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1CAijgTfJ05D0jVM2SpjXxEqv2pG_urkw"></td>
+  <tr>
+  <tr>
+    <td><img src="http://drive.google.com/uc?export=view&id=1N-mk5iYLU-n9nWkEUWBMkGj7cQaXG2qG"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1OrYHH6EuKgBKn0PZYrHzWTNHFANho9Mx"></td>
+    <td><img src="http://drive.google.com/uc?export=view&id=1ZWmzy5QXuoeu5rpKgHReKCXG3g3g8QWZ"></td>
+  <tr>
 </table>
 <hr>
 <h2>Diagramas:</h2>
@@ -65,7 +82,7 @@
 <hr>
 <h2>Tareas semanales:</h2>
 <img src="http://drive.google.com/uc?export=view&id=1gxiM4lDZJGVZyfnnePsU9E_A2bzEPGRE">
-<a href="#">Link al video de funcionalidades Semana 5</a>
+<a href="https://drive.google.com/file/d/1g8jAPs-pch4EFgumhKnPqZGdjg_qOE2s/view?usp=sharing">Link al video de funcionalidades Semana 5</a>
 <hr>
 <img src="http://drive.google.com/uc?export=view&id=1zvusVIfBa9eH90I9JFPjryEphT6JypSt">
 <a href="https://drive.google.com/file/d/1nv6oHKzMhX7KhHubOCHoXBUVCCfG2Wmg/view?usp=sharing">Link al video de funcionalidades Semana 4</a>
