@@ -16,7 +16,7 @@
 <hr>
 <table>
   <tr>
-    <td><imr src="ttp://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5"></td>
+    <td><imr src="ttp://drive.google.com/uc?export=view&id=1BocgV9vkwsOCRFIeR1D6UauCaUMP-7s5" width="200px"></td>
     <td><imr src="ttp://drive.google.com/uc?export=view&id=11FU3o5cPON3anNADA8wKGqxYiqIFYzxM"></td>
     <td><imr src="ttp://drive.google.com/uc?export=view&id=1Q4MgenDzbV8zpTxKpvTe21ma0TIRlt4g"></td>
   <tr>
